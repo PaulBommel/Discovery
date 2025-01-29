@@ -28,8 +28,21 @@ namespace Discovery.TradeMonitor
         CargoInShip[] Sell { get; }
     }
 
-    public readonly record struct CargoInShip(string Name,
-                                              long Count);
+    public readonly record struct CargoInShip
+    {
+        public CargoInShip(string name, string nickname, long count)
+        {
+            Name = name;
+            Nickname = nickname;
+            Count = count;
+        }
+        public CargoInShip(string name, long count)
+            : this(name, null, count) { }
+
+        public string Name { get; init; }
+        public string Nickname { get; init; }
+        public long Count { get; init; }
+    }
 
     public readonly record struct TradeOnPlayerBase(Location Station,
                                                     [field:JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
