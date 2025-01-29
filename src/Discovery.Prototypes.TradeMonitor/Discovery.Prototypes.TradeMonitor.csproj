@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFrameworks>net9.0-windows</TargetFrameworks>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Discovery.Darkstat\Discovery.Darkstat.csproj" />
+    <ProjectReference Include="..\Discovery.TradeMonitor\Discovery.TradeMonitor.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework Condition="'$(TargetFrameworks)'==''">net9.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.*" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.*" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Discovery.Darkstat\Discovery.Darkstat.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3F46AC86-30F9-4CFE-B807-18BFC29EDDC0}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		NuGet.Config = NuGet.Config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DarkStat", "DarkStat", "{9C916392-9D21-4E02-8EC6-3110CEB6B0DE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TradeMonitor", "TradeMonitor", "{2EFCA7D7-3668-4657-9780-8C105A9B1B29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discovery.Darkstat", "src\Discovery.Darkstat\Discovery.Darkstat.csproj", "{019699A2-1CDC-4D06-8298-412CA72072A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discovery.Darkstat.Test", "src\Discovery.Darkstat.Test\Discovery.Darkstat.Test.csproj", "{DA5C5248-49A6-4AD1-9F48-C4EE69F1E555}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discovery.Prototypes.TradeMonitor", "src\Discovery.Prototypes.TradeMonitor\Discovery.Prototypes.TradeMonitor.csproj", "{E41D66BF-60AD-402C-99F5-96A895DBD06B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discovery.TradeMonitor", "src\Discovery.TradeMonitor\Discovery.TradeMonitor.csproj", "{27C0B1B2-B636-4213-8235-DF15B9F58A37}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{019699A2-1CDC-4D06-8298-412CA72072A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{019699A2-1CDC-4D06-8298-412CA72072A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{019699A2-1CDC-4D06-8298-412CA72072A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{019699A2-1CDC-4D06-8298-412CA72072A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA5C5248-49A6-4AD1-9F48-C4EE69F1E555}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA5C5248-49A6-4AD1-9F48-C4EE69F1E555}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA5C5248-49A6-4AD1-9F48-C4EE69F1E555}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA5C5248-49A6-4AD1-9F48-C4EE69F1E555}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E41D66BF-60AD-402C-99F5-96A895DBD06B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E41D66BF-60AD-402C-99F5-96A895DBD06B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E41D66BF-60AD-402C-99F5-96A895DBD06B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E41D66BF-60AD-402C-99F5-96A895DBD06B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27C0B1B2-B636-4213-8235-DF15B9F58A37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27C0B1B2-B636-4213-8235-DF15B9F58A37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27C0B1B2-B636-4213-8235-DF15B9F58A37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27C0B1B2-B636-4213-8235-DF15B9F58A37}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{019699A2-1CDC-4D06-8298-412CA72072A5} = {9C916392-9D21-4E02-8EC6-3110CEB6B0DE}
+		{DA5C5248-49A6-4AD1-9F48-C4EE69F1E555} = {9C916392-9D21-4E02-8EC6-3110CEB6B0DE}
+		{E41D66BF-60AD-402C-99F5-96A895DBD06B} = {2EFCA7D7-3668-4657-9780-8C105A9B1B29}
+		{27C0B1B2-B636-4213-8235-DF15B9F58A37} = {2EFCA7D7-3668-4657-9780-8C105A9B1B29}
+	EndGlobalSection
+EndGlobal
