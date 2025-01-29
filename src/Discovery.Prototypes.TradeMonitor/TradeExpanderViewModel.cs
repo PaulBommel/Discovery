@@ -7,10 +7,11 @@ using System.Windows;
 namespace Discovery.Prototypes.TradeMonitor
 {
     using Discovery.TradeMonitor;
-    public sealed class TradeResultViewModel(string Header, SimulationResult Result)
+    public sealed class TradeResultViewModel(string Header, SimulationResult Result, bool IsExpanded)
     {
         public string Header { get; } = Header;
         public SimulationResult Result { get; } = Result;
+        public bool IsExpanded { get; set; } = IsExpanded;
     }
 
     public sealed class TradeExpanderViewModel : INotifyPropertyChanged
@@ -93,7 +94,7 @@ namespace Discovery.Prototypes.TradeMonitor
             for(int i = 0; i < results.Length; ++i)
             {
                 var header = string.Join(" -> ", Routes[i].Trades.Select(t => t.Station.Name).Union([Routes[i].Trades[0].Station.Name]));
-                viewmodels[i] = new(header, results[i]);
+                viewmodels[i] = new(header, results[i], results[i].StockLimit?.Limit != 0);
             }
             TradeResults = viewmodels;
         }

@@ -15,7 +15,7 @@
             </Expander>
         </DataTemplate>
         <DataTemplate DataType="{x:Type local:TradeResultViewModel}">
-            <Expander Content="{Binding Path=Result}" IsExpanded="True" BorderThickness="1" BorderBrush="Black" Margin="5">
+            <Expander Content="{Binding Path=Result}" IsExpanded="{Binding Path=IsExpanded}" BorderThickness="1" BorderBrush="Black" Margin="5">
                 <Expander.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding Path=Header}"/>
