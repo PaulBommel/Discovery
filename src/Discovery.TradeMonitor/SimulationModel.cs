@@ -114,7 +114,7 @@ namespace Discovery.TradeMonitor
                                                    double CreditsPerSecond,
                                                    RouteResult[] RouteResults,
                                                    ShipInfo Ship,
-                                                   StockLimit? StockLimit);
+                                                   StockLimit StockLimit);
 
     public record class StockLimit
     {
