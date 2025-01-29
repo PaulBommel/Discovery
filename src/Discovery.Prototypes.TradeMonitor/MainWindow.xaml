@@ -15,7 +15,24 @@
             </Expander>
         </DataTemplate>
         <DataTemplate DataType="{x:Type local:TradeResultViewModel}">
-            <Expander Header="{Binding Path=Header}" Content="{Binding Path=Result}" IsExpanded="True" BorderThickness="1" BorderBrush="Black" Margin="5"/>
+            <Expander Content="{Binding Path=Result}" IsExpanded="True" BorderThickness="1" BorderBrush="Black" Margin="5">
+                <Expander.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Path=Header}"/>
+                        <TextBlock Text="{Binding Path=Result.StockLimit.Limit, StringFormat=({0})}" Margin="2,0">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=Result.StockLimit.Limit}" Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                </Expander.Header>
+            </Expander>
         </DataTemplate>
         <DataTemplate DataType="{x:Type TradeMonitor:SimulationResult}">
             <Grid>
