@@ -39,9 +39,10 @@ namespace Discovery.TradeMonitor
         public CargoInShip(string name, long count)
             : this(name, null, count) { }
 
-        public string Name { get; init; }
+        public string Name { get; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string Nickname { get; init; }
-        public long Count { get; init; }
+        public long Count { get; }
     }
 
     public readonly record struct TradeOnPlayerBase(Location Station,
