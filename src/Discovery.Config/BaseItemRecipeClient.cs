@@ -15,13 +15,18 @@ namespace Discovery.Config
         public async Task<BaseItemRecipe[]> GetRecipesAsync(CancellationToken token = default)
         {
             var client = clientFactory.CreateClient();
-            var response = await client.GetStringAsync("base_recipe_items.cfg", token);
-            var split = response.Split(Environment.NewLine + Environment.NewLine);
-            var recipes = split
-                         .Where(s => s.Contains("[recipe]"))
-                         .Select(GetRecipe)
-                         .ToArray();
-            return recipes;
+            var response = await client.GetAsync("base_recipe_items.cfg", token);
+            if(response.IsSuccessStatusCode)
+            {
+                var str = await response.Content.ReadAsStringAsync();
+                var split = str.Split(Environment.NewLine + Environment.NewLine);
+                var recipes = split
+                             .Where(s => s.Contains("[recipe]"))
+                             .Select(GetRecipe)
+                             .ToArray();
+                return recipes;
+            }
+            return [];
         }
 
         private BaseItemRecipe GetRecipe(string input)
