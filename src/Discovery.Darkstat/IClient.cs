@@ -11,6 +11,12 @@ namespace Discovery.Darkstat
     using OreFieldQueryClient;
     using PobQueryClient;
     using RouteQueryClient;
+    public interface IMarkedGoodQueryClient
+    {
+        Task<MarketGoodData[]> GetMarketGoodsPerBasesAsync(string[] baseNicknames, CancellationToken token = default);
+        Task<MarketGoodData[]> GetCommoditiesPerNicknameAsync(string[] commodityNicknames, CancellationToken token = default);
+    }
+
     public interface INpcBaseQueryClient
     {
         Task<NpcData[]> GetNpcBasesAsync(CancellationToken token = default);
@@ -41,7 +47,7 @@ namespace Discovery.Darkstat
         Task<ShipInfo[]> GetShipInfoAsync(CancellationToken token = default);
     }
 
-    public interface IDarkstatClient : INpcBaseQueryClient, IOreFieldQueryClient, IPlayerBaseQueryClient, IRouteQueryClient, ICommodityQueryClient, IShipInfoQueryClient
+    public interface IDarkstatClient : IMarkedGoodQueryClient, INpcBaseQueryClient, IOreFieldQueryClient, IPlayerBaseQueryClient, IRouteQueryClient, ICommodityQueryClient, IShipInfoQueryClient
     {
 
     }
