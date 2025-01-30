@@ -5,9 +5,9 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Discovery.Darkstat.RouteQueryClient
+namespace Discovery.Darkstat
 {
-    public readonly record struct RouteData
+    public readonly record struct RouteResponse
     {
         [JsonPropertyName("route")]
         public required Route Route { get; init; }

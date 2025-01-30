@@ -7,13 +7,6 @@ using System.Threading.Tasks;
 
 namespace Discovery.Darkstat
 {
-    using NpcQueryClient;
-
-    using OreFieldQueryClient;
-
-    using PobQueryClient;
-
-    using RouteQueryClient;
     public interface IMarkedGoodQueryClient
     {
         Task<MarketGoodResponse[]> GetMarketGoodsPerBasesAsync(string[] baseNicknames, CancellationToken token = default);
@@ -37,7 +30,7 @@ namespace Discovery.Darkstat
 
     public interface IRouteQueryClient
     {
-        Task<RouteData[]> GetTimingsAsync(Route[] routes, CancellationToken token = default);
+        Task<RouteResponse[]> GetTimingsAsync(Route[] routes, CancellationToken token = default);
     }
 
     public interface ICommodityQueryClient

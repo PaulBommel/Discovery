@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace Discovery.Darkstat.RouteQueryClient
 {
+    using Discovery.Darkstat;
+
     using NpcQueryClient;
+
     using OreFieldQueryClient;
+
     using PobQueryClient;
 
     using System.Linq;

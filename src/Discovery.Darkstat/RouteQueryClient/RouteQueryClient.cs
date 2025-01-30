@@ -12,14 +12,14 @@ namespace Discovery.Darkstat.RouteQueryClient
 {
     public class RouteQueryClient(IHttpClientFactory clientFactory) : IRouteQueryClient
     {
-        public async Task<RouteData[]> GetTimingsAsync(Route[] routes, CancellationToken token = default)
+        public async Task<RouteResponse[]> GetTimingsAsync(Route[] routes, CancellationToken token = default)
         {
             var client = clientFactory.CreateClient();
             var response = await client.PostAsJsonAsync("/api/graph/paths", routes, token);
             if(response.IsSuccessStatusCode)
             {
                 using (var stream = await response.Content.ReadAsStreamAsync(token))
-                    return await JsonSerializer.DeserializeAsync<RouteData[]>(stream, JsonSerializerOptions.Default, token);
+                    return await JsonSerializer.DeserializeAsync<RouteResponse[]>(stream, JsonSerializerOptions.Default, token);
             }
             return [];
         }
