@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 
-namespace Discovery.Prototypes.TradeMonitor
+namespace Discovery.Prototypes.TradeMonitor.ViewModels
 {
     using Discovery.TradeMonitor;
     public sealed class TradeResultViewModel(string Header, SimulationResult Result, bool IsExpanded)
@@ -64,8 +64,8 @@ namespace Discovery.Prototypes.TradeMonitor
         }
 
         public TradeResultViewModel[] TradeResults
-        { 
-            get => _tradeResults; 
+        {
+            get => _tradeResults;
             set
             {
                 _tradeResults = value;
@@ -91,7 +91,7 @@ namespace Discovery.Prototypes.TradeMonitor
         {
             var results = await _monitor.GetTradeSimulations(Routes);
             var viewmodels = new TradeResultViewModel[results.Length];
-            for(int i = 0; i < results.Length; ++i)
+            for (int i = 0; i < results.Length; ++i)
             {
                 var header = string.Join(" -> ", Routes[i].Trades.Select(t => t.Station.Name).Union([Routes[i].Trades[0].Station.Name]));
                 viewmodels[i] = new(header, results[i], results[i].StockLimit?.Limit != 0);

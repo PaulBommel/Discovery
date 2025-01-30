@@ -9,8 +9,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Discovery.Prototypes.TradeMonitor
+namespace Discovery.Prototypes.TradeMonitor.Views
 {
+    using ViewModels;
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>

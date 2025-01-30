@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Discovery.Prototypes.TradeMonitor
+namespace Discovery.Prototypes.TradeMonitor.ViewModels
 {
     using Discovery.TradeMonitor;
     public class MainWindowViewModel : INotifyPropertyChanged
