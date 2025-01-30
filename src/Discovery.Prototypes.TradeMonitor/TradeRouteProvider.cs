@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,8 +8,25 @@ using System.Threading.Tasks;
 namespace Discovery.Prototypes.TradeMonitor
 {
     using Discovery.TradeMonitor;
-    public static class TradeRouteProvider
+    public class TradeRouteProvider
     {
+        public TradeRouteProvider()
+        {
+            foreach (var route in GetTradeRoutes())
+                TradeRoutes.Add(route);
+        }
+
+        public TradeRouteProvider(ObservableCollection<TradeRoute> tradeRoutes, TradeRoute[] routes)
+        {
+            TradeRoutes = tradeRoutes;
+            Routes = routes;
+        }
+
+        public ObservableCollection<TradeRoute> TradeRoutes { get; } = [];
+        public TradeRoute[] Routes { get; init; }
+
+        #region static
+
         private static readonly ShipInfo Train = new ShipInfo("Rheinland Train", 5000, 9);
         private static readonly ShipInfo Lucullus = new ShipInfo("Lucullus", 4000, 10);
         private static readonly ShipInfo HeavyTransport = new ShipInfo("Uruz", 4200, 8);
@@ -116,5 +134,7 @@ namespace Discovery.Prototypes.TradeMonitor
                 ]
             };
         }
+
+        #endregion
     }
 }

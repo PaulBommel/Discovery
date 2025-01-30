@@ -35,18 +35,18 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
 
         #region Constructors
 
-        public TradeExpanderViewModel(TradeMonitor monitor, string origin, TradeRoute[] routes)
+        public TradeExpanderViewModel(TradeMonitor monitor, string origin, TradeRouteProvider routeProvider)
         {
             _monitor = monitor;
             Origin = origin;
-            Routes = routes;
+            RouteProvider = routeProvider;
         }
 
         #endregion
 
         #region Properties
 
-        public TradeRoute[] Routes { get; }
+        public TradeRouteProvider RouteProvider { get; }
 
         public string Origin { get; }
 
@@ -77,23 +77,23 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
 
         #region Methods
 
-        public static IEnumerable<TradeExpanderViewModel> FromRoutes(TradeMonitor monitor, TradeRoute[] routes)
+        public static IEnumerable<TradeExpanderViewModel> FromRoutes(TradeMonitor monitor, TradeRouteProvider routesProvider)
         {
-            var origins = routes.Select(route => route.Trades[0].Station).Distinct();
+            var origins = routesProvider.TradeRoutes.Select(route => route.Trades[0].Station).Distinct();
             foreach (var origin in origins)
             {
-                var routePerOrigin = routes.Where(route => route.Trades[0].Station == origin).ToArray();
-                yield return new(monitor, origin.Name, routePerOrigin);
+                var routePerOrigin = routesProvider.TradeRoutes.Where(route => route.Trades[0].Station == origin).ToArray();
+                yield return new(monitor, origin.Name, new(routesProvider.TradeRoutes, routePerOrigin));
             }
         }
 
         public async void Refresh()
         {
-            var results = await _monitor.GetTradeSimulations(Routes);
+            var results = await _monitor.GetTradeSimulations(RouteProvider.Routes);
             var viewmodels = new TradeResultViewModel[results.Length];
             for (int i = 0; i < results.Length; ++i)
             {
-                var header = string.Join(" -> ", Routes[i].Trades.Select(t => t.Station.Name).Union([Routes[i].Trades[0].Station.Name]));
+                var header = string.Join(" -> ", RouteProvider.Routes[i].Trades.Select(t => t.Station.Name).Union([RouteProvider.Routes[i].Trades[0].Station.Name]));
                 viewmodels[i] = new(header, results[i], results[i].StockLimit?.Limit != 0);
             }
             TradeResults = viewmodels;
