@@ -50,7 +50,7 @@ namespace Discovery.Darkstat.Test
         public NpcQueryClient NpcQueryClient { get; }
         public MarketGoodQueryClient MarketGoodQueryClient { get; }
         public CommodityQueryClient CommodityQueryClient { get; }
-        public OreFieldQueryClient OreFieldQueryClient { get; }
+        public MiningZoneQueryClient OreFieldQueryClient { get; }
         public PobQueryClient PobQueryClient { get; }
         public ShipInfoQueryClient ShipInfoQueryClient { get; }
         public RouteQueryClient RouteQueryClient { get; }

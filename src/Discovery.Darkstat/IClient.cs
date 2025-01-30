@@ -8,28 +8,31 @@ using System.Threading.Tasks;
 namespace Discovery.Darkstat
 {
     using NpcQueryClient;
+
     using OreFieldQueryClient;
+
     using PobQueryClient;
+
     using RouteQueryClient;
     public interface IMarkedGoodQueryClient
     {
-        Task<MarketGoodData[]> GetMarketGoodsPerBasesAsync(string[] baseNicknames, CancellationToken token = default);
-        Task<MarketGoodData[]> GetCommoditiesPerNicknameAsync(string[] commodityNicknames, CancellationToken token = default);
+        Task<MarketGoodResponse[]> GetMarketGoodsPerBasesAsync(string[] baseNicknames, CancellationToken token = default);
+        Task<MarketGoodResponse[]> GetCommoditiesPerNicknameAsync(string[] commodityNicknames, CancellationToken token = default);
     }
 
     public interface INpcBaseQueryClient
     {
-        Task<NpcData[]> GetNpcBasesAsync(CancellationToken token = default);
+        Task<NpcBase[]> GetNpcBasesAsync(CancellationToken token = default);
     }
 
-    public interface IOreFieldQueryClient
+    public interface IMiningZoneQueryClient
     {
-        Task<OreFieldData[]> GetOreFieldsAsync(CancellationToken token = default);
+        Task<MiningZone[]> GetMiningZonesAsync(CancellationToken token = default);
     }
 
     public interface IPlayerBaseQueryClient
     {
-        Task<PobData[]> GetPlayerBasesAsync(CancellationToken token = default);
+        Task<PlayerBase[]> GetPlayerBasesAsync(CancellationToken token = default);
     }
 
     public interface IRouteQueryClient
@@ -47,7 +50,7 @@ namespace Discovery.Darkstat
         Task<ShipInfo[]> GetShipInfosAsync(CancellationToken token = default);
     }
 
-    public interface IDarkstatClient : IMarkedGoodQueryClient, INpcBaseQueryClient, IOreFieldQueryClient, IPlayerBaseQueryClient, IRouteQueryClient, ICommodityQueryClient, IShipInfoQueryClient
+    public interface IDarkstatClient : IMarkedGoodQueryClient, INpcBaseQueryClient, IMiningZoneQueryClient, IPlayerBaseQueryClient, IRouteQueryClient, ICommodityQueryClient, IShipInfoQueryClient
     {
 
     }

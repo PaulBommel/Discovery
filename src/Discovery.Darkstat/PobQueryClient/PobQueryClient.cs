@@ -7,10 +7,10 @@ namespace Discovery.Darkstat.PobQueryClient
 {
     public class PobQueryClient(IHttpClientFactory clientFactory) : IPlayerBaseQueryClient
     {
-        public Task<PobData[]> GetPlayerBasesAsync(CancellationToken token = default)
+        public Task<PlayerBase[]> GetPlayerBasesAsync(CancellationToken token = default)
         {
             var client = clientFactory.CreateClient();
-            return client.GetFromJsonAsync<PobData[]>("/api/pobs", token);
+            return client.GetFromJsonAsync<PlayerBase[]>("/api/pobs", token);
         }
     }
 }

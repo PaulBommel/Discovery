@@ -2,11 +2,10 @@
 using System.Numerics;
 using System.Text.Json.Serialization;
 
-namespace Discovery.Darkstat.NpcQueryClient
+namespace Discovery.Darkstat
 {
-    using RouteQueryClient;
     [DebuggerDisplay($"{{{nameof(Name)}}}")]
-    public readonly record struct NpcData : IPointOfInterest
+    public readonly record struct NpcBase : IPointOfInterest
     {
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("name")]

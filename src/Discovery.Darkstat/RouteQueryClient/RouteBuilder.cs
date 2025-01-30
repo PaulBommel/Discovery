@@ -16,7 +16,7 @@ namespace Discovery.Darkstat.RouteQueryClient
     public class RouteBuilder
     {
         private readonly NpcQueryClient _npcQueryClient;
-        private readonly OreFieldQueryClient _oreFieldClient;
+        private readonly MiningZoneQueryClient _oreFieldClient;
         private readonly PobQueryClient _pobQueryClient;
 
         public RouteBuilder(IHttpClientFactory clientFactory)
@@ -28,7 +28,7 @@ namespace Discovery.Darkstat.RouteQueryClient
         }
 
         public RouteBuilder(NpcQueryClient npcQueryClient,
-                            OreFieldQueryClient oreFieldClient,
+                            MiningZoneQueryClient oreFieldClient,
                             PobQueryClient pobQueryClient)
         {
             _npcQueryClient = npcQueryClient;
@@ -51,7 +51,7 @@ namespace Discovery.Darkstat.RouteQueryClient
                     break;
             }
             if (string.IsNullOrWhiteSpace(originNickname) || string.IsNullOrWhiteSpace(destinationNickname))
-                foreach (var poi in await _oreFieldClient.GetOreFieldsAsync(token))
+                foreach (var poi in await _oreFieldClient.GetMiningZonesAsync(token))
                 {
                     if (Regex.IsMatch(poi.Name, origin) && string.IsNullOrWhiteSpace(originNickname))
                         originNickname = poi.Nickname;

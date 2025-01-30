@@ -3,11 +3,10 @@ using System.Diagnostics;
 using System.Numerics;
 using System.Text.Json.Serialization;
 
-namespace Discovery.Darkstat.PobQueryClient
+namespace Discovery.Darkstat
 {
-    using RouteQueryClient;
     [DebuggerDisplay($"{{{nameof(Name)}}}")]
-    public record PobData : IPointOfInterest
+    public record PlayerBase : IPointOfInterest
     {
         [JsonPropertyName("nickname")]
         public required string Nickname { get; init; }

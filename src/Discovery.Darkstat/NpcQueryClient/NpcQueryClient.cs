@@ -7,10 +7,10 @@ namespace Discovery.Darkstat.NpcQueryClient
 {
     public class NpcQueryClient(IHttpClientFactory clientFactory) : INpcBaseQueryClient
     {
-        public Task<NpcData[]> GetNpcBasesAsync(CancellationToken token = default)
+        public Task<NpcBase[]> GetNpcBasesAsync(CancellationToken token = default)
         {
             var client = clientFactory.CreateClient();
-            return client.GetFromJsonAsync<NpcData[]>("/api/npc_bases", token);
+            return client.GetFromJsonAsync<NpcBase[]>("/api/npc_bases", token);
         }
     }
 }

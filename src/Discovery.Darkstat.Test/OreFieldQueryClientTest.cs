@@ -67,10 +67,10 @@ namespace Discovery.Darkstat.Test
         #region Tests
 
         [TestMethod]
-        public async Task GetOreFieldsAsyncTest()
+        public async Task GetMiningZonesAsyncTest()
         {
             var client = TestAssembly.Darkstat.OreFieldQueryClient;
-            var fields = await client.GetOreFieldsAsync();
+            var fields = await client.GetMiningZonesAsync();
             foreach (var field in fields)
             {
                 if (field.IsReachhable == true)
@@ -80,10 +80,10 @@ namespace Discovery.Darkstat.Test
 
         [DataTestMethod]
         [DynamicData(nameof(CompareData))]
-        public async Task CompareClientsAsyncTest(OreFieldQueryClient.OreFieldQueryClient expectedClient, OreFieldQueryClient.OreFieldQueryClient actualClient)
+        public async Task CompareClientsAsyncTest(OreFieldQueryClient.MiningZoneQueryClient expectedClient, OreFieldQueryClient.MiningZoneQueryClient actualClient)
         {
-            var expectedTask = expectedClient.GetOreFieldsAsync();
-            var actualTask = actualClient.GetOreFieldsAsync();
+            var expectedTask = expectedClient.GetMiningZonesAsync();
+            var actualTask = actualClient.GetMiningZonesAsync();
             await Task.WhenAll(expectedTask, actualTask);
             Assert.AreEqual(expectedTask.Result.Length, actualTask.Result.Length);
             var expected = expectedTask.Result.OrderBy(r => r.Nickname).ToArray();

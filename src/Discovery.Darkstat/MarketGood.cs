@@ -6,10 +6,10 @@ using System.Numerics;
 using System.Text.Json.Serialization;
 using System.Xml.Linq;
 
-namespace Discovery.Darkstat.NpcQueryClient
+namespace Discovery.Darkstat
 {
     [DebuggerDisplay($"{{{nameof(Nickname)}}}")]
-    public readonly record struct MarketGoodData
+    public readonly record struct MarketGoodResponse
     {
         [JsonPropertyName("market_goods")]
         public MarketGood[] MarketGoods { get; init; }

@@ -10,6 +10,8 @@ namespace Discovery.Darkstat.Test
     using Darkstat.OreFieldQueryClient;
     using Darkstat.PobQueryClient;
 
+    using Discovery.Darkstat;
+
     using System.Diagnostics.CodeAnalysis;
 
     internal static class AssertExtensions
@@ -25,7 +27,7 @@ namespace Discovery.Darkstat.Test
             Assert.IsFalse(string.IsNullOrWhiteSpace(pointOfInterest.SystemNickname), $"The property '{nameof(IPointOfInterest.SystemNickname)}' for {pointOfInterest.Name} is empty.");
         }
 
-        public static void AreEqual(this Assert _, NpcData expected, NpcData actual)
+        public static void AreEqual(this Assert _, NpcBase expected, NpcBase actual)
         {
             Assert.AreEqual(expected.Archetypes?.Length ?? 0, actual.Archetypes?.Length ?? 0);
             if (expected.Archetypes is not null)
@@ -50,7 +52,7 @@ namespace Discovery.Darkstat.Test
             Assert.AreEqual(expected.SystemNicknameHash, actual.SystemNicknameHash);
         }
 
-        public static void AreEqual(this Assert _, OreFieldData expected, OreFieldData actual)
+        public static void AreEqual(this Assert _, MiningZone expected, MiningZone actual)
         {
             Assert.AreEqual(expected.Archetypes?.Length ?? 0, actual.Archetypes?.Length ?? 0);
             if (expected.Archetypes is not null)
@@ -105,7 +107,7 @@ namespace Discovery.Darkstat.Test
             Assert.AreEqual(expected.Volume, actual.Volume);
         }
 
-        public static void AreEqual(this Assert _, PobData expected, PobData actual)
+        public static void AreEqual(this Assert _, PlayerBase expected, PlayerBase actual)
         {
             Assert.AreEqual(expected.DefenseMode, actual.DefenseMode);
             Assert.AreEqual(expected.FactionName, actual.FactionName);

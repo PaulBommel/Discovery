@@ -18,7 +18,7 @@ namespace Discovery.TradeMonitor
         private readonly NpcQueryClient _npcQueryClient = new(httpClientFactory);
         private readonly MarketGoodQueryClient _marketGoodQueryClient = new(httpClientFactory);
         private readonly CommodityQueryClient _commodityQueryClient = new(httpClientFactory);
-        private readonly OreFieldQueryClient _oreFieldQueryClient = new(httpClientFactory);
+        private readonly MiningZoneQueryClient _oreFieldQueryClient = new(httpClientFactory);
         private readonly PobQueryClient _pobQueryClient = new(httpClientFactory);
         private readonly ShipInfoQueryClient _shipInfoQueryClient = new(httpClientFactory);
         private readonly RouteQueryClient _routeQueryClient = new(httpClientFactory);
@@ -52,7 +52,7 @@ namespace Discovery.TradeMonitor
 
             var npcTask = _npcQueryClient.GetNpcBasesAsync(token);
             var pobTask = _pobQueryClient.GetPlayerBasesAsync(token);
-            var oreTask = _oreFieldQueryClient.GetOreFieldsAsync(token);
+            var oreTask = _oreFieldQueryClient.GetMiningZonesAsync(token);
             var commoditiesTask = _commodityQueryClient.GetCommoditiesAsync(token);
             await Task.WhenAll(npcTask, pobTask, oreTask, commoditiesTask);
             /*var station_nicknames = (from npc in npcTask.Result
@@ -68,10 +68,10 @@ namespace Discovery.TradeMonitor
         }
     }
 
-    public sealed class SimulationDataSource(NpcData[] NpcData,
-                                             PobData[] PobData,
-                                             OreFieldData[] OreFieldData,
-                                             MarketGoodData[] MarketGoods,
+    public sealed class SimulationDataSource(NpcBase[] NpcData,
+                                             PlayerBase[] PobData,
+                                             MiningZone[] OreFieldData,
+                                             MarketGoodResponse[] MarketGoods,
                                              RouteQueryClient RouteQueryClient)
     {
         public async Task<Dictionary<Route, TimeSpan?>> GetTravelTimesAsync(TradeRoute route, CancellationToken token = default)
