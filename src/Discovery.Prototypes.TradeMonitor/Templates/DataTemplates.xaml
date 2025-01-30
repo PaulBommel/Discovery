@@ -1,6 +1,162 @@
 ﻿<ResourceDictionary x:Class="Discovery.Prototypes.TradeMonitor.Templates.DataTemplates"
                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Discovery.Prototypes.TradeMonitor.Templates">
-
+                    xmlns:local="clr-namespace:Discovery.Prototypes.TradeMonitor.Templates"
+                    xmlns:ViewModels="clr-namespace:Discovery.Prototypes.TradeMonitor.ViewModels"
+                    xmlns:TradeMonitor="clr-namespace:Discovery.TradeMonitor;assembly=Discovery.TradeMonitor">
+    <DataTemplate DataType="{x:Type ViewModels:TradeExpanderViewModel}">
+        <Expander Header="{Binding Path=Origin}" IsExpanded="{Binding Path=IsExpanded}">
+            <ItemsControl ItemsSource="{Binding Path=TradeResults}"/>
+        </Expander>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ViewModels:TradeResultViewModel}">
+        <Expander Content="{Binding Path=Result}" IsExpanded="{Binding Path=IsExpanded}" BorderThickness="1" BorderBrush="Black" Margin="5">
+            <Expander.Header>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Path=Header}"/>
+                    <TextBlock Text="{Binding Path=Result.StockLimit.Limit, StringFormat=({0})}" Margin="2,0">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=Result.StockLimit.Limit}" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </StackPanel>
+            </Expander.Header>
+        </Expander>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type TradeMonitor:SimulationResult}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Total cost:"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=TotalCost, StringFormat=N0}" HorizontalAlignment="Right"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Total revenue:"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=TotalRevenue, StringFormat=N0}" HorizontalAlignment="Right"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=StockLimit}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            <Run Text="Route is limited to"/>
+            <Run FontWeight="Bold" Text="{Binding Path=StockLimit.Limit}"/>
+            <Run Text="by"/>
+            <Run FontWeight="Bold" Text="{Binding Path=StockLimit.Reason}"/>
+            <Run Text="on"/>
+            <Run FontWeight="Bold" Text="{Binding Path=StockLimit.Station}"/>
+            <Run Text="."/>
+            </TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Total profit:"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=TotalProfit, StringFormat=N0}" HorizontalAlignment="Right"/>
+            <TextBlock Grid.Row="0" Grid.Column="3" Text="Travel time:"/>
+            <TextBlock Grid.Row="0" Grid.Column="4" Text="{Binding Path=TravelTime}" HorizontalAlignment="Right"/>
+            <TextBlock Grid.Row="1" Grid.Column="3" Text="Credits per second:"/>
+            <TextBlock Grid.Row="1" Grid.Column="4" Text="{Binding Path=CreditsPerSecond, StringFormat=N0}" HorizontalAlignment="Right"/>
+            <TextBlock Grid.Row="2" Grid.Column="3" Text="Cargo capacity:"/>
+            <TextBlock Grid.Row="2" Grid.Column="4" Text="{Binding Path=Ship.CargoCapacity, StringFormat=N0}" HorizontalAlignment="Right"/>
+            <Expander Grid.Row="5" Grid.ColumnSpan="5" Header="Details" IsExpanded="True">
+                <ListView ItemsSource="{Binding Path=RouteResults}" HorizontalAlignment="Center">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Origin" DisplayMemberBinding="{Binding Path=Purchase.Origin}"/>
+                            <GridViewColumn Header="Commodities">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ItemsControl ItemsSource="{Binding Path=Purchase.Commodities}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Buy price per unit">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ItemsControl ItemsSource="{Binding Path=Purchase.Prices}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Path=., StringFormat=N0}"/>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Units to buy">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ItemsControl ItemsSource="{Binding Path=Purchase.Count}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Path=., StringFormat=N0}"/>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Cost" DisplayMemberBinding="{Binding Path=Purchase.Cost, StringFormat=N0}"/>
+                            <GridViewColumn Header="Destination" DisplayMemberBinding="{Binding Path=Sale.Destination}"/>
+                            <GridViewColumn Header="Commodities">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ItemsControl ItemsSource="{Binding Path=Sale.Commodities}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Sale price per unit">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ItemsControl ItemsSource="{Binding Path=Sale.Prices}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Path=., StringFormat=N0}"/>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Units to sale">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ItemsControl ItemsSource="{Binding Path=Sale.Count}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Path=., StringFormat=N0}"/>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Revenue" DisplayMemberBinding="{Binding Path=Sale.Revenue, StringFormat=N0}"/>
+                            <GridViewColumn Header="Profit" DisplayMemberBinding="{Binding Path=Profit, StringFormat=N0}"/>
+                            <GridViewColumn Header="Travel time" DisplayMemberBinding="{Binding Path=TravelTime}"/>
+                            <GridViewColumn Header="Credits per seconds" DisplayMemberBinding="{Binding Path=CreditsPerSecond, StringFormat=N0}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Expander>
+        </Grid>
+    </DataTemplate>
 </ResourceDictionary>
