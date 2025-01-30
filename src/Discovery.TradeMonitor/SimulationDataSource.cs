@@ -50,10 +50,10 @@ namespace Discovery.TradeMonitor
 
 
 
-            var npcTask = _npcQueryClient.GetAsync(token);
-            var pobTask = _pobQueryClient.GetAsync(token);
-            var oreTask = _oreFieldQueryClient.GetAsync(token);
-            var commoditiesTask = _commodityQueryClient.GetAsync(token);
+            var npcTask = _npcQueryClient.GetNpcBasesAsync(token);
+            var pobTask = _pobQueryClient.GetPlayerBasesAsync(token);
+            var oreTask = _oreFieldQueryClient.GetOreFieldsAsync(token);
+            var commoditiesTask = _commodityQueryClient.GetCommoditiesAsync(token);
             await Task.WhenAll(npcTask, pobTask, oreTask, commoditiesTask);
             /*var station_nicknames = (from npc in npcTask.Result
                                      where npcTrades.Contains(npc.Name)

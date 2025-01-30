@@ -67,10 +67,10 @@ namespace Discovery.Darkstat.Test
         #region Tests
 
         [TestMethod]
-        public async Task GetAsyncTest()
+        public async Task GetPlayerBasesAsyncTest()
         {
             var client = TestAssembly.Darkstat.PobQueryClient;
-            var pobs = await client.GetAsync();
+            var pobs = await client.GetPlayerBasesAsync();
             Assert.IsNotNull(pobs);
             Assert.AreNotEqual(0, pobs.Length);
         }
@@ -79,8 +79,8 @@ namespace Discovery.Darkstat.Test
         [DynamicData(nameof(CompareData))]
         public async Task CompareClientsAsyncTest(PobQueryClient.PobQueryClient expectedClient, PobQueryClient.PobQueryClient actualClient)
         {
-            var expectedTask = expectedClient.GetAsync();
-            var actualTask = actualClient.GetAsync();
+            var expectedTask = expectedClient.GetPlayerBasesAsync();
+            var actualTask = actualClient.GetPlayerBasesAsync();
             await Task.WhenAll(expectedTask, actualTask);
             Assert.AreEqual(expectedTask.Result.Length, actualTask.Result.Length);
             for (int i = 0; i < expectedTask.Result.Length; ++i)

@@ -41,7 +41,7 @@ namespace Discovery.Darkstat.RouteQueryClient
                                                          CancellationToken token = default)
         {
             string originNickname = string.Empty, destinationNickname = string.Empty;
-            foreach (var poi in await _npcQueryClient.GetAsync(token))
+            foreach (var poi in await _npcQueryClient.GetNpcBasesAsync(token))
             {
                 if (Regex.IsMatch(poi.Name, origin) && string.IsNullOrWhiteSpace(originNickname))
                     originNickname = poi.Nickname;
@@ -51,7 +51,7 @@ namespace Discovery.Darkstat.RouteQueryClient
                     break;
             }
             if (string.IsNullOrWhiteSpace(originNickname) || string.IsNullOrWhiteSpace(destinationNickname))
-                foreach (var poi in await _oreFieldClient.GetAsync(token))
+                foreach (var poi in await _oreFieldClient.GetOreFieldsAsync(token))
                 {
                     if (Regex.IsMatch(poi.Name, origin) && string.IsNullOrWhiteSpace(originNickname))
                         originNickname = poi.Nickname;
@@ -61,7 +61,7 @@ namespace Discovery.Darkstat.RouteQueryClient
                         break;
                 }
             if (string.IsNullOrWhiteSpace(originNickname) || string.IsNullOrWhiteSpace(destinationNickname))
-                foreach (var poi in await _pobQueryClient.GetAsync(token))
+                foreach (var poi in await _pobQueryClient.GetPlayerBasesAsync(token))
                 {
                     if (Regex.IsMatch(poi.Name, origin) && string.IsNullOrWhiteSpace(originNickname))
                         originNickname = poi.Nickname;

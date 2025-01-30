@@ -70,10 +70,10 @@ namespace Discovery.Darkstat.Test
         #region Tests
 
         [TestMethod]
-        public async Task GetAsyncTest()
+        public async Task GetNpcBasesAsyncTest()
         {
             var client = TestAssembly.Darkstat.NpcQueryClient;
-            var bases = await client.GetAsync();
+            var bases = await client.GetNpcBasesAsync();
             Assert.IsNotNull(bases);
             Assert.AreNotEqual(0, bases.Length);
             foreach (var npcBase in bases)
@@ -87,8 +87,8 @@ namespace Discovery.Darkstat.Test
         [DynamicData(nameof(CompareData))]
         public async Task CompareClientsAsyncTest(NpcQueryClient.NpcQueryClient expectedClient, NpcQueryClient.NpcQueryClient actualClient)
         {
-            var expectedTask = expectedClient.GetAsync();
-            var actualTask = actualClient.GetAsync();
+            var expectedTask = expectedClient.GetNpcBasesAsync();
+            var actualTask = actualClient.GetNpcBasesAsync();
             await Task.WhenAll(expectedTask, actualTask);
             Assert.AreEqual(expectedTask.Result.Length, actualTask.Result.Length);
             var nicknames = expectedTask.Result.Select(npcBase => npcBase.Nickname).ToArray();

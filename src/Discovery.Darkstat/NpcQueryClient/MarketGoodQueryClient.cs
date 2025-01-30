@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Discovery.Darkstat.NpcQueryClient
 {
-    public sealed class MarketGoodQueryClient(IHttpClientFactory clientFactory)
+    public sealed class MarketGoodQueryClient(IHttpClientFactory clientFactory) : IMarkedGoodQueryClient
     {
         public async Task<MarketGoodData[]> GetMarketGoodsPerBasesAsync(string[] baseNicknames, CancellationToken token = default)
         {

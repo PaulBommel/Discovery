@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Discovery.Darkstat.OreFieldQueryClient
 {
-    public class OreFieldQueryClient(IHttpClientFactory clientFactory)
+    public class OreFieldQueryClient(IHttpClientFactory clientFactory) : IOreFieldQueryClient
     {
-        public Task<OreFieldData[]> GetAsync(CancellationToken token = default)
+        public Task<OreFieldData[]> GetOreFieldsAsync(CancellationToken token = default)
         {
             var client = clientFactory.CreateClient();
             return client.GetFromJsonAsync<OreFieldData[]>("/api/mining_operations", token);

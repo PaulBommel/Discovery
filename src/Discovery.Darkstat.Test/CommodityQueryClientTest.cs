@@ -57,10 +57,10 @@ namespace Discovery.Darkstat.Test
         #region Tests
 
         [TestMethod]
-        public async Task GetAsyncTest()
+        public async Task GetCommoditiesAsyncTest()
         {
             var client = TestAssembly.Darkstat.CommodityQueryClient;
-            var commodities = await client.GetAsync();
+            var commodities = await client.GetCommoditiesAsync();
             foreach (var commodity in commodities)
             {
                 Assert.IsNotNull(commodity);

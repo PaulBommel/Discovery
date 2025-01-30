@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Discovery.Darkstat.NpcQueryClient
 {
-    public class NpcQueryClient(IHttpClientFactory clientFactory)
+    public class NpcQueryClient(IHttpClientFactory clientFactory) : INpcBaseQueryClient
     {
-        public Task<NpcData[]> GetAsync(CancellationToken token = default)
+        public Task<NpcData[]> GetNpcBasesAsync(CancellationToken token = default)
         {
             var client = clientFactory.CreateClient();
             return client.GetFromJsonAsync<NpcData[]>("/api/npc_bases", token);

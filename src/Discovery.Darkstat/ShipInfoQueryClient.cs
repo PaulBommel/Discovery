@@ -13,9 +13,9 @@ using System.Threading.Tasks;
 
 namespace Discovery.Darkstat
 {
-    public sealed class ShipInfoQueryClient(IHttpClientFactory clientFactory)
+    public sealed class ShipInfoQueryClient(IHttpClientFactory clientFactory) : IShipInfoQueryClient
     {
-        public Task<ShipInfo[]> GetAsync(CancellationToken token = default)
+        public Task<ShipInfo[]> GetShipInfosAsync(CancellationToken token = default)
         {
             var client = clientFactory.CreateClient();
             return client.GetFromJsonAsync<ShipInfo[]>("/api/ships", token);

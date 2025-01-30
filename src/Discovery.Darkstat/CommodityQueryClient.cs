@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Discovery.Darkstat
 {
-    public sealed class CommodityQueryClient(IHttpClientFactory clientFactory)
+    public sealed class CommodityQueryClient(IHttpClientFactory clientFactory) : ICommodityQueryClient
     {
-        public Task<Commodity[]> GetAsync(CancellationToken token = default)
+        public Task<Commodity[]> GetCommoditiesAsync(CancellationToken token = default)
         {
             var client = clientFactory.CreateClient();
             return client.GetFromJsonAsync<Commodity[]>("/api/commodities", token);

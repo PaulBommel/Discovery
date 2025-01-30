@@ -34,7 +34,7 @@ namespace Discovery.Darkstat
 
     public interface IRouteQueryClient
     {
-        Task<RouteData[]> GetRoutesAsync(CancellationToken token = default);
+        Task<RouteData[]> GetTimingsAsync(Route[] routes, CancellationToken token = default);
     }
 
     public interface ICommodityQueryClient
@@ -44,7 +44,7 @@ namespace Discovery.Darkstat
 
     public interface IShipInfoQueryClient
     {
-        Task<ShipInfo[]> GetShipInfoAsync(CancellationToken token = default);
+        Task<ShipInfo[]> GetShipInfosAsync(CancellationToken token = default);
     }
 
     public interface IDarkstatClient : IMarkedGoodQueryClient, INpcBaseQueryClient, IOreFieldQueryClient, IPlayerBaseQueryClient, IRouteQueryClient, ICommodityQueryClient, IShipInfoQueryClient

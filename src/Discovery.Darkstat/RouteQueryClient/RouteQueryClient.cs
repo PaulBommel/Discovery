@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Discovery.Darkstat.RouteQueryClient
 {
-    public class RouteQueryClient(IHttpClientFactory clientFactory)
+    public class RouteQueryClient(IHttpClientFactory clientFactory) : IRouteQueryClient
     {
         public async Task<RouteData[]> GetTimingsAsync(Route[] routes, CancellationToken token = default)
         {

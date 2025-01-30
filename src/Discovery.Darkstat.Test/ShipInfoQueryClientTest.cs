@@ -57,10 +57,10 @@ namespace Discovery.Darkstat.Test
         #region Tests
 
         [TestMethod]
-        public async Task GetAsyncTest()
+        public async Task GetShipInfosAsyncTest()
         {
             var client = TestAssembly.Darkstat.ShipInfoQueryClient;
-            var shipInfos = await client.GetAsync();
+            var shipInfos = await client.GetShipInfosAsync();
             foreach (var shipInfo in shipInfos)
             {
                 Assert.IsNotNull(shipInfo);

@@ -67,10 +67,10 @@ namespace Discovery.Darkstat.Test
         #region Tests
 
         [TestMethod]
-        public async Task GetAsyncTest()
+        public async Task GetOreFieldsAsyncTest()
         {
             var client = TestAssembly.Darkstat.OreFieldQueryClient;
-            var fields = await client.GetAsync();
+            var fields = await client.GetOreFieldsAsync();
             foreach (var field in fields)
             {
                 if (field.IsReachhable == true)
@@ -82,8 +82,8 @@ namespace Discovery.Darkstat.Test
         [DynamicData(nameof(CompareData))]
         public async Task CompareClientsAsyncTest(OreFieldQueryClient.OreFieldQueryClient expectedClient, OreFieldQueryClient.OreFieldQueryClient actualClient)
         {
-            var expectedTask = expectedClient.GetAsync();
-            var actualTask = actualClient.GetAsync();
+            var expectedTask = expectedClient.GetOreFieldsAsync();
+            var actualTask = actualClient.GetOreFieldsAsync();
             await Task.WhenAll(expectedTask, actualTask);
             Assert.AreEqual(expectedTask.Result.Length, actualTask.Result.Length);
             var expected = expectedTask.Result.OrderBy(r => r.Nickname).ToArray();
