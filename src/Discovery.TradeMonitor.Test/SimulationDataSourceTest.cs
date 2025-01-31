@@ -30,7 +30,7 @@ namespace Discovery.TradeMonitor.Test
 
         public static TradeRoute[] TradeRoutes { get; set; }
 
-        private static SimulationDataSourceProvider DataSourceProvider = new(new DarkstatHttpClientFactory());
+        private static SimulationDataSourceProvider DataSourceProvider { get; } = new(new DarkstatHttpClientFactory());
 
         public static IEnumerable<object[]> Routes
         {
