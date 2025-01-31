@@ -15,4 +15,10 @@
     <ProjectReference Include="..\Discovery.TradeMonitor\Discovery.TradeMonitor.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="SimulationDataSourceTest.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

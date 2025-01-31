@@ -13,7 +13,7 @@ namespace Discovery.TradeMonitor
 
         public async Task<SimulationResult[]> GetTradeSimulations(TradeRoute[] routes, CancellationToken token = default)
         {
-            var dataSource = await _simulationProvider.GetDataSource(routes, token);
+            var dataSource = await _simulationProvider.GetDataSourceAsync(routes, token);
             var simulationModel = new SimulationModel(dataSource);
             var tasks = new Task<SimulationResult>[routes.Length];
             for (int i = 0; i < routes.Length; ++i)

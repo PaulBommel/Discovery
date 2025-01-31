@@ -114,11 +114,11 @@ namespace Discovery.TradeMonitor
                 TradeOnMiningZone _ => 0,
                 TradeOnNpcBase npc => (from data in MarketGoods
                                       from good in data.MarketGoods
-                                      where good.BaseName == trade.Station
+                                      where good.BaseName == trade.Station.Name
                                       where good.Name == commodity
                                       select good.PriceBaseSellsFor).FirstOrDefault(),
                 TradeOnPlayerBase npc => PobData
-                                        .SingleOrDefault(station => station.Name == npc.Station)?
+                                        .SingleOrDefault(station => station.Name == npc.Station.Name)?
                                         .ShopItems
                                         .SingleOrDefault(item => item.Name == commodity)?
                                         .Price ?? 0,
@@ -130,11 +130,11 @@ namespace Discovery.TradeMonitor
             {
                 TradeOnNpcBase npc => (from data in MarketGoods
                                        from good in data.MarketGoods
-                                       where good.BaseName == trade.Station
+                                       where good.BaseName == trade.Station.Name
                                        where good.Name == commodity
                                        select good.PriceBaseBuysFor).FirstOrDefault() ?? 0,
                 TradeOnPlayerBase npc => PobData
-                                        .SingleOrDefault(station => station.Name == npc.Station)?
+                                        .SingleOrDefault(station => station.Name == npc.Station.Name)?
                                         .ShopItems
                                         .SingleOrDefault(item => item.Name == commodity)?
                                         .SellPrice ?? 0,
