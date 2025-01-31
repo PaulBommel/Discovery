@@ -8,12 +8,17 @@ using System.Threading.Tasks;
 namespace Discovery.Prototypes.TradeMonitor
 {
     using Discovery.TradeMonitor;
+
+    using System.IO;
+    using System.Text.Json;
+    using System.Threading;
+    using System.Windows.Controls;
+
     public class TradeRouteProvider
     {
         public TradeRouteProvider()
         {
-            foreach (var route in GetTradeRoutes())
-                TradeRoutes.Add(route);
+            TradeRoutes = [.. GetTradeRoutes()];
         }
 
         public TradeRouteProvider(ObservableCollection<TradeRoute> tradeRoutes, TradeRoute[] routes)
@@ -24,6 +29,46 @@ namespace Discovery.Prototypes.TradeMonitor
 
         public ObservableCollection<TradeRoute> TradeRoutes { get; } = [];
         public TradeRoute[] Routes { get; init; }
+
+        public async Task LoadAsync(TradeRouteExtender extender)
+        {
+            var routes = GetTradeRoutes().ToArray();
+
+            TradeRoutes.Clear();
+            foreach (var route in routes)
+                TradeRoutes.Add(await extender.ExtendAsync(route));
+            await SaveAsync("Routes.json");
+        }
+        public Task SaveAsync(string filePath, CancellationToken token = default)
+        {
+            var json = JsonSerializer.Serialize(TradeRoutes);
+            return File.WriteAllTextAsync(filePath, json, token);
+        }
+        public void Save(string filePath)
+        {
+            var json = JsonSerializer.Serialize(TradeRoutes);
+            File.WriteAllTextAsync(filePath, json);
+        }
+        public async Task LoadAsync(string filePath, CancellationToken token = default)
+        {
+            TradeRoute[] routes = null;
+            using (var stream = File.OpenRead(filePath))
+                routes = await JsonSerializer.DeserializeAsync<TradeRoute[]>(stream, JsonSerializerOptions.Default, token);
+            if(routes is not null)
+            {
+                TradeRoutes.Clear();
+                foreach (var route in routes)
+                    TradeRoutes.Add(route);
+            }
+        }
+        public void Load(string filePath)
+        {
+            var json = File.ReadAllText(filePath);
+            var routes = JsonSerializer.Deserialize<TradeRoute[]>(json);
+            TradeRoutes.Clear();
+            foreach (var route in routes)
+                TradeRoutes.Add(route);
+        }
 
         #region static
 

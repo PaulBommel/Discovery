@@ -89,7 +89,7 @@ namespace Discovery.TradeMonitor
             if (cargos is null)
                 yield break;
             foreach (var cargo in cargos)
-                yield return cargo with { Nickname = commodities.Single(c => c.Name == cargo.Name).Nickname };
+                yield return cargo with { Nickname = commodities.Where(c => c.Name == cargo.Name).FirstOrDefault().Nickname };
         }
     }
 }

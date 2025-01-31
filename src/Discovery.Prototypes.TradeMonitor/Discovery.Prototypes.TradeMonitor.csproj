@@ -9,5 +9,10 @@
     <ProjectReference Include="..\Discovery.Darkstat\Discovery.Darkstat.csproj" />
     <ProjectReference Include="..\Discovery.TradeMonitor\Discovery.TradeMonitor.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="Routes.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 
 </Project>

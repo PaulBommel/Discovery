@@ -10,7 +10,11 @@ using System.Threading.Tasks;
 
 namespace Discovery.Prototypes.TradeMonitor.ViewModels
 {
+    using Discovery.Darkstat;
     using Discovery.TradeMonitor;
+
+    using System.Net.Http;
+
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         #region INotifyPropertyChanged Members
@@ -20,12 +24,19 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
         #endregion
 
         private TradeRouteProvider _routeProvider;
-        private readonly TradeMonitor _tradeMonitor = new TradeMonitor(new DarkstatHttpClientFactory());
+        private readonly TradeMonitor _tradeMonitor;
         private readonly Timer _refreshTimer;
 
         public MainWindowViewModel()
+            : this(new DarkstatHttpClientFactory())
         {
+        }
+
+        public MainWindowViewModel(IHttpClientFactory httpClientFactory)
+        {
+            _tradeMonitor = new TradeMonitor(httpClientFactory);
             _routeProvider = new TradeRouteProvider();
+            _routeProvider.Load("Routes.json");
             Expanders = TradeExpanderViewModel.FromRoutes(_tradeMonitor, _routeProvider).ToArray();
             _refreshTimer = new(state => Refresh(), null, TimeSpan.Zero, TimeSpan.FromMinutes(5));
         }

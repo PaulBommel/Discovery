@@ -20,7 +20,7 @@ namespace Discovery.Prototypes.TradeMonitor.Views
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainWindowViewModel();
+            DataContext = new MainWindowViewModel(new DarkstatHttpClientFactory());
         }
     }
 }
