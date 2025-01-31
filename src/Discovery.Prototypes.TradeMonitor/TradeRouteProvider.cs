@@ -18,7 +18,6 @@ namespace Discovery.Prototypes.TradeMonitor
     {
         public TradeRouteProvider()
         {
-            TradeRoutes = [.. GetTradeRoutes()];
         }
 
         public TradeRouteProvider(ObservableCollection<TradeRoute> tradeRoutes, TradeRoute[] routes)
