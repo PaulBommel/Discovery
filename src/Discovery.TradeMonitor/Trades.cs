@@ -1,9 +1,14 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace Discovery.TradeMonitor
 {
     public readonly record struct TradeRoute(ShipInfo Ship,
-                                             ITradeOnStation[] Trades);
+                                             ITradeOnStation[] Trades)
+    {
+        public string GetDefaultName()
+            => string.Join(" -> ", Trades.Select(t => t.Station.Name).Union([Trades[0].Station.Name]));
+    }
 
     public readonly record struct Location
     {

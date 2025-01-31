@@ -93,7 +93,7 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
             var viewmodels = new TradeResultViewModel[results.Length];
             for (int i = 0; i < results.Length; ++i)
             {
-                var header = string.Join(" -> ", RouteProvider.Routes[i].Trades.Select(t => t.Station.Name).Union([RouteProvider.Routes[i].Trades[0].Station.Name]));
+                var header = RouteProvider.Routes[i].GetDefaultName();
                 viewmodels[i] = new(header, results[i], results[i].StockLimit?.Limit != 0);
             }
             TradeResults = viewmodels;
