@@ -103,8 +103,8 @@ namespace Discovery.TradeMonitor
             => trade switch
             {
                 TradeOnMiningZone ore => OreFieldData.Single(field => field.Name == ore.MiningZone).Nickname,
-                TradeOnNpcBase npc => NpcData.Single(station => station.Name == npc.Station).Nickname,
-                TradeOnPlayerBase npc => PobData.Single(station => station.Name == npc.Station).Nickname,
+                TradeOnNpcBase npc => NpcData.Single(station => station.Name == npc.Station.Name).Nickname,
+                TradeOnPlayerBase npc => PobData.Single(station => station.Name == npc.Station.Name).Nickname,
                 _ => throw new KeyNotFoundException()
             };
 
@@ -146,7 +146,7 @@ namespace Discovery.TradeMonitor
             int? limit = null;
             if (trade is TradeOnPlayerBase pobTrade)
             {
-                var pobData = PobData.SingleOrDefault(station => station.Name == trade.Station);
+                var pobData = PobData.SingleOrDefault(station => station.Name == trade.Station.Name);
                 if (pobData is not null)
                 {
                     var marketData = pobData.ShopItems;
@@ -173,7 +173,7 @@ namespace Discovery.TradeMonitor
             int? limit = null;
             if (trade is TradeOnPlayerBase pobTrade)
             {
-                var pobData = PobData.SingleOrDefault(station => station.Name == trade.Station);
+                var pobData = PobData.SingleOrDefault(station => station.Name == trade.Station.Name);
                 if (pobData is not null)
                 {
                     var marketData = pobData.ShopItems;
