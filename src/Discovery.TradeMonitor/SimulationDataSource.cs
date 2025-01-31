@@ -23,7 +23,7 @@ namespace Discovery.TradeMonitor
         private readonly ShipInfoQueryClient _shipInfoQueryClient = new(httpClientFactory);
         private readonly RouteQueryClient _routeQueryClient = new(httpClientFactory);
 
-        public async Task<SimulationDataSource> GetDataSource(TradeRoute[] routes, CancellationToken token = default)
+        public async Task<SimulationDataSource> GetDataSourceAsync(TradeRoute[] routes, CancellationToken token = default)
         {
             var transportedCommodities = (from route in routes
                                           from trade in route.Trades
@@ -65,9 +65,6 @@ namespace Discovery.TradeMonitor
             var marketGoods = await _marketGoodQueryClient.GetCommoditiesPerNicknameAsync(commodityNicknames, token);
             return new(npcTask.Result, pobTask.Result, oreTask.Result, marketGoods, _routeQueryClient);
         }
-
-        public async Task<SimulationModel> GetSimulationAsync(TradeRoute[] routes, CancellationToken token = default)
-            => new(await GetDataSource(routes, token));
     }
 
     public sealed class SimulationDataSource(NpcBase[] NpcData,
