@@ -30,6 +30,7 @@ namespace Discovery.TradeMonitor
 
     public readonly record struct CargoInShip
     {
+        [JsonConstructor]
         public CargoInShip(string name, string nickname, long count)
         {
             Name = name;
