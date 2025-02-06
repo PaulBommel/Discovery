@@ -15,13 +15,17 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
     using Discovery.TradeMonitor;
 
     using System.Net.Http;
+    using System.Windows;
     using System.Windows.Input;
 
-    public class MainWindowViewModel : INotifyPropertyChanged
+    public class MainWindowViewModel : AbstractViewModel
     {
-        #region INotifyPropertyChanged Members
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        #region Members
+
+        #region static
+
+        private static readonly PropertyChangedEventArgs ExpandersArgs = new(nameof(Expanders));
 
         #endregion
 
@@ -30,35 +34,59 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
         private readonly TradeMonitor _tradeMonitor;
         private readonly Timer _refreshTimer;
 
+        private TradeExpanderViewModel[] _expanders;
+
+        #endregion
+
         public MainWindowViewModel()
-            : this(new DarkstatHttpClientFactory())
         {
-        }
-
-        public MainWindowViewModel(IHttpClientFactory httpClientFactory)
-            : this(new DarkstatClient(httpClientFactory))
-        {
-        }
-
-        public MainWindowViewModel(IDarkstatClient client)
-        {
-            _client = client;
-            _tradeMonitor = new TradeMonitor(client);
-            _routeProvider = new TradeRouteProvider();
-            _routeProvider.Load("Routes.json");
-            Expanders = TradeExpanderViewModel.FromRoutes(_tradeMonitor, _routeProvider).ToArray();
-            _refreshTimer = new(state => Refresh(), null, TimeSpan.Zero, TimeSpan.FromMinutes(5));
+            var isDesignMode = (bool)(DesignerProperties.IsInDesignModeProperty.GetMetadata(typeof(DependencyObject)).DefaultValue);
+            if (isDesignMode)
+            {
+                _client = new DarkstatClient(new DarkstatHttpClientFactory());
+                _tradeMonitor = new TradeMonitor(_client);
+            }
             AddNewTradeRouteCommand = new DelegateCommand(AddNewTradeRoute);
         }
 
-        public TradeExpanderViewModel[] Expanders { get; }
+        public MainWindowViewModel(IDarkstatClient client)
+            : this()
+        {
+            _client = client;
+            _tradeMonitor = new TradeMonitor(client);
+            LoadFileAsync("Routes.json");
+            _refreshTimer = new(state => Refresh(), null, TimeSpan.FromSeconds(2), TimeSpan.FromMinutes(5));
+        }
+
+        public TradeExpanderViewModel[] Expanders
+        {
+            get => _expanders;
+            set
+            {
+                if (_expanders != value)
+                {
+                    _expanders = value;
+                    firePropertyChanged(ExpandersArgs);
+                }
+            }
+        }
 
         public ICommand AddNewTradeRouteCommand { get; }
 
         public void Refresh()
         {
-            foreach (var expander in Expanders)
-                expander.Refresh();
+            if(Expanders is not null)
+                foreach (var expander in Expanders)
+                    expander.Refresh();
+        }
+
+        private async void LoadFileAsync(string fileName, CancellationToken token = default)
+        {
+            var provider = new TradeRouteProvider();
+            await provider.LoadAsync(fileName, token);
+            _routeProvider = provider;
+            Expanders = TradeExpanderViewModel.FromRoutes(_tradeMonitor, _routeProvider).ToArray();
+            Refresh();
         }
 
         private async void AddNewTradeRoute(object parameter)

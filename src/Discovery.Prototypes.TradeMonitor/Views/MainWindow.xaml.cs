@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 
 namespace Discovery.Prototypes.TradeMonitor.Views
 {
+    using Darkstat;
     using ViewModels;
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -20,7 +21,7 @@ namespace Discovery.Prototypes.TradeMonitor.Views
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainWindowViewModel(new DarkstatHttpClientFactory());
+            DataContext = new MainWindowViewModel(new DarkstatClient(new DarkstatHttpClientFactory()));
         }
     }
 }
