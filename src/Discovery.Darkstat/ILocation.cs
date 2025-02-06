@@ -11,7 +11,7 @@ namespace Discovery.Darkstat
     /// <summary>
     /// Can be a player owned base, a npc base or a mining field
     /// </summary>
-    public interface IPointOfInterest
+    public interface ILocation
     {
         /// <summary>
         /// Returns the human readable name of the entity.

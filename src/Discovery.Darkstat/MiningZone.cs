@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 namespace Discovery.Darkstat
 {
     [DebuggerDisplay($"{{{nameof(Name)}}}")]
-    public readonly record struct MiningZone : IPointOfInterest
+    public readonly record struct MiningZone : ILocation
     {
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("name")]

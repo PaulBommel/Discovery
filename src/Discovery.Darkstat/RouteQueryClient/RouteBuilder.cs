@@ -89,7 +89,7 @@ namespace Discovery.Darkstat.RouteQueryClient
 
     public static class RouteBuilderExtensions
     {
-        public static Route RouteTo(this IPointOfInterest origin, IPointOfInterest destination)
+        public static Route RouteTo(this ILocation origin, ILocation destination)
         {
             return new()
             {

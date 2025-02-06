@@ -16,15 +16,15 @@ namespace Discovery.Darkstat.Test
 
     internal static class AssertExtensions
     {
-        public static void HasPlausibleData(this Assert _, IPointOfInterest pointOfInterest)
+        public static void HasPlausibleData(this Assert _, ILocation pointOfInterest)
         {
             Assert.IsNotNull(pointOfInterest);
             Assert.IsFalse(string.IsNullOrWhiteSpace(pointOfInterest.Name));
-            Assert.IsFalse(string.IsNullOrWhiteSpace(pointOfInterest.Nickname), $"The property '{nameof(IPointOfInterest.Nickname)}' for {pointOfInterest.Name} is empty.");
-            Assert.IsFalse(string.IsNullOrWhiteSpace(pointOfInterest.FactionNickname), $"The property '{nameof(IPointOfInterest.FactionNickname)}' for {pointOfInterest.Name} is empty.");
-            Assert.IsFalse(string.IsNullOrWhiteSpace(pointOfInterest.RegionName), $"The property '{nameof(IPointOfInterest.RegionName)}' for {pointOfInterest.Name} is empty.");
-            Assert.IsFalse(string.IsNullOrWhiteSpace(pointOfInterest.SystemName), $"The property '{nameof(IPointOfInterest.SystemName)}' for {pointOfInterest.Name} is empty.");
-            Assert.IsFalse(string.IsNullOrWhiteSpace(pointOfInterest.SystemNickname), $"The property '{nameof(IPointOfInterest.SystemNickname)}' for {pointOfInterest.Name} is empty.");
+            Assert.IsFalse(string.IsNullOrWhiteSpace(pointOfInterest.Nickname), $"The property '{nameof(ILocation.Nickname)}' for {pointOfInterest.Name} is empty.");
+            Assert.IsFalse(string.IsNullOrWhiteSpace(pointOfInterest.FactionNickname), $"The property '{nameof(ILocation.FactionNickname)}' for {pointOfInterest.Name} is empty.");
+            Assert.IsFalse(string.IsNullOrWhiteSpace(pointOfInterest.RegionName), $"The property '{nameof(ILocation.RegionName)}' for {pointOfInterest.Name} is empty.");
+            Assert.IsFalse(string.IsNullOrWhiteSpace(pointOfInterest.SystemName), $"The property '{nameof(ILocation.SystemName)}' for {pointOfInterest.Name} is empty.");
+            Assert.IsFalse(string.IsNullOrWhiteSpace(pointOfInterest.SystemNickname), $"The property '{nameof(ILocation.SystemNickname)}' for {pointOfInterest.Name} is empty.");
         }
 
         public static void AreEqual(this Assert _, NpcBase expected, NpcBase actual)

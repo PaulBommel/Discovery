@@ -19,13 +19,13 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
 
         #endregion
 
-        private IPointOfInterest _location;
+        private ILocation _location;
 
         #endregion
 
         #region Constructors
 
-        public TradeRouteConfiguratorTradeViewModel(IPointOfInterest[] locations)
+        public TradeRouteConfiguratorTradeViewModel(ILocation[] locations)
         {
             Locations = locations;
             Buy = [];
@@ -38,8 +38,8 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
 
         #region Properties
 
-        public IPointOfInterest[] Locations { get; }
-        public IPointOfInterest Location
+        public ILocation[] Locations { get; }
+        public ILocation Location
         {
             get => _location;
             set

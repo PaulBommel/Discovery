@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 namespace Discovery.Darkstat
 {
     [DebuggerDisplay($"{{{nameof(Name)}}}")]
-    public record PlayerBase : IPointOfInterest
+    public record PlayerBase : ILocation
     {
         [JsonPropertyName("nickname")]
         public required string Nickname { get; init; }
