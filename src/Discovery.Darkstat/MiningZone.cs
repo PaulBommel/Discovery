@@ -18,9 +18,6 @@ namespace Discovery.Darkstat
         [JsonPropertyName("nickname")]
         public required string Nickname { get; init; }
 
-        [JsonPropertyName("nickname_hash")]
-        public long NicknameHash { get; init; }
-
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("faction_nickname")]
         public required string FactionNickname { get; init; }
@@ -32,9 +29,6 @@ namespace Discovery.Darkstat
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("system_nickname")]
         public required string SystemNickname { get; init; }
-
-        [JsonPropertyName("system_nickname_hash")]
-        public long SystemNicknameHash { get; init; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("region_name")]
@@ -103,9 +97,6 @@ namespace Discovery.Darkstat
 
         [JsonPropertyName("Nickname")]
         public required string Nickname { get; init; }
-
-        [JsonPropertyName("NicknameHash")]
-        public long NicknameHash { get; init; }
 
         [JsonPropertyName("HpType")]
         public string HpType { get; init; }

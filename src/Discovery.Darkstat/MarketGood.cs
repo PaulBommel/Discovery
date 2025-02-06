@@ -30,9 +30,6 @@ namespace Discovery.Darkstat
         [JsonPropertyName("ship_nickname")]
         public string ShipNickname { get; init; }
 
-        [JsonPropertyName("nickname_hash")]
-        public long? NicknameHash { get; init; }
-
         [JsonPropertyName("name")]
         public required string Name { get; init; }
 

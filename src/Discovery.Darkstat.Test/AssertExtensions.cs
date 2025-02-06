@@ -42,14 +42,12 @@ namespace Discovery.Darkstat.Test
             Assert.AreEqual(expected.IsTransportUnreachable, actual.IsTransportUnreachable);
             Assert.AreEqual(expected.Name, actual.Name);
             Assert.AreEqual(expected.Nickname, actual.Nickname);
-            Assert.AreEqual(expected.NicknameHash, actual.NicknameHash);
             Assert.AreEqual(expected.Position, actual.Position);
             Assert.AreEqual(expected.RegionName, actual.RegionName);
             Assert.AreEqual(expected.SectorCoord, actual.SectorCoord);
             Assert.AreEqual(expected.StridName, actual.StridName);
             Assert.AreEqual(expected.SystemName, actual.SystemName);
             Assert.AreEqual(expected.SystemNickname, actual.SystemNickname);
-            Assert.AreEqual(expected.SystemNicknameHash, actual.SystemNicknameHash);
         }
 
         public static void AreEqual(this Assert _, MiningZone expected, MiningZone actual)
@@ -68,14 +66,12 @@ namespace Discovery.Darkstat.Test
             Assert.That.AreEqual(expected.MiningInfo, actual.MiningInfo);
             Assert.AreEqual(expected.Name, actual.Name);
             Assert.AreEqual(expected.Nickname, actual.Nickname);
-            Assert.AreEqual(expected.NicknameHash, actual.NicknameHash);
             Assert.AreEqual(expected.Position, actual.Position);
             Assert.AreEqual(expected.RegionName, actual.RegionName);
             Assert.AreEqual(expected.SectorCoord, actual.SectorCoord);
             Assert.AreEqual(expected.StridName, actual.StridName);
             Assert.AreEqual(expected.SystemName, actual.SystemName);
             Assert.AreEqual(expected.SystemNickname, actual.SystemNickname);
-            Assert.AreEqual(expected.SystemNicknameHash, actual.SystemNicknameHash);
         }
 
         public static void AreEqual(this Assert _, MiningInfo expected, MiningInfo actual)
@@ -96,7 +92,6 @@ namespace Discovery.Darkstat.Test
             Assert.AreEqual(expected.IsServerSideOverride, actual.IsServerSideOverride);
             Assert.AreEqual(expected.Name, actual.Name);
             Assert.AreEqual(expected.Nickname, actual.Nickname);
-            Assert.AreEqual(expected.NicknameHash, actual.NicknameHash);
             Assert.AreEqual(expected.PriceBase, actual.PriceBase);
             Assert.AreEqual(expected.PriceModifier, actual.PriceModifier);
             Assert.AreEqual(expected.PriceToBuy, actual.PriceToBuy);
