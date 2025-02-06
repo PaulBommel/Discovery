@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Discovery.TradeMonitor.Test
 {
+    using Darkstat;
     [TestClass]
     public class SimulationDataSourceTest
     {
@@ -30,7 +31,7 @@ namespace Discovery.TradeMonitor.Test
 
         public static TradeRoute[] TradeRoutes { get; set; }
 
-        private static SimulationDataSourceProvider DataSourceProvider { get; } = new(new DarkstatHttpClientFactory());
+        private static SimulationDataSourceProvider DataSourceProvider { get; } = new(new DarkstatClient(new DarkstatHttpClientFactory()));
 
         public static IEnumerable<object[]> Routes
         {

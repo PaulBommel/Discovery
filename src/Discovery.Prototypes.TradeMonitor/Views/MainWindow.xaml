@@ -19,6 +19,9 @@
         </ResourceDictionary>
     </Window.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <ItemsControl ItemsSource="{Binding Path=Expanders}"/>
+        <StackPanel Orientation="Vertical">
+            <ItemsControl ItemsSource="{Binding Path=Expanders}"/>
+            <Button Content="Add" Command="{Binding Path=AddNewTradeRouteCommand}"/>
+        </StackPanel>
     </ScrollViewer>
 </Window>

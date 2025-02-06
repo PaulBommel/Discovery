@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Discovery.Darkstat;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -7,9 +9,10 @@ using System.Threading.Tasks;
 
 namespace Discovery.TradeMonitor
 {
-    public sealed class TradeMonitor(IHttpClientFactory httpClientFactory)
+    using Darkstat;
+    public sealed class TradeMonitor(IDarkstatClient client)
     {
-        private readonly SimulationDataSourceProvider _simulationProvider = new(httpClientFactory);
+        private readonly SimulationDataSourceProvider _simulationProvider = new(client);
 
         public async Task<SimulationResult[]> GetTradeSimulations(TradeRoute[] routes, CancellationToken token = default)
         {

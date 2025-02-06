@@ -13,15 +13,9 @@ namespace Discovery.TradeMonitor
     using Darkstat.PobQueryClient;
     using Darkstat.RouteQueryClient;
 
-    internal sealed class SimulationDataSourceProvider(IHttpClientFactory httpClientFactory)
+    internal sealed class SimulationDataSourceProvider(IDarkstatClient client)
     {
-        private readonly NpcQueryClient _npcQueryClient = new(httpClientFactory);
-        private readonly MarketGoodQueryClient _marketGoodQueryClient = new(httpClientFactory);
-        private readonly CommodityQueryClient _commodityQueryClient = new(httpClientFactory);
-        private readonly MiningZoneQueryClient _oreFieldQueryClient = new(httpClientFactory);
-        private readonly PobQueryClient _pobQueryClient = new(httpClientFactory);
-        private readonly ShipInfoQueryClient _shipInfoQueryClient = new(httpClientFactory);
-        private readonly RouteQueryClient _routeQueryClient = new(httpClientFactory);
+        private readonly IDarkstatClient _client = client;
 
         public async Task<SimulationDataSource> GetDataSourceAsync(TradeRoute[] routes, CancellationToken token = default)
         {
@@ -50,10 +44,10 @@ namespace Discovery.TradeMonitor
 
 
 
-            var npcTask = _npcQueryClient.GetNpcBasesAsync(token);
-            var pobTask = _pobQueryClient.GetPlayerBasesAsync(token);
-            var oreTask = _oreFieldQueryClient.GetMiningZonesAsync(token);
-            var commoditiesTask = _commodityQueryClient.GetCommoditiesAsync(token);
+            var npcTask = _client.GetNpcBasesAsync(token);
+            var pobTask = _client.GetPlayerBasesAsync(token);
+            var oreTask = _client.GetMiningZonesAsync(token);
+            var commoditiesTask = _client.GetCommoditiesAsync(token);
             await Task.WhenAll(npcTask, pobTask, oreTask, commoditiesTask);
             /*var station_nicknames = (from npc in npcTask.Result
                                      where npcTrades.Contains(npc.Name)
@@ -62,8 +56,8 @@ namespace Discovery.TradeMonitor
                                       where transportedCommodities.Contains(commodity.Name)
                                       select commodity.Nickname)
                                      .ToArray();
-            var marketGoods = await _marketGoodQueryClient.GetCommoditiesPerNicknameAsync(commodityNicknames, token);
-            return new(npcTask.Result, pobTask.Result, oreTask.Result, marketGoods, _routeQueryClient);
+            var marketGoods = await _client.GetCommoditiesPerNicknameAsync(commodityNicknames, token);
+            return new(npcTask.Result, pobTask.Result, oreTask.Result, marketGoods, _client);
         }
     }
 
@@ -71,7 +65,7 @@ namespace Discovery.TradeMonitor
                                              PlayerBase[] PobData,
                                              MiningZone[] OreFieldData,
                                              MarketGoodResponse[] MarketGoods,
-                                             RouteQueryClient RouteQueryClient)
+                                             IRouteQueryClient RouteQueryClient)
     {
         public async Task<Dictionary<Route, TimeSpan?>> GetTravelTimesAsync(TradeRoute route, CancellationToken token = default)
         {
