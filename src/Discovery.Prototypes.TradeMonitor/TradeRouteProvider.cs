@@ -83,6 +83,7 @@ namespace Discovery.Prototypes.TradeMonitor
             foreach (var route in GetDseRoutes())
                 yield return route;
         }
+
         public static IEnumerable<TradeRoute> GetKprRoutes()
         {
             yield return new TradeRoute()
