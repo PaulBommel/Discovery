@@ -29,6 +29,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{4C4EA0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discovery.Config", "src\Discovery.Config\Discovery.Config.csproj", "{A16F8D51-4923-489C-9389-8384EEC7DF0E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Characters", "Characters", "{C3FA89F7-FD05-42A3-9BCA-74FC980204A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discovery.Characters", "src\Discovery.Characters\Discovery.Characters.csproj", "{4F23F3E6-7DD5-493E-B624-038D48EAE4BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discovery.Characters.Test", "src\Discovery.Characters.Test\Discovery.Characters.Test.csproj", "{1A6991F0-23A1-4B11-907B-A494E2BE5227}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +69,14 @@ Global
 		{A16F8D51-4923-489C-9389-8384EEC7DF0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A16F8D51-4923-489C-9389-8384EEC7DF0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A16F8D51-4923-489C-9389-8384EEC7DF0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F23F3E6-7DD5-493E-B624-038D48EAE4BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F23F3E6-7DD5-493E-B624-038D48EAE4BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F23F3E6-7DD5-493E-B624-038D48EAE4BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F23F3E6-7DD5-493E-B624-038D48EAE4BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A6991F0-23A1-4B11-907B-A494E2BE5227}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A6991F0-23A1-4B11-907B-A494E2BE5227}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A6991F0-23A1-4B11-907B-A494E2BE5227}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A6991F0-23A1-4B11-907B-A494E2BE5227}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,5 +89,7 @@ Global
 		{DFFE2E36-72CF-4F76-9FB1-84EC8CDCEE62} = {2EFCA7D7-3668-4657-9780-8C105A9B1B29}
 		{FB889291-EB5F-4F4F-8815-6A77494ABDE3} = {4C4EA0D7-6AAF-4098-A443-E81E3727C77C}
 		{A16F8D51-4923-489C-9389-8384EEC7DF0E} = {4C4EA0D7-6AAF-4098-A443-E81E3727C77C}
+		{4F23F3E6-7DD5-493E-B624-038D48EAE4BA} = {C3FA89F7-FD05-42A3-9BCA-74FC980204A8}
+		{1A6991F0-23A1-4B11-907B-A494E2BE5227} = {C3FA89F7-FD05-42A3-9BCA-74FC980204A8}
 	EndGlobalSection
 EndGlobal
