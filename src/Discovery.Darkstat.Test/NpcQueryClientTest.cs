@@ -30,6 +30,15 @@ namespace Discovery.Darkstat.Test
 
         public TestContext TestContext { get; set; }
 
+        public static IEnumerable<object[]> GetNpcBasesParameters
+        {
+            get
+            {
+                yield return [TestAssembly.Darkstat.NpcQueryClient, new BaseQueryParameter() { NicknameFilter = ["br01_01_base"] }];
+                yield return [TestAssembly.Darkstat.NpcQueryClient, new BaseQueryParameter() { NicknameFilter = null }];
+            }
+        }
+
         public static IEnumerable<object[]> CompareData
         {
             get
@@ -69,15 +78,34 @@ namespace Discovery.Darkstat.Test
 
         #region Tests
 
-        [TestMethod]
-        public async Task GetNpcBasesAsyncTest()
+        [DataTestMethod]
+        [DynamicData(nameof(GetNpcBasesParameters))]
+        public async Task GetNpcBasesWithParameterAsyncTest(INpcBaseQueryClient client, BaseQueryParameter parameter)
         {
-            var client = TestAssembly.Darkstat.NpcQueryClient;
-            var bases = await client.GetNpcBasesAsync();
+            Assert.IsNotNull(client);
+            var bases = await client.GetNpcBasesAsync(parameter);
             Assert.IsNotNull(bases);
-            Assert.AreNotEqual(0, bases.Length);
+            if (parameter.NicknameFilter is null)
+                Assert.AreNotEqual(0, bases.Length);
+            else
+                Assert.AreEqual(parameter.NicknameFilter.Length, bases.Length);
             foreach (var npcBase in bases)
             {
+                if (parameter.NicknameFilter is not null)
+                    Assert.IsTrue(parameter.NicknameFilter.Contains(npcBase.Nickname));
+                if (parameter.IncludeMarketGoods)
+                {
+                    //Assert.IsNotNull(npcBase.MarketGoods, $"{nameof(npcBase.MarketGoods)} is null on {npcBase.Name}");
+                    //Assert.IsNotEmpty(npcBase.MarketGoods, $"{nameof(npcBase.MarketGoods)} is empty on {npcBase.Name}");
+                    if(npcBase.MarketGoods is not null)
+                        if(parameter.MarketGoodCategoryFilter is not null)
+                            foreach (var good in npcBase.MarketGoods)
+                            {
+                                Assert.IsTrue(parameter.MarketGoodCategoryFilter.Contains(good.Category));
+                            }    
+                }
+                else
+                    Assert.IsEmpty(npcBase.MarketGoods);
                 if (npcBase.IsReachhable == true)
                     Assert.That.HasPlausibleData(npcBase);
             }

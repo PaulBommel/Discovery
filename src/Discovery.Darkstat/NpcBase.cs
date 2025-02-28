@@ -73,5 +73,9 @@ namespace Discovery.Darkstat
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("is_reachhable")]
         public bool? IsReachhable { get; init; }
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("market_goods")]
+        public MarketGood[] MarketGoods { get; init; }
     }
 }

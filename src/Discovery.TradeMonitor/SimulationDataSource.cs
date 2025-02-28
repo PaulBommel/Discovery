@@ -44,9 +44,9 @@ namespace Discovery.TradeMonitor
 
 
 
-            var npcTask = _client.GetNpcBasesAsync(token);
+            var npcTask = _client.GetNpcBasesAsync(new() { NicknameFilter = null }, token);
             var pobTask = _client.GetPlayerBasesAsync(token);
-            var oreTask = _client.GetMiningZonesAsync(token);
+            var oreTask = _client.GetMiningZonesAsync(new() { NicknameFilter = null }, token);
             var commoditiesTask = _client.GetCommoditiesAsync(token);
             await Task.WhenAll(npcTask, pobTask, oreTask, commoditiesTask);
             /*var station_nicknames = (from npc in npcTask.Result

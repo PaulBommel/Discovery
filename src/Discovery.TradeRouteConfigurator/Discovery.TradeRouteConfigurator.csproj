@@ -1,18 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
     <TargetFrameworks>net9.0-windows</TargetFrameworks>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Discovery.Darkstat\Discovery.Darkstat.csproj" />
     <ProjectReference Include="..\Discovery.TradeMonitor\Discovery.TradeMonitor.csproj" />
-    <ProjectReference Include="..\Discovery.TradeRouteConfigurator\Discovery.TradeRouteConfigurator.csproj" />
   </ItemGroup>
+
   <ItemGroup>
-    <None Update="Routes.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <None Update="Templates\DataTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Templates\Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\ConfiguratorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
     </None>
   </ItemGroup>
 

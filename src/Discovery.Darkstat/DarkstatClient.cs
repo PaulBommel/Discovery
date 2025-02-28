@@ -33,16 +33,43 @@ namespace Discovery.Darkstat
             return [];
         }
 
+        [Obsolete]
         public Task<NpcBase[]> GetNpcBasesAsync(CancellationToken token = default)
         {
             var client = clientFactory.CreateClient();
             return client.GetFromJsonAsync<NpcBase[]>("/api/npc_bases", token);
         }
 
+        public async Task<NpcBase[]> GetNpcBasesAsync(BaseQueryParameter parameter, CancellationToken token = default)
+        {
+            var client = clientFactory.CreateClient();
+            var response = await client.PostAsJsonAsync("/api/npc_bases", parameter, token);
+            if (response.IsSuccessStatusCode)
+            {
+                using (var stream = await response.Content.ReadAsStreamAsync(token))
+                    return await JsonSerializer.DeserializeAsync<NpcBase[]>(stream, JsonSerializerOptions.Default, token);
+            }
+            return [];
+        }
+
+        [Obsolete]
         public Task<MiningZone[]> GetMiningZonesAsync(CancellationToken token = default)
         {
             var client = clientFactory.CreateClient();
             return client.GetFromJsonAsync<MiningZone[]>("/api/mining_operations", token);
+        }
+
+        public async Task<MiningZone[]> GetMiningZonesAsync(BaseQueryParameter parameter, CancellationToken token = default)
+        {
+            var client = clientFactory.CreateClient();
+            var response = await client.PostAsJsonAsync("/api/mining_operations", parameter, token);
+            if (response.IsSuccessStatusCode)
+            {
+                var str = await response.Content.ReadAsStringAsync(token);
+                using (var stream = await response.Content.ReadAsStreamAsync(token))
+                    return await JsonSerializer.DeserializeAsync<MiningZone[]>(stream, JsonSerializerOptions.Default, token);
+            }
+            return [];
         }
 
         public Task<PlayerBase[]> GetPlayerBasesAsync(CancellationToken token = default)

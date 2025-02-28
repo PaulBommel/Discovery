@@ -86,7 +86,7 @@ namespace Discovery.Darkstat
         public long DynamicLootDifficulty { get; init; }
 
         [JsonPropertyName("MinedGood")]
-        public required MinedGood MinedGood { get; init; }
+        public required MarketGood MinedGood { get; init; }
     }
 
     [DebuggerDisplay($"{{{nameof(Name)}}}")]

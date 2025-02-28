@@ -7,16 +7,15 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace Discovery.Prototypes.TradeMonitor.ViewModels
 {
     using Discovery.Darkstat;
     using Discovery.Prototypes.TradeMonitor.Views;
     using Discovery.TradeMonitor;
-
-    using System.Net.Http;
-    using System.Windows;
-    using System.Windows.Input;
+    using TradeRouteConfigurator;
 
     public class MainWindowViewModel : AbstractViewModel
     {
@@ -91,12 +90,7 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
 
         private async void AddNewTradeRoute(object parameter)
         {
-            var shipInfos = await _client.GetShipInfosAsync();
-            var dialog = new TradeRouteConfiguratorMainView() { DataContext = new TradeRouteConfiguratorMainViewModel(shipInfos) };
-            if (dialog.ShowDialog() == true)
-            {
-
-            }
+            var route = await _routeProvider.TradeRoutes[0].ShowConfiguratorDialog(_client);
         }
     }
 }

@@ -15,12 +15,16 @@ namespace Discovery.Darkstat
 
     public interface INpcBaseQueryClient
     {
+        [Obsolete]
         Task<NpcBase[]> GetNpcBasesAsync(CancellationToken token = default);
+        Task<NpcBase[]> GetNpcBasesAsync(BaseQueryParameter parameter, CancellationToken token = default);
     }
 
     public interface IMiningZoneQueryClient
     {
+        [Obsolete]
         Task<MiningZone[]> GetMiningZonesAsync(CancellationToken token = default);
+        Task<MiningZone[]> GetMiningZonesAsync(BaseQueryParameter parameter, CancellationToken token = default);
     }
 
     public interface IPlayerBaseQueryClient

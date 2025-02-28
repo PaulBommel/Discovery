@@ -1,0 +1,5 @@
+﻿<ResourceDictionary x:Class="Discovery.TradeRouteConfigurator.Templates.Styles"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:ViewModels="clr-namespace:Discovery.TradeRouteConfigurator.ViewModels">
+</ResourceDictionary>

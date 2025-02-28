@@ -1,0 +1,12 @@
+﻿<ResourceDictionary x:Class="Discovery.TradeRouteConfigurator.Templates.DataTemplates"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:ViewModels="clr-namespace:Discovery.TradeRouteConfigurator.ViewModels"
+                    xmlns:Views="clr-namespace:Discovery.TradeRouteConfigurator.Views">
+    <DataTemplate DataType="{x:Type ViewModels:ShipViewModel}">
+        <Views:ShipView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ViewModels:TradesViewModel}">
+        <Views:TradesView/>
+    </DataTemplate>
+</ResourceDictionary>

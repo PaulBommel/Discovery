@@ -13,52 +13,72 @@
             <Button Content="Ok" Command="{Binding Path=OkCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
         </StackPanel>
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Ship name: "/>
-            <TextBox  Grid.Row="0" Grid.Column="1" Text="{Binding Path=ShipName}"/>
-            <TextBlock Grid.Row="0" Grid.Column="2" Text="Cargo capacity: "/>
-            <TextBox  Grid.Row="0" Grid.Column="3" Text="{Binding Path=CargoCapacity}"/>
-            <TextBlock Grid.Row="0" Grid.Column="4" Text="Ship class: "/>
-            <ComboBox Grid.Row="0" Grid.Column="5"
+            <GroupBox Grid.Row="0" Header="Ship">
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0.25*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Ship name: "/>
+                    <TextBox  Grid.Row="0" Grid.Column="1" Text="{Binding Path=ShipName}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Cargo capacity: "/>
+                    <TextBox  Grid.Row="1" Grid.Column="1" Text="{Binding Path=CargoCapacity}"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Ship class: "/>
+                    <ComboBox Grid.Row="2" Grid.Column="1"
                       ItemsSource="{Binding Path=ShipClassSource}"
                       SelectedItem="{Binding Path=SelectedShipClass}"/>
-            <ComboBox Grid.Row="0" Grid.Column="7"
+                    <ComboBox Grid.Row="1" Grid.Column="3"
                       ItemsSource="{Binding Path=ShipInfoSource}"
                       SelectedItem="{Binding Path=SelectedShipInfo}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Path=Name}"/>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-            <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="8"
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </Grid>
+            </GroupBox>
+            <GroupBox Grid.Row="1" Header="Trades">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <ListBox Grid.Column="0" ItemsSource="{Binding Path=Locations}"/>
+                    <ListView Grid.Column="1"
                       ItemsSource="{Binding Path=Trades}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Location">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ComboBox ItemsSource="{Binding Path=Locations}"
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Location">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox ItemsSource="{Binding Path=Locations}"
                                               SelectedItem="{Binding Path=Location}"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <StackPanel Grid.Column="2" Orientation="Vertical">
+                        
+                    </StackPanel>
+                </Grid>
+            </GroupBox>
         </Grid>
     </DockPanel>
 </Window>

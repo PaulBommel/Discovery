@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Net.Mime;
 
@@ -6,13 +7,14 @@ namespace Discovery.Prototypes.TradeMonitor
 {
     internal class DarkstatHttpClientFactory : IHttpClientFactory
     {
-        public HttpClient CreateClient(string name)
-         => new()
-         {
-             BaseAddress = new("https://darkstat.dd84ai.com"),
-             DefaultRequestHeaders = {
+        private readonly Lazy<HttpClient> _client = new(() => new()
+        {
+            BaseAddress = new("https://darkstat.dd84ai.com"),
+            DefaultRequestHeaders = {
                  { HttpRequestHeader.Accept.ToString(), [ MediaTypeNames.Application.Json ] }
              }
-         };
+        });
+        public HttpClient CreateClient(string name)
+         => _client.Value;
     }
 }

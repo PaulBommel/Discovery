@@ -137,5 +137,31 @@ namespace Discovery.Darkstat.Test
             Assert.AreEqual(expected.Quantity, actual.Quantity);
             Assert.AreEqual(expected.SellPrice, actual.SellPrice);
         }
+
+        public static void AreEqual(this Assert _, MarketGood expected, MarketGood actual)
+        {
+            Assert.AreEqual(expected.BaseName, actual.BaseName);
+            Assert.AreEqual(expected.BaseNickname, actual.BaseNickname);
+            Assert.AreEqual(expected.BaseSells, actual.BaseSells);
+            Assert.AreEqual(expected.Category, actual.Category);
+            Assert.AreEqual(expected.FactionName, actual.FactionName);
+            Assert.AreEqual(expected.Nickname, actual.Nickname);
+            Assert.AreEqual(expected.HpType, actual.HpType);
+            Assert.AreEqual(expected.IsServerOverride, actual.IsServerOverride);
+            Assert.AreEqual(expected.LevelRequired, actual.LevelRequired);
+            Assert.AreEqual(expected.Name, actual.Name);
+            Assert.AreEqual(expected.Nickname, actual.Nickname);
+            Assert.AreEqual(expected.Position, actual.Position);
+            Assert.AreEqual(expected.PriceBase, actual.PriceBase);
+            Assert.AreEqual(expected.PriceBaseBuysFor, actual.PriceBaseBuysFor);
+            Assert.AreEqual(expected.PriceBaseSellsFor, actual.PriceBaseSellsFor);
+            Assert.AreEqual(expected.RegionName, actual.RegionName);
+            Assert.AreEqual(expected.RepRequired, actual.RepRequired);
+            Assert.AreEqual(expected.SectorCoord, actual.SectorCoord);
+            Assert.AreEqual(expected.ShipClass, actual.ShipClass);
+            Assert.AreEqual(expected.ShipNickname, actual.ShipNickname);
+            Assert.AreEqual(expected.SystemName, actual.SystemName);
+            Assert.AreEqual(expected.Volume, actual.Volume);
+        }
     }
 }

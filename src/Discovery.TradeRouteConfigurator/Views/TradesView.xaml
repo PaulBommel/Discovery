@@ -1,0 +1,125 @@
+﻿<UserControl x:Class="Discovery.TradeRouteConfigurator.Views.TradesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ViewModels="clr-namespace:Discovery.TradeRouteConfigurator.ViewModels"
+             xmlns:Views="clr-namespace:Discovery.TradeRouteConfigurator.Views"
+             xmlns:Templates="clr-namespace:Discovery.TradeRouteConfigurator.Templates"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance Type={x:Type ViewModels:TradesViewModel}, IsDesignTimeCreatable=True}">
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type ViewModels:TradeViewModel}" x:Key="CommoditiesPicker">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <GroupBox x:Name="grpBuy" Grid.Row="0" Header="Buy">
+                    <ListView ItemsSource="{Binding Path=Buy}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Commodity" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox ItemsSource="{Binding ElementName=grpBuy, Path=DataContext.BuyCommodities}"
+                                                      SelectedItem="{Binding Path=Commodity}"
+                                                      HorizontalAlignment="Center">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Path=Name}"/>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Quantity" DisplayMemberBinding="{Binding Path=Quantity}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </GroupBox>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1">
+                    <Button Content="+" Margin="5" Command="{Binding Path=AddNewBuyCommand}"/>
+                    <Button Content="-" Margin="5" Command="{Binding Path=RemoveBuyCommand}"/>
+                </StackPanel>
+                <GroupBox x:Name="grpSell" Grid.Row="2" Header="Sell">
+                    <ListView ItemsSource="{Binding Path=Sell}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Commodity" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox ItemsSource="{Binding ElementName=grpSell, Path=DataContext.SellCommodities}"
+                                                      SelectedItem="{Binding Path=Commodity}"
+                                                      HorizontalAlignment="Stretch"
+                                                      HorizontalContentAlignment="Stretch">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Path=Name}"/>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Quantity" DisplayMemberBinding="{Binding Path=Quantity}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </GroupBox>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="1">
+                    <Button Content="+" Margin="5" Command="{Binding Path=AddNewSellCommand}"/>
+                    <Button Content="-" Margin="5" Command="{Binding Path=RemoveSellCommand}"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <CheckBox Grid.Row="0" Grid.Column="0"
+                  IsChecked="{Binding Path=Locations.IsRegionFilter}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Region: "/>
+                <ComboBox ItemsSource="{Binding Path=Locations.Regions}" SelectedItem="{Binding Path=Locations.RegionFilter}"/>
+            </StackPanel>
+        </CheckBox>
+        <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Path=Locations.Source}" SelectedItem="{Binding Path=Locations.Selected}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=Name}"/>
+                    <GridViewColumn Header="System" DisplayMemberBinding="{Binding Path=SystemName}"/>
+                    <GridViewColumn Header="Region" DisplayMemberBinding="{Binding Path=RegionName}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+            <Button Content="+" Margin="5" Command="{Binding Path=AddTradeCommand}" CommandParameter="{Binding Path=Locations.Selected}"/>
+            <Button Content="-" Margin="5" Command="{Binding Path=RemoveTradeCommand}" CommandParameter="{Binding Path=Locations.Selected}"/>
+        </StackPanel>
+
+        <ListBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Path=Trades}" SelectedItem="{Binding Path=SelectedTrade}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=Location.Name}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <ContentPresenter Grid.RowSpan="3" Grid.Column="2" 
+                          Content="{Binding Path=SelectedTrade}" 
+                          ContentTemplate="{StaticResource ResourceKey=CommoditiesPicker}"/>
+    </Grid>
+</UserControl>
