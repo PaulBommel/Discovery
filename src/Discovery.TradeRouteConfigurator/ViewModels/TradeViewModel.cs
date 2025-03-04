@@ -25,17 +25,17 @@ namespace Discovery.TradeRouteConfigurator.ViewModels
             {
                 case TradeOnNpcBase trade:
                     Location = new Location() { Name = trade.Station.Name, Nickname = trade.Station.Nickname };
-                    Buy = [.. trade.Buy.Select(cargo => new CargoInShipViewModel(cargo))];
-                    Sell = [.. trade.Sell.Select(cargo => new CargoInShipViewModel(cargo))];
+                    Buy = trade.Buy is null ? [] : [.. trade.Buy.Select(cargo => new CargoInShipViewModel(cargo))];
+                    Sell = trade.Sell is null ? [] : [.. trade.Sell.Select(cargo => new CargoInShipViewModel(cargo))];
                     break;
                 case TradeOnPlayerBase trade:
                     Location = new Location() { Name = trade.Station.Name, Nickname = trade.Station.Nickname };
-                    Buy = [.. trade.Buy.Select(cargo => new CargoInShipViewModel(cargo))];
-                    Sell = [.. trade.Sell.Select(cargo => new CargoInShipViewModel(cargo))];
+                    Buy = trade.Buy is null ? [] : [.. trade.Buy.Select(cargo => new CargoInShipViewModel(cargo))];
+                    Sell = trade.Sell is null ? [] : [.. trade.Sell.Select(cargo => new CargoInShipViewModel(cargo))];
                     break;
                 case TradeOnMiningZone trade:
                     Location = new Location() { Name = trade.MiningZone.Name, Nickname = trade.MiningZone.Nickname };
-                    Buy = [.. trade.Buy.Select(cargo => new CargoInShipViewModel(cargo))];
+                    Buy = trade.Buy is null ? [] : [.. trade.Buy.Select(cargo => new CargoInShipViewModel(cargo))];
                     break;
             }
             BuyCommodities = buyCommodities;
