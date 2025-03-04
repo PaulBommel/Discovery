@@ -38,6 +38,8 @@ namespace Discovery.TradeRouteConfigurator.ViewModels
         public CargoInShipViewModel(CargoInShip cargoInShip)
         {
             CargoInShip = cargoInShip;
+            Commodity = new() { Name = cargoInShip.Name, NickName = cargoInShip.Nickname };
+            Quantity = cargoInShip.Count;
         }
 
         #endregion
