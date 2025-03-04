@@ -24,7 +24,12 @@ namespace Discovery.Darkstat
         /// <summary>
         /// Return the affiliated faction internal name of the entity.
         /// </summary>
+        [Obsolete]
         public string FactionNickname { get; }
+        /// <summary>
+        /// Return the affiliated faction name of the entity.
+        /// </summary>
+        public string FactionName { get; }
         /// <summary>
         /// Return region, where the base is located.
         /// </summary>

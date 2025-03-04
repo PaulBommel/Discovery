@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Numerics;
 using System.Text.Json.Serialization;
 
@@ -20,7 +21,12 @@ namespace Discovery.Darkstat
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("faction_nickname")]
-        public required string FactionNickname { get; init; }
+        [Obsolete]
+        public string FactionNickname { get; init; }
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("faction_name")]
+        public required string FactionName { get; init; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("system_name")]
