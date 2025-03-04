@@ -85,48 +85,53 @@ namespace Discovery.TradeRouteConfigurator.ViewModels
         {
             if (parameter is ILocation location)
             {
-                switch(location)
-                {
-                    case NpcBase npc:
-                        {
-                            var trade = new TradeMonitor.TradeOnNpcBase() 
-                            { 
-                                Station = new() { Name = npc.Name, Nickname = npc.Nickname },
-                                Buy = [],
-                                Sell = []
-                            };
-                            Commodity[] buyCommodities = [.. npc.MarketGoods.Where(g => g.BaseSells).Select(good => new Commodity() { Name = good.Name, NickName = good.Nickname })];
-                            Commodity[] sellCommodities = [.. npc.MarketGoods.Where(g => g.PriceBaseBuysFor.HasValue).Select(good => new Commodity() { Name = good.Name, NickName = good.Nickname })];
-                            Trades.Add(new(trade, buyCommodities, sellCommodities));
-                        }
-                        break;
-                    case PlayerBase pob:
-                        {
-                            var trade = new TradeMonitor.TradeOnPlayerBase() 
-                            { 
-                                Station = new() { Name = pob.Name, Nickname = pob.Nickname },
-                                Buy = [],
-                                Sell = []
-                            };
-                            Commodity[] buyCommodities = [.. pob.ShopItems.Where(g => g.SellPrice.HasValue).Select(good => new Commodity() { Name = good.Name, NickName = good.Nickname })];
-                            Commodity[] sellCommodities = [.. pob.ShopItems.Select(good => new Commodity() { Name = good.Name, NickName = good.Nickname })];
+                AddTrade(location);
+            }
+        }
 
-                            Trades.Add(new(trade, buyCommodities, sellCommodities));
-                        }
-                        break;
-                    case MiningZone zone:
+        internal void AddTrade(ILocation location)
+        {
+            switch (location)
+            {
+                case NpcBase npc:
+                    {
+                        var trade = new TradeMonitor.TradeOnNpcBase()
                         {
-                            var trade = new TradeMonitor.TradeOnMiningZone() 
-                            { 
-                                MiningZone = new() { Name = zone.Name, Nickname = zone.Nickname },
-                                Buy = []
-                            };
-                            var good = zone.MiningInfo.MinedGood;
-                            Commodity[] buyCommodities = [new Commodity() { Name = good.Name, NickName = good.Nickname }];
-                            Trades.Add(new(trade, buyCommodities, null));
-                        }
-                        break;
-                }
+                            Station = new() { Name = npc.Name, Nickname = npc.Nickname },
+                            Buy = [],
+                            Sell = []
+                        };
+                        Commodity[] buyCommodities = [.. npc.MarketGoods.Where(g => g.BaseSells).Select(good => new Commodity() { Name = good.Name, NickName = good.Nickname })];
+                        Commodity[] sellCommodities = [.. npc.MarketGoods.Where(g => g.PriceBaseBuysFor.HasValue).Select(good => new Commodity() { Name = good.Name, NickName = good.Nickname })];
+                        Trades.Add(new(trade, buyCommodities, sellCommodities));
+                    }
+                    break;
+                case PlayerBase pob:
+                    {
+                        var trade = new TradeMonitor.TradeOnPlayerBase()
+                        {
+                            Station = new() { Name = pob.Name, Nickname = pob.Nickname },
+                            Buy = [],
+                            Sell = []
+                        };
+                        Commodity[] buyCommodities = [.. pob.ShopItems.Where(g => g.SellPrice.HasValue).Select(good => new Commodity() { Name = good.Name, NickName = good.Nickname })];
+                        Commodity[] sellCommodities = [.. pob.ShopItems.Select(good => new Commodity() { Name = good.Name, NickName = good.Nickname })];
+
+                        Trades.Add(new(trade, buyCommodities, sellCommodities));
+                    }
+                    break;
+                case MiningZone zone:
+                    {
+                        var trade = new TradeMonitor.TradeOnMiningZone()
+                        {
+                            MiningZone = new() { Name = zone.Name, Nickname = zone.Nickname },
+                            Buy = []
+                        };
+                        var good = zone.MiningInfo.MinedGood;
+                        Commodity[] buyCommodities = [new Commodity() { Name = good.Name, NickName = good.Nickname }];
+                        Trades.Add(new(trade, buyCommodities, null));
+                    }
+                    break;
             }
         }
 
