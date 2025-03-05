@@ -83,8 +83,8 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
         {
             var provider = new TradeRouteProvider();
             await provider.LoadAsync(fileName, token);
-            await provider.ExtendRoutesAsync(new(_client));
-            await provider.SaveAsync(fileName, token);
+            //await provider.ExtendRoutesAsync(new(_client));
+            //await provider.SaveAsync(fileName, token);
             _routeProvider = provider;
             Expanders = TradeExpanderViewModel.FromRoutes(_tradeMonitor, _routeProvider).ToArray();
             Refresh();
