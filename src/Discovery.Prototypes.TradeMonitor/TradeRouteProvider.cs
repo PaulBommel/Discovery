@@ -29,15 +29,6 @@ namespace Discovery.Prototypes.TradeMonitor
         public ObservableCollection<TradeRoute> TradeRoutes { get; } = [];
         public TradeRoute[] Routes { get; init; }
 
-        public async Task LoadAsync(TradeRouteExtender extender)
-        {
-            var routes = GetTradeRoutes().ToArray();
-
-            TradeRoutes.Clear();
-            foreach (var route in routes)
-                TradeRoutes.Add(await extender.ExtendAsync(route));
-            await SaveAsync("Routes.json");
-        }
         public Task SaveAsync(string filePath, CancellationToken token = default)
         {
             var json = JsonSerializer.Serialize(TradeRoutes);
