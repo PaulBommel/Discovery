@@ -57,14 +57,13 @@ namespace Discovery.TradeMonitor
                                       select commodity.Nickname)
                                      .ToArray();
             var marketGoods = await _client.GetCommoditiesPerNicknameAsync(commodityNicknames, token);
-            return new(npcTask.Result, pobTask.Result, oreTask.Result, marketGoods, _client);
+            return new(npcTask.Result, pobTask.Result, oreTask.Result, _client);
         }
     }
 
     public sealed class SimulationDataSource(NpcBase[] NpcData,
                                              PlayerBase[] PobData,
                                              MiningZone[] OreFieldData,
-                                             MarketGoodResponse[] MarketGoods,
                                              IRouteQueryClient RouteQueryClient)
     {
         public async Task<Dictionary<Route, TimeSpan?>> GetTravelTimesAsync(TradeRoute route, CancellationToken token = default)
@@ -106,32 +105,32 @@ namespace Discovery.TradeMonitor
             => trade switch
             {
                 TradeOnMiningZone _ => 0,
-                TradeOnNpcBase npc => (from data in MarketGoods
-                                      from good in data.MarketGoods
-                                      where good.BaseName == trade.Station.Name
-                                      where good.Name == commodity
-                                      select good.PriceBaseSellsFor).FirstOrDefault(),
-                TradeOnPlayerBase npc => PobData
-                                        .SingleOrDefault(station => station.Name == npc.Station.Name)?
-                                        .ShopItems
-                                        .SingleOrDefault(item => item.Name == commodity)?
-                                        .Price ?? 0,
+                TradeOnNpcBase npc => (from station in NpcData
+                                       where station.Nickname == trade.Station.Nickname
+                                       from good in station.MarketGoods
+                                       where good.Nickname == commodity
+                                       select good.PriceBaseSellsFor).FirstOrDefault(),
+                TradeOnPlayerBase pob => (from station in PobData
+                                          where station.Nickname == trade.Station.Nickname
+                                          from good in station.ShopItems
+                                          where good.Nickname == commodity
+                                          select good.Price).FirstOrDefault() ?? 0,
                 _ => throw new KeyNotFoundException()
             };
 
         public long GetSellPrice(ITradeOnStation trade, string commodity)
             => trade switch
             {
-                TradeOnNpcBase npc => (from data in MarketGoods
-                                       from good in data.MarketGoods
-                                       where good.BaseName == trade.Station.Name
-                                       where good.Name == commodity
-                                       select good.PriceBaseBuysFor).FirstOrDefault() ?? 0,
-                TradeOnPlayerBase npc => PobData
-                                        .SingleOrDefault(station => station.Name == npc.Station.Name)?
-                                        .ShopItems
-                                        .SingleOrDefault(item => item.Name == commodity)?
-                                        .SellPrice ?? 0,
+                TradeOnNpcBase npc => (from station in NpcData
+                                       where station.Nickname == trade.Station.Nickname
+                                       from good in station.MarketGoods
+                                       where good.Nickname == commodity
+                                       select good.PriceBaseSellsFor).FirstOrDefault(),
+                TradeOnPlayerBase pob => (from station in PobData
+                                          where station.Nickname == trade.Station.Nickname
+                                          from good in station.ShopItems
+                                          where good.Nickname == commodity
+                                          select good.Price).FirstOrDefault() ?? 0,
                 _ => throw new KeyNotFoundException()
             };
 

@@ -68,7 +68,7 @@ namespace Discovery.TradeMonitor
             for(int i = 0; i < trade.Buy.Length; ++i)
             {
                 count[i] = trade.Buy[i].Count;
-                prices[i] = dataSource.GetBuyPrice(trade, trade.Buy[i].Name);
+                prices[i] = dataSource.GetBuyPrice(trade, trade.Buy[i].Nickname);
                 cost += prices[i] * count[i];
             }
             return new()
@@ -92,7 +92,7 @@ namespace Discovery.TradeMonitor
             for (int i = 0; i < trade.Sell.Length; ++i)
             {
                 count[i] = trade.Sell[i].Count;
-                prices[i] = dataSource.GetSellPrice(trade, trade.Sell[i].Name);
+                prices[i] = dataSource.GetSellPrice(trade, trade.Sell[i].Nickname);
                 revenue += prices[i] * count[i];
             }
             return new()

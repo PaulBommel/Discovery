@@ -87,7 +87,7 @@ namespace Discovery.TradeMonitor.Test
                 if (trade.Buy is not null && trade is not TradeOnMiningZone)
                 {
                     foreach (var cargo in trade.Buy)
-                        Assert.AreNotEqual(0, dataSource.GetBuyPrice(trade, cargo.Name));
+                        Assert.AreNotEqual(0, dataSource.GetBuyPrice(trade, cargo.Nickname));
                 }
             }
         }
