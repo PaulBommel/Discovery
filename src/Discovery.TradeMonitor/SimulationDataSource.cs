@@ -8,10 +8,7 @@ using System.Threading.Tasks;
 namespace Discovery.TradeMonitor
 {
     using Darkstat;
-    using Darkstat.NpcQueryClient;
-    using Darkstat.OreFieldQueryClient;
-    using Darkstat.PobQueryClient;
-    using Darkstat.RouteQueryClient;
+    using System.Reflection;
 
     internal sealed class SimulationDataSourceProvider(IDarkstatClient client)
     {
@@ -19,44 +16,34 @@ namespace Discovery.TradeMonitor
 
         public async Task<SimulationDataSource> GetDataSourceAsync(TradeRoute[] routes, CancellationToken token = default)
         {
-            var transportedCommodities = (from route in routes
-                                          from trade in route.Trades
-                                          where trade is TradeOnNpcBase
-                                          where trade.Buy is not null
-                                          from buy in trade.Buy
-                                          select buy.Name)
-                                         .Union(
-                                          from route in routes
-                                          from trade in route.Trades
-                                          where trade is TradeOnNpcBase
-                                          where trade.Sell is not null
-                                          from sell in trade.Sell
-                                          select sell.Name)
-                                         .Distinct()
-                                         .ToArray();
+            List<string> npcTrades = [], pobTrades = [], miningTrades = [];
+            foreach(var route in routes)
+            {
+                foreach(var trade in route.Trades)
+                {
+                    switch(trade)
+                    {
+                        case TradeOnMiningZone mining:
+                            if (!miningTrades.Contains(mining.MiningZone.Nickname))
+                                miningTrades.Add(mining.MiningZone.Nickname);
+                            break;
+                        case TradeOnNpcBase npc:
+                            if (!miningTrades.Contains(npc.Station.Nickname))
+                                npcTrades.Add(npc.Station.Nickname);
+                            break;
+                        case TradeOnPlayerBase pob:
+                            if (!pobTrades.Contains(pob.Station.Nickname))
+                                pobTrades.Add(pob.Station.Nickname);
+                            break;
+                    }
+                }
+            }
 
-            var npcTrades = (from route in routes
-                             from trade in route.Trades
-                             where trade is TradeOnNpcBase
-                             select trade.Station)
-                            .Distinct()
-                            .ToArray();
-
-
-
-            var npcTask = _client.GetNpcBasesAsync(new() { NicknameFilter = null }, token);
+            var npcTask = _client.GetNpcBasesAsync(new() { NicknameFilter = [.. npcTrades] }, token);
             var pobTask = _client.GetPlayerBasesAsync(token);
-            var oreTask = _client.GetMiningZonesAsync(new() { NicknameFilter = null }, token);
-            var commoditiesTask = _client.GetCommoditiesAsync(token);
-            await Task.WhenAll(npcTask, pobTask, oreTask, commoditiesTask);
-            /*var station_nicknames = (from npc in npcTask.Result
-                                     where npcTrades.Contains(npc.Name)
-                                     select npc.Nickname).ToArray();*/
-            var commodityNicknames = (from commodity in commoditiesTask.Result
-                                      where transportedCommodities.Contains(commodity.Name)
-                                      select commodity.Nickname)
-                                     .ToArray();
-            var marketGoods = await _client.GetCommoditiesPerNicknameAsync(commodityNicknames, token);
+            var oreTask = _client.GetMiningZonesAsync(new() { NicknameFilter = [.. miningTrades] }, token);
+            await Task.WhenAll(npcTask, pobTask, oreTask);
+
             return new(npcTask.Result, pobTask.Result, oreTask.Result, _client);
         }
     }
