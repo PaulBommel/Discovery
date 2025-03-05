@@ -42,10 +42,6 @@ namespace Discovery.Darkstat
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string SystemName { get; init; }
 
-        [JsonPropertyName("faction_nickname")]
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string FactionNickname { get; init; }
-
         [JsonPropertyName("faction_name")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string FactionName { get; init; }

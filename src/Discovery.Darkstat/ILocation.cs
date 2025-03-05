@@ -22,11 +22,6 @@ namespace Discovery.Darkstat
         /// </summary>
         public string Nickname { get; }
         /// <summary>
-        /// Return the affiliated faction internal name of the entity.
-        /// </summary>
-        [Obsolete]
-        public string FactionNickname { get; }
-        /// <summary>
         /// Return the affiliated faction name of the entity.
         /// </summary>
         public string FactionName { get; }

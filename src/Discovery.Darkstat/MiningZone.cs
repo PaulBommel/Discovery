@@ -20,11 +20,6 @@ namespace Discovery.Darkstat
         public required string Nickname { get; init; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        [JsonPropertyName("faction_nickname")]
-        [Obsolete]
-        public string FactionNickname { get; init; }
-
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("faction_name")]
         public required string FactionName { get; init; }
 

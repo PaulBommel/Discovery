@@ -21,7 +21,7 @@ namespace Discovery.Darkstat.Test
             Assert.IsNotNull(pointOfInterest);
             Assert.IsFalse(string.IsNullOrWhiteSpace(pointOfInterest.Name));
             Assert.IsFalse(string.IsNullOrWhiteSpace(pointOfInterest.Nickname), $"The property '{nameof(ILocation.Nickname)}' for {pointOfInterest.Name} is empty.");
-            Assert.IsFalse(string.IsNullOrWhiteSpace(pointOfInterest.FactionNickname), $"The property '{nameof(ILocation.FactionNickname)}' for {pointOfInterest.Name} is empty.");
+            Assert.IsFalse(string.IsNullOrWhiteSpace(pointOfInterest.FactionName), $"The property '{nameof(ILocation.FactionName)}' for {pointOfInterest.Name} is empty.");
             Assert.IsFalse(string.IsNullOrWhiteSpace(pointOfInterest.RegionName), $"The property '{nameof(ILocation.RegionName)}' for {pointOfInterest.Name} is empty.");
             Assert.IsFalse(string.IsNullOrWhiteSpace(pointOfInterest.SystemName), $"The property '{nameof(ILocation.SystemName)}' for {pointOfInterest.Name} is empty.");
             Assert.IsFalse(string.IsNullOrWhiteSpace(pointOfInterest.SystemNickname), $"The property '{nameof(ILocation.SystemNickname)}' for {pointOfInterest.Name} is empty.");
@@ -34,7 +34,7 @@ namespace Discovery.Darkstat.Test
                 for (int i = 0; i < expected.Archetypes.Length; ++i)
                     Assert.AreEqual(expected.Archetypes[i], actual.Archetypes[i]);
             Assert.AreEqual(expected.BgcsBaseRunBy, actual.BgcsBaseRunBy);
-            Assert.AreEqual(expected.FactionNickname, actual.FactionNickname);
+            Assert.AreEqual(expected.FactionName, actual.FactionName);
             Assert.AreEqual(expected.File, actual.File);
             Assert.AreEqual(expected.InfocardId, actual.InfocardId);
             Assert.AreEqual(expected.InfocardKey, actual.InfocardKey);
@@ -57,7 +57,7 @@ namespace Discovery.Darkstat.Test
                 for (int i = 0; i < expected.Archetypes.Length; ++i)
                     Assert.AreEqual(expected.Archetypes[i], actual.Archetypes[i]);
             Assert.AreEqual(expected.BgcsBaseRunBy, actual.BgcsBaseRunBy);
-            Assert.AreEqual(expected.FactionNickname, actual.FactionNickname);
+            Assert.AreEqual(expected.FactionName, actual.FactionName);
             Assert.AreEqual(expected.File, actual.File);
             Assert.AreEqual(expected.InfocardId, actual.InfocardId);
             Assert.AreEqual(expected.InfocardKey, actual.InfocardKey);
@@ -106,7 +106,6 @@ namespace Discovery.Darkstat.Test
         {
             Assert.AreEqual(expected.DefenseMode, actual.DefenseMode);
             Assert.AreEqual(expected.FactionName, actual.FactionName);
-            Assert.AreEqual(expected.FactionNickname, actual.FactionNickname);
             Assert.AreEqual(expected.ForumThreadUrl, actual.ForumThreadUrl);
             Assert.AreEqual(expected.Health, actual.Health);
             Assert.AreEqual(expected.Level, actual.Level);
