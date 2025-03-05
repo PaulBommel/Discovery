@@ -69,6 +69,12 @@ namespace Discovery.Prototypes.TradeMonitor
                 TradeRoutes.Add(route);
         }
 
+        public async Task ExtendRoutesAsync(TradeRouteExtender extender)
+        {
+            for (int i = 0; i < TradeRoutes.Count; ++i)
+                TradeRoutes[i] = await extender.ExtendAsync(TradeRoutes[i]);
+        }
+
         #region static
 
         private static readonly ShipInfo Train = new ShipInfo("Rheinland Train", 5000, 9);

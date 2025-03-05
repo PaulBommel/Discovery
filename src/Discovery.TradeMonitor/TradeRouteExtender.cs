@@ -16,7 +16,7 @@ namespace Discovery.TradeMonitor
             var miningZones = await client.GetMiningZonesAsync();
             var playerBases = await client.GetPlayerBasesAsync();
             var commodities = await client.GetCommoditiesAsync();
-            return route with { Trades = route.Trades.Extend(npcBases, miningZones, playerBases, commodities)?.ToArray() };
+            return route with { Name = route.Name ?? route.GetDefaultName(), Trades = route.Trades.Extend(npcBases, miningZones, playerBases, commodities)?.ToArray() };
         }
     }
 
