@@ -45,8 +45,8 @@ namespace Discovery.TradeRouteConfigurator
             foreach(var trade in route.Trades)
             {
                 var location = locations.Single(l => l.Name == trade.Station.Name);
-                var commodities = location.GetAvailableGoods();
-                viewModel.Trades.Add(new(trade, commodities.BuyCommodities, commodities.SellCommodities));
+                location.GetAvailableGoods(out var buyCommodities, out var sellCommodities);
+                viewModel.Trades.Add(new(trade, buyCommodities, sellCommodities));
             }
             return viewModel;
         }
@@ -63,25 +63,27 @@ namespace Discovery.TradeRouteConfigurator
             return npcs.Union(pobs).Union(zones);
         }
 
-        internal static (Models.Commodity[] BuyCommodities, Models.Commodity[] SellCommodities) GetAvailableGoods(this ILocation location)
-            => location switch
+        internal static void GetAvailableGoods(this ILocation location, out Models.Commodity[] buyCommodities, out Models.Commodity[] sellCommodities)
+        {
+            switch(location)
             {
-                NpcBase npc => new()
-                {
-                    BuyCommodities = [.. npc.MarketGoods.Where(g => g.BaseSells).Select(good => new Models.Commodity() { Name = good.Name, NickName = good.Nickname })],
-                    SellCommodities = [.. npc.MarketGoods.Where(g => g.PriceBaseBuysFor.HasValue).Select(good => new Models.Commodity() { Name = good.Name, NickName = good.Nickname })]
-                },
-                PlayerBase pob => new()
-                {
-                    BuyCommodities = [.. pob.ShopItems.Where(g => g.SellPrice.HasValue).Select(good => new Models.Commodity() { Name = good.Name, NickName = good.Nickname })],
-                    SellCommodities = [.. pob.ShopItems.Select(good => new Models.Commodity() { Name = good.Name, NickName = good.Nickname })]
-                },
-                MiningZone zone => new()
-                {
-                    BuyCommodities = [new Models.Commodity() { Name = zone.MiningInfo.MinedGood.Name, NickName = zone.MiningInfo.MinedGood.Nickname }],
-                    SellCommodities = []
-                },
-                _ => throw new ArgumentException()
+                case NpcBase npc:
+                    buyCommodities = [.. npc.MarketGoods.Where(g => g.BaseSells).Select(good => new Models.Commodity() { Name = good.Name, NickName = good.Nickname })];
+                    sellCommodities = [.. npc.MarketGoods.Where(g => g.PriceBaseBuysFor.HasValue).Select(good => new Models.Commodity() { Name = good.Name, NickName = good.Nickname })];
+                    break;
+                case PlayerBase pob:
+                    buyCommodities = [.. pob.ShopItems.Where(g => g.SellPrice.HasValue).Select(good => new Models.Commodity() { Name = good.Name, NickName = good.Nickname })];
+                    sellCommodities = [.. pob.ShopItems.Select(good => new Models.Commodity() { Name = good.Name, NickName = good.Nickname })];
+                    break;
+                case MiningZone zone:
+                    buyCommodities = [new Models.Commodity() { Name = zone.MiningInfo.MinedGood.Name, NickName = zone.MiningInfo.MinedGood.Nickname }];
+                    sellCommodities = null;
+                        break;
+                default:
+                    buyCommodities = null;
+                    sellCommodities = null;
+                    break;
             };
+        }
     }
 }
