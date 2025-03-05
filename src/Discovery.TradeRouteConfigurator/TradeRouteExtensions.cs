@@ -20,14 +20,25 @@ namespace Discovery.TradeRouteConfigurator
             var locationTask = GetLocations(client, token);
             var shipTask = client.GetShipInfosAsync(token);
             await Task.WhenAll(locationTask, shipTask);
-            var viewModel = new ConfiguratorViewModel(route.Ship.ToShipViewModel(shipTask.Result), route.ToTradesViewModel([.. locationTask.Result]));
+            var viewModel = new ConfiguratorViewModel(route.Ship.ToShipViewModel(shipTask.Result), route.ToTradesViewModel([.. locationTask.Result]))
+            {
+                Name = route.Name,
+                Category = route.Category
+            };
             var dialog = new ConfiguratorView() 
             { 
                 DataContext = viewModel 
             };
+            viewModel.SaveCommand = new DelegateCommand(p => dialog.DialogResult = true);
             if (dialog.ShowDialog() == true)
             {
-
+                route = new TradeRoute()
+                {
+                    Name = viewModel.Name,
+                    Category = viewModel.Category,
+                    Ship = viewModel.Ship.ToShipInfo(),
+                    Trades = [.. viewModel.Trades.ToTradeOnStation()]
+                };
             }
             return route;
         }
@@ -39,6 +50,10 @@ namespace Discovery.TradeRouteConfigurator
                 ShipName = shipinfo.Name,
                 CargoCapacity = shipinfo.CargoCapacity
             };
+
+        public static Discovery.TradeMonitor.ShipInfo ToShipInfo(this ShipViewModel viewmodel)
+            => new(viewmodel.ShipName, viewmodel.CargoCapacity, (int)viewmodel.SelectedShipClass );
+
         public static TradesViewModel ToTradesViewModel(this TradeRoute route, ILocation[] locations)
         {
             var viewModel = new TradesViewModel(locations);
@@ -49,6 +64,14 @@ namespace Discovery.TradeRouteConfigurator
                 viewModel.Trades.Add(new(trade, buyCommodities, sellCommodities));
             }
             return viewModel;
+        }
+
+        public static IEnumerable<ITradeOnStation> ToTradeOnStation(this TradesViewModel viewmodel)
+        {
+            foreach(var trade in viewmodel.Trades)
+            {
+                yield return trade.ToTradeOnStation();
+            }
         }
 
         internal static async Task<IEnumerable<ILocation>> GetLocations(IDarkstatClient client, CancellationToken token = default)

@@ -19,6 +19,24 @@
     </Window.Resources>
     <DockPanel LastChildFill="True">
         <ContentPresenter DockPanel.Dock="Top" Content="{Binding Path=Ship}"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" DockPanel.Dock="Bottom">
+            <Button Content="Cancel" Width="50" Margin="5" IsCancel="True"/>
+            <Button Content="Ok" Width="50" Margin="5" Command="{Binding Path=SaveCommand}" />
+        </StackPanel>
+        <Grid DockPanel.Dock="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="300"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Route name: "/>
+            <TextBox  Grid.Row="0" Grid.Column="1" Text="{Binding Path=Name}"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Route Category: "/>
+            <TextBox  Grid.Row="1" Grid.Column="1" Text="{Binding Path=Category}"/>
+        </Grid>
         <ContentPresenter Content="{Binding Path=Trades}"/>
     </DockPanel>
 </Window>

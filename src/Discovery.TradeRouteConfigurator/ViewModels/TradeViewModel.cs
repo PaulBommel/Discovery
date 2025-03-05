@@ -15,6 +15,8 @@ namespace Discovery.TradeRouteConfigurator.ViewModels
     {
         #region Members
 
+        private readonly Func<ITradeOnStation> _toTradeOnStation;
+
         #endregion
 
         #region Constructors
@@ -27,15 +29,18 @@ namespace Discovery.TradeRouteConfigurator.ViewModels
                     Location = new Location() { Name = trade.Station.Name, Nickname = trade.Station.Nickname };
                     Buy = trade.Buy is null ? [] : [.. trade.Buy.Select(cargo => new CargoInShipViewModel(cargo))];
                     Sell = trade.Sell is null ? [] : [.. trade.Sell.Select(cargo => new CargoInShipViewModel(cargo))];
+                    _toTradeOnStation = () => new TradeOnNpcBase(Location, [.. Buy.Select(b => b.CargoInShip)], [.. Sell.Select(s => s.CargoInShip)]);
                     break;
                 case TradeOnPlayerBase trade:
                     Location = new Location() { Name = trade.Station.Name, Nickname = trade.Station.Nickname };
                     Buy = trade.Buy is null ? [] : [.. trade.Buy.Select(cargo => new CargoInShipViewModel(cargo))];
                     Sell = trade.Sell is null ? [] : [.. trade.Sell.Select(cargo => new CargoInShipViewModel(cargo))];
+                    _toTradeOnStation = () => new TradeOnPlayerBase(Location, [.. Buy.Select(b => b.CargoInShip)], [.. Sell.Select(s => s.CargoInShip)]);
                     break;
                 case TradeOnMiningZone trade:
                     Location = new Location() { Name = trade.MiningZone.Name, Nickname = trade.MiningZone.Nickname };
                     Buy = trade.Buy is null ? [] : [.. trade.Buy.Select(cargo => new CargoInShipViewModel(cargo))];
+                    _toTradeOnStation = () => new TradeOnMiningZone(Location, [.. Buy.Select(b => b.CargoInShip)]);
                     break;
             }
             BuyCommodities = buyCommodities;
@@ -99,6 +104,9 @@ namespace Discovery.TradeRouteConfigurator.ViewModels
             if (parameter is CargoInShipViewModel viewModel && Sell.Contains(viewModel))
                 Sell.Remove(viewModel);
         }
+
+        public ITradeOnStation ToTradeOnStation()
+            => _toTradeOnStation();
 
         #endregion
     }
