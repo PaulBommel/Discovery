@@ -46,7 +46,7 @@ namespace Discovery.TradeRouteConfigurator
         public static ShipViewModel ToShipViewModel(this Discovery.TradeMonitor.ShipInfo shipinfo, Darkstat.ShipInfo[] shipInfoSource)
             => new(shipInfoSource)
             {
-                SelectedShipClass = (ShipClass)shipinfo.ShipClass,
+                SelectedShipClass = (ShipClass?)shipinfo.ShipClass,
                 ShipName = shipinfo.Name,
                 CargoCapacity = shipinfo.CargoCapacity
             };
@@ -57,12 +57,13 @@ namespace Discovery.TradeRouteConfigurator
         public static TradesViewModel ToTradesViewModel(this TradeRoute route, ILocation[] locations)
         {
             var viewModel = new TradesViewModel(locations);
-            foreach(var trade in route.Trades)
-            {
-                var location = locations.Single(l => l.Name == trade.Station.Name);
-                location.GetAvailableGoods(out var buyCommodities, out var sellCommodities);
-                viewModel.Trades.Add(new(trade, buyCommodities, sellCommodities));
-            }
+            if(route.Trades is not null)
+                foreach(var trade in route.Trades)
+                {
+                    var location = locations.Single(l => l.Name == trade.Station.Name);
+                    location.GetAvailableGoods(out var buyCommodities, out var sellCommodities);
+                    viewModel.Trades.Add(new(trade, buyCommodities, sellCommodities));
+                }
             return viewModel;
         }
 

@@ -15,6 +15,9 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
     using Discovery.Darkstat;
     using Discovery.Prototypes.TradeMonitor.Views;
     using Discovery.TradeMonitor;
+
+    using System.Collections.Specialized;
+
     using TradeRouteConfigurator;
 
     public class MainWindowViewModel : AbstractViewModel
@@ -87,9 +90,16 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
             await provider.LoadAsync(fileName, token);
             //await provider.ExtendRoutesAsync(new(_client));
             //await provider.SaveAsync(fileName, token);
+            CollectionChangedEventManager.RemoveHandler(_routeProvider?.TradeRoutes, OnTradeRoutesChanged);
             _routeProvider = provider;
-            Expanders = TradeExpanderViewModel.FromRoutes(_tradeMonitor, _routeProvider).ToArray();
+            CollectionChangedEventManager.AddHandler(_routeProvider.TradeRoutes, OnTradeRoutesChanged);
+            OnTradeRoutesChanged(this, new(NotifyCollectionChangedAction.Reset));
             Refresh();
+        }
+
+        private void OnTradeRoutesChanged(object sender, NotifyCollectionChangedEventArgs args)
+        {
+            Expanders = [.. TradeExpanderViewModel.FromRoutes(_tradeMonitor, _routeProvider)];
         }
 
         private async void AddNewTradeRoute(object parameter)
