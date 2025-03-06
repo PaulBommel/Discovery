@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <None Remove="Images\edit.svg" />
+    <None Remove="Images\newroute.svg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +21,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\edit.svg" />
+    <Resource Include="Images\newroute.svg" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Routes.json">

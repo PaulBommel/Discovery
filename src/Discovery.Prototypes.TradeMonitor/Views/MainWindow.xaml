@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Discovery.Prototypes.TradeMonitor"
         xmlns:ViewModels="clr-namespace:Discovery.Prototypes.TradeMonitor.ViewModels"
         xmlns:Templates="clr-namespace:Discovery.Prototypes.TradeMonitor.Templates"
+        xmlns:svg="https://github.com/dotnetprojects/SVGImage"
         mc:Ignorable="d"
         Title="Trade monitor prototype" SizeToContent="WidthAndHeight"
         MaxHeight="800"
@@ -18,10 +19,25 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Orientation="Vertical">
-            <ItemsControl ItemsSource="{Binding Path=Expanders}"/>
-            <Button Content="Add" Command="{Binding Path=AddNewTradeRouteCommand}"/>
-        </StackPanel>
-    </ScrollViewer>
+    <DockPanel LastChildFill="True">
+        <Ribbon DockPanel.Dock="Top">
+            <Ribbon.ApplicationMenu>
+                <RibbonApplicationMenu>
+                    <RibbonApplicationMenuItem Header="Save" Command=""/>
+                </RibbonApplicationMenu>
+            </Ribbon.ApplicationMenu>
+            <RibbonTab Header="Common">
+                <RibbonGroup Header="New">
+                    <RibbonButton Label="Route"
+                                  LargeImageSource="{svg:SvgIcon Source=/Images/newroute.svg}"
+                                  Command="{Binding Path=AddNewTradeRouteCommand}"/>
+                </RibbonGroup>
+            </RibbonTab>
+        </Ribbon>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical">
+                <ItemsControl ItemsSource="{Binding Path=Expanders}"/>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
 </Window>

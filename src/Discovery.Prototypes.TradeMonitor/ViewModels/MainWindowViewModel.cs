@@ -46,6 +46,7 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
                 _tradeMonitor = new TradeMonitor(_client);
             }
             AddNewTradeRouteCommand = new DelegateCommand(AddNewTradeRoute);
+            SaveCommand = new DelegateCommand(Save);
         }
 
         public MainWindowViewModel(IDarkstatClient client)
@@ -71,6 +72,7 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
         }
 
         public ICommand AddNewTradeRouteCommand { get; }
+        public ICommand SaveCommand { get; }
 
         public void Refresh()
         {
@@ -92,7 +94,11 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
 
         private async void AddNewTradeRoute(object parameter)
         {
-            var route = await _routeProvider.TradeRoutes[0].ShowConfiguratorDialog(_client);
+            var route = await new TradeRoute().ShowConfiguratorDialog(_client);
+            _routeProvider.TradeRoutes.Add(route);
         }
+
+        private async void Save(object parameter)
+            => await _routeProvider.SaveAsync("Routes.json");
     }
 }
