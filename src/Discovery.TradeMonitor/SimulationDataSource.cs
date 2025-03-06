@@ -112,12 +112,12 @@ namespace Discovery.TradeMonitor
                                        where station.Nickname == trade.Station.Nickname
                                        from good in station.MarketGoods
                                        where good.Nickname == commodity
-                                       select good.PriceBaseSellsFor).FirstOrDefault(),
+                                       select good.PriceBaseBuysFor).FirstOrDefault() ?? 0,
                 TradeOnPlayerBase pob => (from station in PobData
                                           where station.Nickname == trade.Station.Nickname
                                           from good in station.ShopItems
                                           where good.Nickname == commodity
-                                          select good.Price).FirstOrDefault() ?? 0,
+                                          select good.SellPrice).FirstOrDefault() ?? 0,
                 _ => throw new KeyNotFoundException()
             };
 
