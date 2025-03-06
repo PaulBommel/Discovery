@@ -82,11 +82,10 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
 
         public static IEnumerable<TradeExpanderViewModel> FromRoutes(TradeMonitor monitor, TradeRouteProvider routesProvider)
         {
-            var origins = routesProvider.TradeRoutes.Select(route => route.Trades[0].Station).Distinct();
-            foreach (var origin in origins)
+            var groups = routesProvider.TradeRoutes.GroupBy(route => route.Category);
+            foreach (var group in groups)
             {
-                var routePerOrigin = routesProvider.TradeRoutes.Where(route => route.Trades[0].Station == origin).ToArray();
-                yield return new(monitor, origin.Name, new(routesProvider.TradeRoutes, routePerOrigin));
+                yield return new(monitor, group.Key, new(routesProvider.TradeRoutes, [.. group]));
             }
         }
 

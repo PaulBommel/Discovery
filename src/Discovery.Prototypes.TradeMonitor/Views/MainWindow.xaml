@@ -23,7 +23,7 @@
         <Ribbon DockPanel.Dock="Top">
             <Ribbon.ApplicationMenu>
                 <RibbonApplicationMenu>
-                    <RibbonApplicationMenuItem Header="Save" Command=""/>
+                    <RibbonApplicationMenuItem Header="Save" Command="{Binding Path=SaveCommand}"/>
                 </RibbonApplicationMenu>
             </Ribbon.ApplicationMenu>
             <RibbonTab Header="Common">
