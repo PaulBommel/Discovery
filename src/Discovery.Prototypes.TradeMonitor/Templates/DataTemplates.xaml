@@ -3,7 +3,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Discovery.Prototypes.TradeMonitor.Templates"
                     xmlns:ViewModels="clr-namespace:Discovery.Prototypes.TradeMonitor.ViewModels"
-                    xmlns:TradeMonitor="clr-namespace:Discovery.TradeMonitor;assembly=Discovery.TradeMonitor">
+                    xmlns:TradeMonitor="clr-namespace:Discovery.TradeMonitor;assembly=Discovery.TradeMonitor"
+                    xmlns:svg="https://github.com/dotnetprojects/SVGImage">
     <DataTemplate DataType="{x:Type ViewModels:TradeExpanderViewModel}">
         <Expander Header="{Binding Path=Origin}" IsExpanded="{Binding Path=IsExpanded}">
             <ItemsControl ItemsSource="{Binding Path=TradeResults}"/>
@@ -12,9 +13,9 @@
     <DataTemplate DataType="{x:Type ViewModels:TradeResultViewModel}">
         <Expander Content="{Binding Path=Result}" IsExpanded="{Binding Path=IsExpanded}" BorderThickness="1" BorderBrush="Black" Margin="5">
             <Expander.Header>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding Path=Header}"/>
-                    <TextBlock Text="{Binding Path=Result.StockLimit.Limit, StringFormat=({0})}" Margin="2,0">
+                <DockPanel HorizontalAlignment="Center">
+                    <TextBlock DockPanel.Dock="Left" Text="{Binding Path=Header}"/>
+                    <TextBlock DockPanel.Dock="Left" Text="{Binding Path=Result.StockLimit.Limit, StringFormat=({0})}" Margin="2,0">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
                                 <Style.Triggers>
@@ -25,7 +26,10 @@
                             </Style>
                         </TextBlock.Style>
                     </TextBlock>
-                </StackPanel>
+                    <Button DockPanel.Dock="Right" Command="{Binding Path=ConfigureCommand}">
+                        <svg:SVGImage Source="Images/edit.svg" Width="15" Height="15"/>
+                    </Button>
+                </DockPanel>
             </Expander.Header>
         </Expander>
     </DataTemplate>

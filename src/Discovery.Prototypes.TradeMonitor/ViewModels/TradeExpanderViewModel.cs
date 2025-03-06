@@ -2,16 +2,19 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Windows;
+using System.Windows.Input;
 
 namespace Discovery.Prototypes.TradeMonitor.ViewModels
 {
     using Discovery.TradeMonitor;
-    public sealed class TradeResultViewModel(string Header, SimulationResult Result, bool IsExpanded)
+    using TradeRouteConfigurator;
+
+    public sealed class TradeResultViewModel(string Header, SimulationResult Result, bool IsExpanded, ICommand ConfigureCommand)
     {
         public string Header { get; } = Header;
         public SimulationResult Result { get; } = Result;
         public bool IsExpanded { get; set; } = IsExpanded;
+        public ICommand ConfigureCommand { get; } = ConfigureCommand;
     }
 
     public sealed class TradeExpanderViewModel : INotifyPropertyChanged
@@ -93,11 +96,25 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
             var viewmodels = new TradeResultViewModel[results.Length];
             for (int i = 0; i < results.Length; ++i)
             {
-                var header = RouteProvider.Routes[i].Name;
-                viewmodels[i] = new(header, results[i], results[i].StockLimit?.Limit != 0);
+                var route = RouteProvider.Routes[i];
+                var header = route.Name;
+                viewmodels[i] = new(header, results[i], results[i].StockLimit?.Limit != 0, CreateTradeRouteConfigCommand(route));
             }
             TradeResults = viewmodels;
         }
+
+        private ICommand CreateTradeRouteConfigCommand(TradeRoute route)
+            => new DelegateCommand(async p =>
+            {
+                var tradeRouteIndex = RouteProvider.TradeRoutes.IndexOf(route);
+                var routeIndex = Array.IndexOf(RouteProvider.Routes, route);
+                var newRoute = await route.ShowConfiguratorDialog(_monitor.Client);
+                if(route != newRoute)
+                {
+                    RouteProvider.Routes[routeIndex] = newRoute;
+                    RouteProvider.TradeRoutes[tradeRouteIndex] = newRoute;
+                }
+            });
 
         #endregion
     }

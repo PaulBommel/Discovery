@@ -5,10 +5,21 @@
     <TargetFrameworks>net9.0-windows</TargetFrameworks>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\edit.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotNetProjects.SVGImage" Version="5.2.3" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Discovery.Darkstat\Discovery.Darkstat.csproj" />
     <ProjectReference Include="..\Discovery.TradeMonitor\Discovery.TradeMonitor.csproj" />
     <ProjectReference Include="..\Discovery.TradeRouteConfigurator\Discovery.TradeRouteConfigurator.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\edit.svg" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Routes.json">
