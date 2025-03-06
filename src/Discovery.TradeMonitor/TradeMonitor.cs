@@ -14,6 +14,8 @@ namespace Discovery.TradeMonitor
     {
         private readonly SimulationDataSourceProvider _simulationProvider = new(client);
 
+        public IDarkstatClient Client { get; } = client;
+
         public async Task<SimulationResult[]> GetTradeSimulations(TradeRoute[] routes, CancellationToken token = default)
         {
             var dataSource = await _simulationProvider.GetDataSourceAsync(routes, token);
