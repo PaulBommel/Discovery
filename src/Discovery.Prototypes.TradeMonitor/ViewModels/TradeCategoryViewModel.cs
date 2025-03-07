@@ -98,9 +98,10 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
             var viewmodels = new TradeResultViewModel[results.Length];
             for (int i = 0; i < results.Length; ++i)
             {
-                var route = RouteProvider.Routes[i];
+                var result = results[i];
+                var route = RouteProvider.Routes.Single(r => r.Name == result.RouteName);
                 var header = route.Name;
-                viewmodels[i] = new(header, results[i], true, CreateTradeRouteConfigCommand(route));
+                viewmodels[i] = new(header, result, true, CreateTradeRouteConfigCommand(route));
             }
             TradeResults = viewmodels;
         }
