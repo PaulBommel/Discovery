@@ -31,6 +31,7 @@
             <DockingManager.LayoutItemContainerStyle>
                 <Style TargetType="{x:Type LayoutItem}">
                     <Setter Property="Title" Value="{Binding Path=Model.Title}"/>
+                    <Setter Property="IsActive" Value="{Binding Path=Model.IsActive, Mode=TwoWay}"/>
                 </Style>
             </DockingManager.LayoutItemContainerStyle>
             <LayoutRoot>
