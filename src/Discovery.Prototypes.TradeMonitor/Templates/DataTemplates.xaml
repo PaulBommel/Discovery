@@ -5,8 +5,8 @@
                     xmlns:ViewModels="clr-namespace:Discovery.Prototypes.TradeMonitor.ViewModels"
                     xmlns:TradeMonitor="clr-namespace:Discovery.TradeMonitor;assembly=Discovery.TradeMonitor"
                     xmlns:svg="https://github.com/dotnetprojects/SVGImage">
-    <DataTemplate DataType="{x:Type ViewModels:TradeExpanderViewModel}">
-        <Expander Header="{Binding Path=Origin}" IsExpanded="{Binding Path=IsExpanded}">
+    <DataTemplate DataType="{x:Type ViewModels:TradeCategoryViewModel}">
+        <Expander Header="{Binding Path=Category}" IsExpanded="{Binding Path=IsExpanded}">
             <ItemsControl ItemsSource="{Binding Path=TradeResults}"/>
         </Expander>
     </DataTemplate>

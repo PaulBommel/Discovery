@@ -17,7 +17,7 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
         public ICommand ConfigureCommand { get; } = ConfigureCommand;
     }
 
-    public sealed class TradeExpanderViewModel : INotifyPropertyChanged
+    public sealed class TradeCategoryViewModel : INotifyPropertyChanged
     {
         #region Members
 
@@ -38,10 +38,10 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
 
         #region Constructors
 
-        public TradeExpanderViewModel(TradeMonitor monitor, string origin, TradeRouteProvider routeProvider)
+        public TradeCategoryViewModel(TradeMonitor monitor, string category, TradeRouteProvider routeProvider)
         {
             _monitor = monitor;
-            Origin = origin;
+            Category = category;
             RouteProvider = routeProvider;
         }
 
@@ -51,7 +51,7 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
 
         public TradeRouteProvider RouteProvider { get; }
 
-        public string Origin { get; }
+        public string Category { get; }
 
         public bool IsExpanded
         {
@@ -80,7 +80,7 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
 
         #region Methods
 
-        public static IEnumerable<TradeExpanderViewModel> FromRoutes(TradeMonitor monitor, TradeRouteProvider routesProvider)
+        public static IEnumerable<TradeCategoryViewModel> FromRoutes(TradeMonitor monitor, TradeRouteProvider routesProvider)
         {
             var groups = routesProvider.TradeRoutes.GroupBy(route => route.Category);
             foreach (var group in groups)

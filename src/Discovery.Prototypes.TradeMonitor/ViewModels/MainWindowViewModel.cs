@@ -36,7 +36,7 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
         private readonly TradeMonitor _tradeMonitor;
         private readonly Timer _refreshTimer;
 
-        private TradeExpanderViewModel[] _expanders;
+        private TradeCategoryViewModel[] _expanders;
 
         #endregion
 
@@ -61,7 +61,7 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
             _refreshTimer = new(state => Refresh(), null, TimeSpan.FromSeconds(2), TimeSpan.FromMinutes(5));
         }
 
-        public TradeExpanderViewModel[] Expanders
+        public TradeCategoryViewModel[] Expanders
         {
             get => _expanders;
             set
@@ -99,7 +99,7 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
 
         private void OnTradeRoutesChanged(object sender, NotifyCollectionChangedEventArgs args)
         {
-            Expanders = [.. TradeExpanderViewModel.FromRoutes(_tradeMonitor, _routeProvider)];
+            Expanders = [.. TradeCategoryViewModel.FromRoutes(_tradeMonitor, _routeProvider)];
         }
 
         private async void AddNewTradeRoute(object parameter)
