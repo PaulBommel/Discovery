@@ -31,12 +31,12 @@ namespace Discovery.Prototypes.TradeMonitor
 
         public Task SaveAsync(string filePath, CancellationToken token = default)
         {
-            var json = JsonSerializer.Serialize(TradeRoutes);
+            var json = JsonSerializer.Serialize(TradeRoutes, new JsonSerializerOptions() { WriteIndented = true });
             return File.WriteAllTextAsync(filePath, json, token);
         }
         public void Save(string filePath)
         {
-            var json = JsonSerializer.Serialize(TradeRoutes);
+            var json = JsonSerializer.Serialize(TradeRoutes, new JsonSerializerOptions() { WriteIndented = true });
             File.WriteAllTextAsync(filePath, json);
         }
         public async Task LoadAsync(string filePath, CancellationToken token = default)

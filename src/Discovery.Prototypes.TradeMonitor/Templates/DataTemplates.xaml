@@ -10,9 +10,9 @@
         <Views:MenuView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type ViewModels:TradeCategoryViewModel}">
-        <Expander Header="{Binding Path=Category}" IsExpanded="{Binding Path=IsExpanded}">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
             <ItemsControl ItemsSource="{Binding Path=TradeResults}"/>
-        </Expander>
+        </ScrollViewer>
     </DataTemplate>
     <DataTemplate DataType="{x:Type ViewModels:TradeResultViewModel}">
         <Expander Content="{Binding Path=Result}" IsExpanded="{Binding Path=IsExpanded}" BorderThickness="1" BorderBrush="Black" Margin="5">

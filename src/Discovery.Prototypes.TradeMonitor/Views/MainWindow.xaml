@@ -9,8 +9,8 @@
               xmlns:svg="https://github.com/dotnetprojects/SVGImage"
               xmlns:Avalon="https://github.com/Dirkster99/AvalonDock"
               mc:Ignorable="d"
-              Title="Trade monitor prototype" SizeToContent="WidthAndHeight"
-              MaxHeight="800"
+              Title="Trade monitor prototype"
+              Height="800" Width="1200"
               d:DataContext="{d:DesignInstance Type={x:Type ViewModels:MainWindowViewModel}, IsDesignTimeCreatable=True}">
     <RibbonWindow.Resources>
         <ResourceDictionary>
@@ -26,16 +26,16 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <ContentPresenter Grid.Row="0" Content="{Binding Path=Menu}"/>
-        <DockingManager Grid.Row="1">
+        <DockingManager Grid.Row="1"
+                        DocumentsSource="{Binding Path=Expanders}">
+            <DockingManager.LayoutItemContainerStyle>
+                <Style TargetType="{x:Type LayoutItem}">
+                    <Setter Property="Title" Value="{Binding Path=Model.Title}"/>
+                </Style>
+            </DockingManager.LayoutItemContainerStyle>
             <LayoutRoot>
                 <LayoutPanel>
-                    <LayoutDocumentPane >
-                        <LayoutDocument Title="Simulations">
-                            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                <ItemsControl ItemsSource="{Binding Path=Expanders}"/>
-                            </ScrollViewer>
-                        </LayoutDocument>
-                    </LayoutDocumentPane>
+                    <LayoutDocumentPane/>
                 </LayoutPanel>
             </LayoutRoot>
         </DockingManager>

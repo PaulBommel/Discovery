@@ -41,6 +41,7 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
         public TradeCategoryViewModel(TradeMonitor monitor, string category, TradeRouteProvider routeProvider)
         {
             _monitor = monitor;
+            Title = category;
             Category = category;
             RouteProvider = routeProvider;
         }
@@ -50,6 +51,8 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
         #region Properties
 
         public TradeRouteProvider RouteProvider { get; }
+
+        public string Title { get; }
 
         public string Category { get; }
 
@@ -97,7 +100,7 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
             {
                 var route = RouteProvider.Routes[i];
                 var header = route.Name;
-                viewmodels[i] = new(header, results[i], results[i].StockLimit?.Limit != 0, CreateTradeRouteConfigCommand(route));
+                viewmodels[i] = new(header, results[i], true, CreateTradeRouteConfigCommand(route));
             }
             TradeResults = viewmodels;
         }
