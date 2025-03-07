@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Discovery.TradeMonitor
 {
@@ -44,6 +46,7 @@ namespace Discovery.TradeMonitor
             }
             return new SimulationResult()
             {
+                RouteName = route.Name,
                 RouteResults = routeResults,
                 TotalCost = cost,
                 TotalProfit = profit,
@@ -107,7 +110,9 @@ namespace Discovery.TradeMonitor
         }
     }
 
-    public readonly record struct SimulationResult(long TotalCost,
+    [DebuggerDisplay($"{{{nameof(RouteName)}}}")]
+    public readonly record struct SimulationResult(string RouteName,
+                                                   long TotalCost,
                                                    long TotalRevenue,
                                                    long TotalProfit,
                                                    TimeSpan TravelTime,
