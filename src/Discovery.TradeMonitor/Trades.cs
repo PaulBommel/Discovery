@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.Linq;
 using System.Text.Json.Serialization;
 
 namespace Discovery.TradeMonitor
 {
+    [DebuggerDisplay($"{{{nameof(Name)}}}")]
     public readonly record struct TradeRoute(ShipInfo Ship,
                                              ITradeOnStation[] Trades,
                                              string Name,
