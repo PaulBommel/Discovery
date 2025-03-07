@@ -1,1 +1,652 @@
-[{"Ship":{"Name":"Lucullus","CargoCapacity":4000,"ShipClass":10},"Trades":[{"DestinationType":"Npc","Station":{"Name":"Planet Amiens","Nickname":"ga03_01_base"},"Buy":[{"Name":"Criminal Cells (Gallia)","Nickname":"commodity_criminals_ga","Count":16}],"Sell":[{"Name":"Aluminium","Nickname":"commodity_aluminium","Count":4000}]},{"DestinationType":"Npc","Station":{"Name":"Mecklenburg Prison","Nickname":"rh10_01_base"},"Buy":[{"Name":"Hydrogen","Nickname":"commodity_hydrogen","Count":4000}],"Sell":[{"Name":"Criminal Cells (Gallia)","Nickname":"commodity_criminals_ga","Count":16}]},{"DestinationType":"Pob","Station":{"Name":"Breuninger Depot","Nickname":"breuninger_depot"},"Buy":[{"Name":"Aluminium","Nickname":"commodity_aluminium","Count":4000}],"Sell":[{"Name":"Hydrogen","Nickname":"commodity_hydrogen","Count":4000}]}],"Name":"Gallia Prisoners","Category":"Rheinland Polizei"},{"Ship":{"Name":"Rheinland Train","CargoCapacity":5000,"ShipClass":9},"Trades":[{"DestinationType":"Pob","Station":{"Name":"Ruhrpott Mining Facility","Nickname":"ruhrpott_mining_facility"},"Buy":[],"Sell":[{"Name":"Uncut Diamonds","Nickname":"commodity_uncut_diamonds","Count":5000}]},{"DestinationType":"Mining","MiningZone":{"Name":"Uncut Diamonds","Nickname":"zone_bw04_mining_diamonds"},"Buy":[{"Name":"Uncut Diamonds","Nickname":"commodity_uncut_diamonds","Count":5000}]}],"Name":"Uncut Diamond supply","Category":"Ruhrpott Mining Facility"},{"Ship":{"Name":"Rheinland Train","CargoCapacity":5000,"ShipClass":9},"Trades":[{"DestinationType":"Pob","Station":{"Name":"Ruhrpott Mining Facility","Nickname":"ruhrpott_mining_facility"},"Buy":[],"Sell":[{"Name":"Silver Ore","Nickname":"commodity_silver_ore","Count":5000}]},{"DestinationType":"Mining","MiningZone":{"Name":"Silver Ore","Nickname":"zone_bw03_silver_mineable"},"Buy":[{"Name":"Silver Ore","Nickname":"commodity_silver_ore","Count":5000}]}],"Name":"Silver Ore supply","Category":"Ruhrpott Mining Facility"},{"Ship":{"Name":"Rheinland Train","CargoCapacity":5000,"ShipClass":9},"Trades":[{"DestinationType":"Pob","Station":{"Name":"Arnsberg Research Institute","Nickname":"arnsberg_research_institute"},"Buy":[{"Name":"Propulsion Systems","Nickname":"commodity_ship_part_propulsion","Count":140}],"Sell":[{"Name":"Robotics","Nickname":"commodity_robotic_hardware","Count":4200}]},{"DestinationType":"Pob","Station":{"Name":"Susquehanna Station","Nickname":"susquehanna_station"},"Buy":[],"Sell":[{"Name":"Propulsion Systems","Nickname":"commodity_ship_part_propulsion","Count":140}]},{"DestinationType":"Npc","Station":{"Name":"Scottsdale Refinery","Nickname":"ga07_02_base"},"Buy":[{"Name":"Copper","Nickname":"commodity_copper","Count":4200}],"Sell":[]},{"DestinationType":"Npc","Station":{"Name":"Essen Station","Nickname":"rh01_06_base"},"Buy":[{"Name":"Robotics","Nickname":"commodity_robotic_hardware","Count":4200}],"Sell":[{"Name":"Copper","Nickname":"commodity_copper","Count":4200}]}],"Name":"Robotics supply","Category":"Arnsberg Research Institute"},{"Ship":{"Name":"Uruz","CargoCapacity":4200,"ShipClass":8},"Trades":[{"DestinationType":"Pob","Station":{"Name":"Susquehanna Station","Nickname":"susquehanna_station"},"Buy":[],"Sell":[{"Name":"Oxygen","Nickname":"commodity_oxygen","Count":4200}]},{"DestinationType":"Npc","Station":{"Name":"Planet Curacao","Nickname":"iw04_01_base"},"Buy":[{"Name":"Oxygen","Nickname":"commodity_oxygen","Count":4200}],"Sell":[]}],"Name":"Oxygen supply","Category":"Susquehanna Station"},{"Ship":{"Name":"Uruz","CargoCapacity":4200,"ShipClass":8},"Trades":[{"DestinationType":"Pob","Station":{"Name":"Susquehanna Station","Nickname":"susquehanna_station"},"Buy":[],"Sell":[{"Name":"Water","Nickname":"commodity_water","Count":4200}]},{"DestinationType":"Npc","Station":{"Name":"Planet Curacao","Nickname":"iw04_01_base"},"Buy":[{"Name":"Water","Nickname":"commodity_water","Count":4200}],"Sell":[]}],"Name":"Water supply","Category":"Susquehanna Station"},{"Ship":{"Name":"Uruz","CargoCapacity":4200,"ShipClass":8},"Trades":[{"DestinationType":"Pob","Station":{"Name":"Susquehanna Station","Nickname":"susquehanna_station"},"Buy":[],"Sell":[{"Name":"Synth Paste","Nickname":"commodity_synthpaste","Count":4200}]},{"DestinationType":"Npc","Station":{"Name":"Planet Curacao","Nickname":"iw04_01_base"},"Buy":[{"Name":"Synth Paste","Nickname":"commodity_synthpaste","Count":4200}],"Sell":[]}],"Name":"Synth Paste supply","Category":"Susquehanna Station"},{"Ship":{"Name":"Uruz","CargoCapacity":4200,"ShipClass":8},"Trades":[{"DestinationType":"Pob","Station":{"Name":"Susquehanna Station","Nickname":"susquehanna_station"},"Buy":[],"Sell":[{"Name":"Synth Paste","Nickname":"commodity_synthpaste","Count":1400},{"Name":"Water","Nickname":"commodity_water","Count":1400},{"Name":"Oxygen","Nickname":"commodity_oxygen","Count":1400}]},{"DestinationType":"Npc","Station":{"Name":"Planet Curacao","Nickname":"iw04_01_base"},"Buy":[{"Name":"Synth Paste","Nickname":"commodity_synthpaste","Count":1400},{"Name":"Water","Nickname":"commodity_water","Count":1400},{"Name":"Oxygen","Nickname":"commodity_oxygen","Count":1400}],"Sell":[]}],"Name":"FOW supply","Category":"Susquehanna Station"}]
+[
+  {
+    "Ship": {
+      "Name": "Lucullus",
+      "CargoCapacity": 4000,
+      "ShipClass": 10
+    },
+    "Trades": [
+      {
+        "DestinationType": "Npc",
+        "Station": {
+          "Name": "Planet Amiens",
+          "Nickname": "ga03_01_base"
+        },
+        "Buy": [
+          {
+            "Name": "Criminal Cells (Gallia)",
+            "Nickname": "commodity_criminals_ga",
+            "Count": 16
+          }
+        ],
+        "Sell": [
+          {
+            "Name": "Aluminium",
+            "Nickname": "commodity_aluminium",
+            "Count": 4000
+          }
+        ]
+      },
+      {
+        "DestinationType": "Npc",
+        "Station": {
+          "Name": "Mecklenburg Prison",
+          "Nickname": "rh10_01_base"
+        },
+        "Buy": [
+          {
+            "Name": "Hydrogen",
+            "Nickname": "commodity_hydrogen",
+            "Count": 4000
+          }
+        ],
+        "Sell": [
+          {
+            "Name": "Criminal Cells (Gallia)",
+            "Nickname": "commodity_criminals_ga",
+            "Count": 16
+          }
+        ]
+      },
+      {
+        "DestinationType": "Pob",
+        "Station": {
+          "Name": "Breuninger Depot",
+          "Nickname": "breuninger_depot"
+        },
+        "Buy": [
+          {
+            "Name": "Aluminium",
+            "Nickname": "commodity_aluminium",
+            "Count": 4000
+          }
+        ],
+        "Sell": [
+          {
+            "Name": "Hydrogen",
+            "Nickname": "commodity_hydrogen",
+            "Count": 4000
+          }
+        ]
+      }
+    ],
+    "Name": "Gallia Prisoners",
+    "Category": "Rheinland Polizei"
+  },
+  {
+    "Ship": {
+      "Name": "Rheinland Train",
+      "CargoCapacity": 5000,
+      "ShipClass": 9
+    },
+    "Trades": [
+      {
+        "DestinationType": "Pob",
+        "Station": {
+          "Name": "Ruhrpott Mining Facility",
+          "Nickname": "ruhrpott_mining_facility"
+        },
+        "Buy": [],
+        "Sell": [
+          {
+            "Name": "Uncut Diamonds",
+            "Nickname": "commodity_uncut_diamonds",
+            "Count": 5000
+          }
+        ]
+      },
+      {
+        "DestinationType": "Mining",
+        "MiningZone": {
+          "Name": "Uncut Diamonds",
+          "Nickname": "zone_bw04_mining_diamonds"
+        },
+        "Buy": [
+          {
+            "Name": "Uncut Diamonds",
+            "Nickname": "commodity_uncut_diamonds",
+            "Count": 5000
+          }
+        ]
+      }
+    ],
+    "Name": "Uncut Diamond supply",
+    "Category": "Ruhrpott Mining Facility"
+  },
+  {
+    "Ship": {
+      "Name": "Rheinland Train",
+      "CargoCapacity": 5000,
+      "ShipClass": 9
+    },
+    "Trades": [
+      {
+        "DestinationType": "Pob",
+        "Station": {
+          "Name": "Ruhrpott Mining Facility",
+          "Nickname": "ruhrpott_mining_facility"
+        },
+        "Buy": [],
+        "Sell": [
+          {
+            "Name": "Silver Ore",
+            "Nickname": "commodity_silver_ore",
+            "Count": 5000
+          }
+        ]
+      },
+      {
+        "DestinationType": "Mining",
+        "MiningZone": {
+          "Name": "Silver Ore",
+          "Nickname": "zone_bw03_silver_mineable"
+        },
+        "Buy": [
+          {
+            "Name": "Silver Ore",
+            "Nickname": "commodity_silver_ore",
+            "Count": 5000
+          }
+        ]
+      }
+    ],
+    "Name": "Silver Ore supply",
+    "Category": "Ruhrpott Mining Facility"
+  },
+  {
+    "Ship": {
+      "Name": "Rheinland Train",
+      "CargoCapacity": 5000,
+      "ShipClass": 9
+    },
+    "Trades": [
+      {
+        "DestinationType": "Pob",
+        "Station": {
+          "Name": "Arnsberg Research Institute",
+          "Nickname": "arnsberg_research_institute"
+        },
+        "Buy": [
+          {
+            "Name": "Propulsion Systems",
+            "Nickname": "commodity_ship_part_propulsion",
+            "Count": 140
+          }
+        ],
+        "Sell": [
+          {
+            "Name": "Robotics",
+            "Nickname": "commodity_robotic_hardware",
+            "Count": 4200
+          }
+        ]
+      },
+      {
+        "DestinationType": "Pob",
+        "Station": {
+          "Name": "Susquehanna Station",
+          "Nickname": "susquehanna_station"
+        },
+        "Buy": [],
+        "Sell": [
+          {
+            "Name": "Propulsion Systems",
+            "Nickname": "commodity_ship_part_propulsion",
+            "Count": 140
+          }
+        ]
+      },
+      {
+        "DestinationType": "Npc",
+        "Station": {
+          "Name": "Scottsdale Refinery",
+          "Nickname": "ga07_02_base"
+        },
+        "Buy": [
+          {
+            "Name": "Copper",
+            "Nickname": "commodity_copper",
+            "Count": 4200
+          }
+        ],
+        "Sell": []
+      },
+      {
+        "DestinationType": "Npc",
+        "Station": {
+          "Name": "Essen Station",
+          "Nickname": "rh01_06_base"
+        },
+        "Buy": [
+          {
+            "Name": "Robotics",
+            "Nickname": "commodity_robotic_hardware",
+            "Count": 4200
+          }
+        ],
+        "Sell": [
+          {
+            "Name": "Copper",
+            "Nickname": "commodity_copper",
+            "Count": 4200
+          }
+        ]
+      }
+    ],
+    "Name": "Robotics supply",
+    "Category": "Arnsberg Research Institute"
+  },
+  {
+    "Ship": {
+      "Name": "Uruz",
+      "CargoCapacity": 4200,
+      "ShipClass": 8
+    },
+    "Trades": [
+      {
+        "DestinationType": "Pob",
+        "Station": {
+          "Name": "Susquehanna Station",
+          "Nickname": "susquehanna_station"
+        },
+        "Buy": [],
+        "Sell": [
+          {
+            "Name": "Oxygen",
+            "Nickname": "commodity_oxygen",
+            "Count": 4200
+          }
+        ]
+      },
+      {
+        "DestinationType": "Npc",
+        "Station": {
+          "Name": "Planet Curacao",
+          "Nickname": "iw04_01_base"
+        },
+        "Buy": [
+          {
+            "Name": "Oxygen",
+            "Nickname": "commodity_oxygen",
+            "Count": 4200
+          }
+        ],
+        "Sell": []
+      }
+    ],
+    "Name": "Oxygen supply",
+    "Category": "Susquehanna Station"
+  },
+  {
+    "Ship": {
+      "Name": "Uruz",
+      "CargoCapacity": 4200,
+      "ShipClass": 8
+    },
+    "Trades": [
+      {
+        "DestinationType": "Pob",
+        "Station": {
+          "Name": "Susquehanna Station",
+          "Nickname": "susquehanna_station"
+        },
+        "Buy": [],
+        "Sell": [
+          {
+            "Name": "Water",
+            "Nickname": "commodity_water",
+            "Count": 4200
+          }
+        ]
+      },
+      {
+        "DestinationType": "Npc",
+        "Station": {
+          "Name": "Planet Curacao",
+          "Nickname": "iw04_01_base"
+        },
+        "Buy": [
+          {
+            "Name": "Water",
+            "Nickname": "commodity_water",
+            "Count": 4200
+          }
+        ],
+        "Sell": []
+      }
+    ],
+    "Name": "Water supply",
+    "Category": "Susquehanna Station"
+  },
+  {
+    "Ship": {
+      "Name": "Uruz",
+      "CargoCapacity": 4200,
+      "ShipClass": 8
+    },
+    "Trades": [
+      {
+        "DestinationType": "Pob",
+        "Station": {
+          "Name": "Susquehanna Station",
+          "Nickname": "susquehanna_station"
+        },
+        "Buy": [],
+        "Sell": [
+          {
+            "Name": "Synth Paste",
+            "Nickname": "commodity_synthpaste",
+            "Count": 4200
+          }
+        ]
+      },
+      {
+        "DestinationType": "Npc",
+        "Station": {
+          "Name": "Planet Curacao",
+          "Nickname": "iw04_01_base"
+        },
+        "Buy": [
+          {
+            "Name": "Synth Paste",
+            "Nickname": "commodity_synthpaste",
+            "Count": 4200
+          }
+        ],
+        "Sell": []
+      }
+    ],
+    "Name": "Synth Paste supply",
+    "Category": "Susquehanna Station"
+  },
+  {
+    "Ship": {
+      "Name": "Uruz",
+      "CargoCapacity": 4200,
+      "ShipClass": 8
+    },
+    "Trades": [
+      {
+        "DestinationType": "Pob",
+        "Station": {
+          "Name": "Susquehanna Station",
+          "Nickname": "susquehanna_station"
+        },
+        "Buy": [],
+        "Sell": [
+          {
+            "Name": "Synth Paste",
+            "Nickname": "commodity_synthpaste",
+            "Count": 1400
+          },
+          {
+            "Name": "Water",
+            "Nickname": "commodity_water",
+            "Count": 1400
+          },
+          {
+            "Name": "Oxygen",
+            "Nickname": "commodity_oxygen",
+            "Count": 1400
+          }
+        ]
+      },
+      {
+        "DestinationType": "Npc",
+        "Station": {
+          "Name": "Planet Curacao",
+          "Nickname": "iw04_01_base"
+        },
+        "Buy": [
+          {
+            "Name": "Synth Paste",
+            "Nickname": "commodity_synthpaste",
+            "Count": 1400
+          },
+          {
+            "Name": "Water",
+            "Nickname": "commodity_water",
+            "Count": 1400
+          },
+          {
+            "Name": "Oxygen",
+            "Nickname": "commodity_oxygen",
+            "Count": 1400
+          }
+        ],
+        "Sell": []
+      }
+    ],
+    "Name": "FOW supply",
+    "Category": "Susquehanna Station"
+  },
+  {
+    "Ship": {
+      "Name": "Rheinland Train",
+      "CargoCapacity": 5000,
+      "ShipClass": 9
+    },
+    "Trades": [
+      {
+        "DestinationType": "Npc",
+        "Station": {
+          "Name": "Planet Stuttgart",
+          "Nickname": "rh03_01_base"
+        },
+        "Buy": [
+          {
+            "Name": "Water",
+            "Nickname": "commodity_water",
+            "Count": 5000
+          }
+        ],
+        "Sell": []
+      },
+      {
+        "DestinationType": "Pob",
+        "Station": {
+          "Name": "Ruhrpott Mining Facility",
+          "Nickname": "ruhrpott_mining_facility"
+        },
+        "Buy": [],
+        "Sell": [
+          {
+            "Name": "Water",
+            "Nickname": "commodity_water",
+            "Count": 5000
+          }
+        ]
+      }
+    ],
+    "Name": "Water supply",
+    "Category": "Ruhrpott Mining Facility"
+  },
+  {
+    "Ship": {
+      "Name": "Colossus",
+      "CargoCapacity": 5000,
+      "ShipClass": 9
+    },
+    "Trades": [
+      {
+        "DestinationType": "Npc",
+        "Station": {
+          "Name": "Planet Stuttgart",
+          "Nickname": "rh03_01_base"
+        },
+        "Buy": [
+          {
+            "Name": "Synth Paste",
+            "Nickname": "commodity_synthpaste",
+            "Count": 5000
+          }
+        ],
+        "Sell": []
+      },
+      {
+        "DestinationType": "Pob",
+        "Station": {
+          "Name": "Ruhrpott Mining Facility",
+          "Nickname": "ruhrpott_mining_facility"
+        },
+        "Buy": [],
+        "Sell": [
+          {
+            "Name": "Synth Paste",
+            "Nickname": "commodity_synthpaste",
+            "Count": 5000
+          }
+        ]
+      }
+    ],
+    "Name": "Synth Paste supply",
+    "Category": "Ruhrpott Mining Facility"
+  },
+  {
+    "Ship": {
+      "Name": "{DHC}Usedom",
+      "CargoCapacity": 5000,
+      "ShipClass": 9
+    },
+    "Trades": [
+      {
+        "DestinationType": "Npc",
+        "Station": {
+          "Name": "Planet Holstein",
+          "Nickname": "rh04_01_base"
+        },
+        "Buy": [
+          {
+            "Name": "Industrial Materials",
+            "Nickname": "commodity_industrial",
+            "Count": 5000
+          }
+        ],
+        "Sell": [
+          {
+            "Name": "Silver",
+            "Nickname": "commodity_silver",
+            "Count": 5000
+          }
+        ]
+      },
+      {
+        "DestinationType": "Pob",
+        "Station": {
+          "Name": "Ruhrpott Mining Facility",
+          "Nickname": "ruhrpott_mining_facility"
+        },
+        "Buy": [
+          {
+            "Name": "Silver",
+            "Nickname": "commodity_silver",
+            "Count": 5000
+          }
+        ],
+        "Sell": [
+          {
+            "Name": "Industrial Materials",
+            "Nickname": "commodity_industrial",
+            "Count": 5000
+          }
+        ]
+      }
+    ],
+    "Name": "Industrial Materials supply",
+    "Category": "Ruhrpott Mining Facility"
+  },
+  {
+    "Ship": {
+      "Name": "Colossus",
+      "CargoCapacity": 5000,
+      "ShipClass": 9
+    },
+    "Trades": [
+      {
+        "DestinationType": "Pob",
+        "Station": {
+          "Name": "Ruhrpott Mining Facility",
+          "Nickname": "ruhrpott_mining_facility"
+        },
+        "Buy": [
+          {
+            "Name": "Diamonds",
+            "Nickname": "commodity_diamonds",
+            "Count": 5000
+          }
+        ],
+        "Sell": [
+          {
+            "Name": "Basic Alloy",
+            "Nickname": "commodity_basic_alloys",
+            "Count": 5000
+          }
+        ]
+      },
+      {
+        "DestinationType": "Npc",
+        "Station": {
+          "Name": "Planet Hamburg",
+          "Nickname": "rh02_01_base"
+        },
+        "Buy": [
+          {
+            "Name": "Basic Alloy",
+            "Nickname": "commodity_basic_alloys",
+            "Count": 5000
+          }
+        ],
+        "Sell": [
+          {
+            "Name": "Diamonds",
+            "Nickname": "commodity_diamonds",
+            "Count": 5000
+          }
+        ]
+      }
+    ],
+    "Name": "Basic alloy supply",
+    "Category": "Ruhrpott Mining Facility"
+  },
+  {
+    "Ship": {
+      "Name": "Colossus",
+      "CargoCapacity": 5000,
+      "ShipClass": 9
+    },
+    "Trades": [
+      {
+        "DestinationType": "Npc",
+        "Station": {
+          "Name": "Planet Stuttgart",
+          "Nickname": "rh03_01_base"
+        },
+        "Buy": [
+          {
+            "Name": "Oxygen",
+            "Nickname": "commodity_oxygen",
+            "Count": 5000
+          }
+        ],
+        "Sell": []
+      },
+      {
+        "DestinationType": "Pob",
+        "Station": {
+          "Name": "Ruhrpott Mining Facility",
+          "Nickname": "ruhrpott_mining_facility"
+        },
+        "Buy": [],
+        "Sell": [
+          {
+            "Name": "Oxygen",
+            "Nickname": "commodity_oxygen",
+            "Count": 5000
+          }
+        ]
+      }
+    ],
+    "Name": "Oxygen supply",
+    "Category": "Ruhrpott Mining Facility"
+  }
+]
