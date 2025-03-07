@@ -27,7 +27,7 @@
         </Grid.RowDefinitions>
         <ContentPresenter Grid.Row="0" Content="{Binding Path=Menu}"/>
         <DockingManager Grid.Row="1"
-                        DocumentsSource="{Binding Path=Expanders}">
+                        DocumentsSource="{Binding Path=Documents}">
             <DockingManager.LayoutItemContainerStyle>
                 <Style TargetType="{x:Type LayoutItem}">
                     <Setter Property="Title" Value="{Binding Path=Model.Title}"/>

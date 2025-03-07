@@ -24,6 +24,7 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
 
         public ICommand AddNewTradeRouteCommand { get; init; }
         public ICommand SaveCommand { get; init; }
+        public ICommand ShowShipOverviewCommand { get; init; }
 
         #endregion
 

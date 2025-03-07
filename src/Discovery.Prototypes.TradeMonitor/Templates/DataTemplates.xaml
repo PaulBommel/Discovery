@@ -167,4 +167,7 @@
             </Expander>
         </Grid>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type ViewModels:ShipOverviewViewModel}">
+        <Views:ShipOverviewView/>
+    </DataTemplate>
 </ResourceDictionary>

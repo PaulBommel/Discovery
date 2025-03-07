@@ -17,32 +17,25 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
         public ICommand ConfigureCommand { get; } = ConfigureCommand;
     }
 
-    public sealed class TradeCategoryViewModel : INotifyPropertyChanged
+    public sealed class TradeCategoryViewModel : AbstractViewModel, IDocumentViewModel, INotifyPropertyChanged
     {
         #region Members
 
-        public static readonly PropertyChangedEventArgs IsExpandedArgs = new(nameof(IsExpanded));
+        public static readonly PropertyChangedEventArgs IsActiveArgs = new(nameof(IsActive));
         public static readonly PropertyChangedEventArgs TradeResultsArgs = new(nameof(TradeResults));
 
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
-
         private readonly TradeMonitor _monitor;
-        private bool _isExpanded = true;
+        private bool _isActive = true;
         private TradeResultViewModel[] _tradeResults = null;
 
         #endregion
 
         #region Constructors
 
-        public TradeCategoryViewModel(TradeMonitor monitor, string category, TradeRouteProvider routeProvider)
+        public TradeCategoryViewModel(string title, TradeMonitor monitor, TradeRouteProvider routeProvider)
         {
+            Title = title;
             _monitor = monitor;
-            Title = category;
-            Category = category;
             RouteProvider = routeProvider;
         }
 
@@ -54,17 +47,15 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
 
         public string Title { get; }
 
-        public string Category { get; }
-
-        public bool IsExpanded
+        public bool IsActive
         {
-            get => _isExpanded;
+            get => _isActive;
             set
             {
-                if (_isExpanded != value)
+                if (_isActive != value)
                 {
-                    _isExpanded = value;
-                    PropertyChanged?.Invoke(this, IsExpandedArgs);
+                    _isActive = value;
+                    firePropertyChanged(IsActiveArgs);
                 }
             }
         }
@@ -75,7 +66,7 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
             set
             {
                 _tradeResults = value;
-                PropertyChanged?.Invoke(this, TradeResultsArgs);
+                firePropertyChanged(TradeResultsArgs);
             }
         }
 
@@ -88,7 +79,7 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
             var groups = routesProvider.TradeRoutes.GroupBy(route => route.Category);
             foreach (var group in groups)
             {
-                yield return new(monitor, group.Key, new(routesProvider.TradeRoutes, [.. group]));
+                yield return new(group.Key, monitor, new(routesProvider.TradeRoutes, [.. group]));
             }
         }
 

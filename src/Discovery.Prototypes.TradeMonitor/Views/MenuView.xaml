@@ -20,5 +20,10 @@
                     LargeImageSource="{svg:SvgIcon Source=/Images/newroute.svg}"
                     Command="{Binding Path=AddNewTradeRouteCommand}"/>
         </RibbonGroup>
+        <RibbonGroup Header="Views">
+            <RibbonButton Label="ShipOverview"
+                    LargeImageSource="{svg:SvgIcon Source=/Images/shipoverview.svg}"
+                    Command="{Binding Path=ShowShipOverviewCommand}"/>
+        </RibbonGroup>
     </RibbonTab>
 </Ribbon>

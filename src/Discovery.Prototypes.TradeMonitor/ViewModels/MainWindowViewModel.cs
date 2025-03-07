@@ -16,6 +16,7 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
     using Discovery.Prototypes.TradeMonitor.Views;
     using Discovery.TradeMonitor;
 
+    using System.Collections.ObjectModel;
     using System.Collections.Specialized;
 
     using TradeRouteConfigurator;
@@ -27,7 +28,7 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
 
         #region static
 
-        private static readonly PropertyChangedEventArgs ExpandersArgs = new(nameof(Expanders));
+        private static readonly PropertyChangedEventArgs DocumentsArgs = new(nameof(Documents));
 
         #endregion
 
@@ -36,7 +37,7 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
         private readonly TradeMonitor _tradeMonitor;
         private readonly Timer _refreshTimer;
 
-        private TradeCategoryViewModel[] _expanders;
+        private ObservableCollection<IDocumentViewModel> _documents;
 
         #endregion
 
@@ -51,8 +52,10 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
             Menu = new()
             {
                 AddNewTradeRouteCommand = new DelegateCommand(AddNewTradeRoute),
-                SaveCommand = new DelegateCommand(Save)
+                SaveCommand = new DelegateCommand(Save),
+                ShowShipOverviewCommand = new DelegateCommand(ShowShipOverview, CanShowShipOverview)
             };
+            Documents = [];
         }
 
         public MainWindowViewModel(IDarkstatClient client)
@@ -61,18 +64,18 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
             _client = client;
             _tradeMonitor = new TradeMonitor(client);
             LoadFileAsync("Routes.json");
-            _refreshTimer = new(state => Refresh(), null, TimeSpan.FromSeconds(2), TimeSpan.FromMinutes(5));
+            _refreshTimer = new(state => Refresh(), null, TimeSpan.FromSeconds(10), TimeSpan.FromMinutes(5));
         }
 
-        public TradeCategoryViewModel[] Expanders
+        public ObservableCollection<IDocumentViewModel> Documents
         {
-            get => _expanders;
+            get => _documents;
             set
             {
-                if (_expanders != value)
+                if (_documents != value)
                 {
-                    _expanders = value;
-                    firePropertyChanged(ExpandersArgs);
+                    _documents = value;
+                    firePropertyChanged(DocumentsArgs);
                 }
             }
         }
@@ -81,9 +84,9 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
 
         public void Refresh()
         {
-            if(Expanders is not null)
-                foreach (var expander in Expanders)
-                    expander.Refresh();
+            if(Documents is not null)
+                foreach (var tradeCategory in Documents.OfType<TradeCategoryViewModel>())
+                    tradeCategory.Refresh();
         }
 
         private async void LoadFileAsync(string fileName, CancellationToken token = default)
@@ -101,7 +104,19 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
 
         private void OnTradeRoutesChanged(object sender, NotifyCollectionChangedEventArgs args)
         {
-            Expanders = [.. TradeCategoryViewModel.FromRoutes(_tradeMonitor, _routeProvider)];
+            foreach(var document in TradeCategoryViewModel.FromRoutes(_tradeMonitor, _routeProvider))
+            {
+                var existingDocument = Documents.FirstOrDefault(d => d.Title == document.Title);
+                if(existingDocument is null)
+                {
+                    Documents.Add(document);
+                }
+                else
+                {
+                    var index = Documents.IndexOf(existingDocument);
+                    Documents[index] = document;
+                }
+            }
         }
 
         private async void AddNewTradeRoute(object parameter)
@@ -112,5 +127,15 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
 
         private async void Save(object parameter)
             => await _routeProvider.SaveAsync("Routes.json");
+
+        private bool CanShowShipOverview(object parameter)
+        {
+            return !Documents.OfType<ShipOverviewViewModel>().Any();
+        }
+
+        private void ShowShipOverview(object parameter)
+        {
+            Documents.Add(ShipOverviewViewModel.FromRoutes(_routeProvider));
+        }
     }
 }
