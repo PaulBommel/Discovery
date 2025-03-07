@@ -25,20 +25,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Ribbon Grid.Row="0">
-            <Ribbon.ApplicationMenu>
-                <RibbonApplicationMenu>
-                    <RibbonApplicationMenuItem Header="Save" Command="{Binding Path=SaveCommand}"/>
-                </RibbonApplicationMenu>
-            </Ribbon.ApplicationMenu>
-            <RibbonTab Header="Common">
-                <RibbonGroup Header="New">
-                    <RibbonButton Label="Route"
-                                  LargeImageSource="{svg:SvgIcon Source=/Images/newroute.svg}"
-                                  Command="{Binding Path=AddNewTradeRouteCommand}"/>
-                </RibbonGroup>
-            </RibbonTab>
-        </Ribbon>
+        <ContentPresenter Grid.Row="0" Content="{Binding Path=Menu}"/>
         <DockingManager Grid.Row="1">
             <LayoutRoot>
                 <LayoutPanel>

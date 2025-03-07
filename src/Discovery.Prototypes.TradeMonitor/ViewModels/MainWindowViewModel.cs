@@ -48,8 +48,11 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
                 _client = new DarkstatClient(new DarkstatHttpClientFactory());
                 _tradeMonitor = new TradeMonitor(_client);
             }
-            AddNewTradeRouteCommand = new DelegateCommand(AddNewTradeRoute);
-            SaveCommand = new DelegateCommand(Save);
+            Menu = new()
+            {
+                AddNewTradeRouteCommand = new DelegateCommand(AddNewTradeRoute),
+                SaveCommand = new DelegateCommand(Save)
+            };
         }
 
         public MainWindowViewModel(IDarkstatClient client)
@@ -74,8 +77,7 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
             }
         }
 
-        public ICommand AddNewTradeRouteCommand { get; }
-        public ICommand SaveCommand { get; }
+        public MenuViewModel Menu { get; }
 
         public void Refresh()
         {
