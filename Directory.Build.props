@@ -14,5 +14,6 @@
     <PackageId>$(AssemblyName)</PackageId>
     <Version>2025.3.0</Version>
     <Authors>rwx</Authors>
+    <RepositoryUrl>https://github.com/PaulBommel/Discovery</RepositoryUrl>
   </PropertyGroup>
 </Project>
