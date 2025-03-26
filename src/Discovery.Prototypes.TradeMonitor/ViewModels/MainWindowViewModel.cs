@@ -106,6 +106,7 @@ namespace Discovery.Prototypes.TradeMonitor.ViewModels
         {
             foreach(var document in TradeCategoryViewModel.FromRoutes(_tradeMonitor, _routeProvider))
             {
+                document.Refresh();
                 var existingDocument = Documents.FirstOrDefault(d => d.Title == document.Title);
                 if(existingDocument is null)
                 {
