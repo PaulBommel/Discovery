@@ -15,19 +15,6 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0 #fetch-depth is needed for GitVersion
-        
-    #Install and calculate the new version with GitVersion  
-    - name: Install GitVersion
-      uses: gittools/actions/gitversion/setup@v0.9.7
-      with:
-        versionSpec: 5.x
-    - name: Determine Version
-      uses: gittools/actions/gitversion/execute@v0.9.7
-      id: gitversion # step id used as reference for output values
-    - name: Display GitVersion outputs
-      run: |
-        echo "Version: ${{ steps.gitversion.outputs.SemVer }}"
-        echo "CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}"
     
     #Build/pack the project
     - name: Setup .NET
@@ -35,7 +22,7 @@ jobs:
       with:
         dotnet-version: 9.0.x
     - name: Build and Pack NuGet package
-      run: dotnet build Discovery.Master.sln -p:Version='${{ steps.gitversion.outputs.SemVer }}' /p:EnableWindowsTargeting=true -c Release
+      run: dotnet build Discovery.Master.sln /p:EnableWindowsTargeting=true -c Release
     - name: Upload NuGet package to GitHub
       uses: actions/upload-artifact@v4
       with:
@@ -47,32 +34,34 @@ jobs:
     needs: build
     if: github.ref == 'refs/heads/master' # only run job if on the master branch   
     
-    steps:  
+    steps: 
     #Push NuGet package to GitHub packages
     - name: Download nuget package artifact
-      uses: actions/download-artifact@v1.0.0
+      uses: actions/download-artifact@v4.1.7
       with:
         name: nugetPackage
+    - name: Test nuget artifact download
+      run: ls -R  
     - name: Prep packages
-      run: dotnet nuget add source --username yourusername --password ${{ secrets.NUGET_PACKAGE_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/yourusername/index.json"
+      run: dotnet nuget add source --username PaulBommel --password ${{ secrets.NUGET_PACKAGE_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/PaulBommel/index.json"
     - name: Push package to GitHub packages 
-      if: needs.build.outputs.CommitsSinceVersionSource > 0 #Only release if there has been a commit/version change  
-      run: dotnet nuget push nugetPackage/*.nupkg --api-key ${{ secrets.NUGET_PACKAGE_TOKEN }}  --source "github"
+    # if: needs.build.outputs.CommitsSinceVersionSource > 0 #Only release if there has been a commit/version change  
+      run: dotnet nuget push *.nupkg --api-key ${{ secrets.NUGET_PACKAGE_TOKEN }} --source "github"
     
     #Create release
-    - name: Create Release
-      if: 1 == 0 #needs.build.outputs.CommitsSinceVersionSource > 0 #Only release if there has been a commit/version change
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.NUGET_PACKAGE_TOKEN }} 
-      with:
-        tag_name: ${{ needs.build.outputs.Version }}
-        release_name: Release ${{ needs.build.outputs.Version }}
-    - name: Create Release
-      if: needs.build.outputs.CommitsSinceVersionSource > 0 #Only release if there has been a commit/version change
-      uses: ncipollo/release-action@v1
-      with:
-        tag: ${{ needs.build.outputs.Version }}
-        name: Release ${{ needs.build.outputs.Version }}
-        artifacts: "nugetPackage/*"
-        token: ${{ secrets.NUGET_PACKAGE_TOKEN }}
+    #- name: Create Release
+    #  if: 1 == 0 #needs.build.outputs.CommitsSinceVersionSource > 0 #Only release if there has been a commit/version change
+    #  uses: actions/create-release@v1
+    #  env:
+    #    GITHUB_TOKEN: ${{ secrets.NUGET_PACKAGE_TOKEN }} 
+    #  with:
+    #    tag_name: ${{ needs.build.outputs.Version }}
+    #    release_name: Release ${{ needs.build.outputs.Version }}
+    #- name: Create Release
+    #  if: needs.build.outputs.CommitsSinceVersionSource > 0 #Only release if there has been a commit/version change
+    #  uses: ncipollo/release-action@v1
+    #  with:
+    #    tag: ${{ needs.build.outputs.Version }}
+    #    name: Release ${{ needs.build.outputs.Version }}
+    #    artifacts: "nugetPackage/*"
+    #    token: ${{ secrets.NUGET_PACKAGE_TOKEN }}
