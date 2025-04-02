@@ -58,7 +58,7 @@ namespace Discovery.Darkstat
         public double Volume { get; init; }
 
         [JsonPropertyName("ship_class")]
-        public long ShipClass { get; init; }
+        public long? ShipClass { get; init; }
 
         [JsonPropertyName("base_sells")]
         public bool BaseSells { get; init; }
