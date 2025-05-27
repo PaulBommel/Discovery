@@ -23,7 +23,7 @@ namespace Discovery.Darkstat
         public double Volume { get; init; }
 
         [JsonPropertyName("ship_class")]
-        public long ShipClass { get; init; }
+        public long? ShipClass { get; init; }
 
         [JsonPropertyName("name_id")]
         public long NameId { get; init; }
