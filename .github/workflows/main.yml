@@ -21,8 +21,15 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.0.x
+    - name: Calculate version
+      id: version
+      run: |
+        year=$(date +'%Y')
+        month=$(date +'%m')
+        echo "version=$year.$month.${{ github.run_number }}" >> $GITHUB_ENV
     - name: Build and Pack NuGet package
-      run: dotnet build Discovery.Master.sln /p:EnableWindowsTargeting=true -c Release
+      #run: dotnet build Discovery.Master.sln /p:EnableWindowsTargeting=true -c Release
+      run: dotnet build Discovery.Master.sln -c Release /p:Version=${{ env.version }}  /p:EnableWindowsTargeting=true
     - name: Upload NuGet package to GitHub
       uses: actions/upload-artifact@v4
       with:
