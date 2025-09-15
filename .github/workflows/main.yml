@@ -42,9 +42,9 @@ jobs:
         name: nugetPackage
     - name: Test nuget artifact download
       run: ls -R  
-    - name: Prep packages
-      run: dotnet nuget add source --username PaulBommel --password ${{ secrets.NUGET_PACKAGE_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/PaulBommel/index.json"
+    #- name: Prep packages
+    #  run: dotnet nuget add source --username PaulBommel --password ${{ secrets.NUGET_PACKAGE_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/PaulBommel/index.json"
     - name: Push package to GitHub packages 
     # if: needs.build.outputs.CommitsSinceVersionSource > 0 #Only release if there has been a commit/version change  
-      run: dotnet nuget push "./artifacts/*.nupkg" --api-key ${{ secrets.NUGET_PACKAGE_TOKEN }} --source "https://nuget.pkg.github.com/PaulBommel/index.json"
+      run: dotnet nuget push "*.nupkg" --api-key ${{ secrets.NUGET_PACKAGE_TOKEN }} --source "https://nuget.pkg.github.com/PaulBommel/index.json" --skip-duplicate
     
