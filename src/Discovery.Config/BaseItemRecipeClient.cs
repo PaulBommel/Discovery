@@ -12,19 +12,20 @@ namespace Discovery.Config
 {
     public sealed class BaseItemRecipeClient(IHttpClientFactory clientFactory)
     {
-        public async Task<BaseItemRecipe[]> GetRecipesAsync(CancellationToken token = default)
+        public async Task<List<Recipe>> GetRecipesAsync(CancellationToken token = default)
         {
             var client = clientFactory.CreateClient();
             var response = await client.GetAsync("base_recipe_items.cfg", token);
             if(response.IsSuccessStatusCode)
             {
                 var str = await response.Content.ReadAsStringAsync();
-                var split = str.Split(Environment.NewLine + Environment.NewLine);
+                /*var split = str.Split(Environment.NewLine + Environment.NewLine);
                 var recipes = split
                              .Where(s => s.Contains("[recipe]"))
                              .Select(GetRecipe)
                              .ToArray();
-                return recipes;
+                return recipes;*/
+                return RecipeParser.ParseString(str);
             }
             return [];
         }
