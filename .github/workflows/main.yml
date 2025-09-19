@@ -21,8 +21,15 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.0.x
+    - name: Calculate version
+      id: version
+      run: |
+        year=$(date +'%Y')
+        month=$(date +'%m')
+        echo "version=$year.$month.${{ github.run_number }}" >> $GITHUB_ENV
     - name: Build and Pack NuGet package
-      run: dotnet build Discovery.Master.sln /p:EnableWindowsTargeting=true -c Release
+      #run: dotnet build Discovery.Master.sln /p:EnableWindowsTargeting=true -c Release
+      run: dotnet build Discovery.Master.sln -c Release /p:Version=${{ env.version }}  /p:EnableWindowsTargeting=true
     - name: Upload NuGet package to GitHub
       uses: actions/upload-artifact@v4
       with:
@@ -46,22 +53,6 @@ jobs:
       run: dotnet nuget add source --username PaulBommel --password ${{ secrets.NUGET_PACKAGE_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/PaulBommel/index.json"
     - name: Push package to GitHub packages 
     # if: needs.build.outputs.CommitsSinceVersionSource > 0 #Only release if there has been a commit/version change  
-      run: dotnet nuget push *.nupkg --api-key ${{ secrets.NUGET_PACKAGE_TOKEN }} --source "github"
+      #run: dotnet nuget push "*.nupkg" --api-key ${{ secrets.NUGET_PACKAGE_TOKEN }} --source "https://nuget.pkg.github.com/PaulBommel/index.json" --skip-duplicate
+      run: dotnet nuget push "*.nupkg" --api-key ${{ secrets.NUGET_PACKAGE_TOKEN }} --source "github"
     
-    #Create release
-    #- name: Create Release
-    #  if: 1 == 0 #needs.build.outputs.CommitsSinceVersionSource > 0 #Only release if there has been a commit/version change
-    #  uses: actions/create-release@v1
-    #  env:
-    #    GITHUB_TOKEN: ${{ secrets.NUGET_PACKAGE_TOKEN }} 
-    #  with:
-    #    tag_name: ${{ needs.build.outputs.Version }}
-    #    release_name: Release ${{ needs.build.outputs.Version }}
-    #- name: Create Release
-    #  if: needs.build.outputs.CommitsSinceVersionSource > 0 #Only release if there has been a commit/version change
-    #  uses: ncipollo/release-action@v1
-    #  with:
-    #    tag: ${{ needs.build.outputs.Version }}
-    #    name: Release ${{ needs.build.outputs.Version }}
-    #    artifacts: "nugetPackage/*"
-    #    token: ${{ secrets.NUGET_PACKAGE_TOKEN }}
