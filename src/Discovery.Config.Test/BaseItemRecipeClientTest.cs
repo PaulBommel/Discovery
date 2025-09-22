@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Discovery.Config.Test
@@ -60,9 +61,26 @@ namespace Discovery.Config.Test
         public async Task GetRecipesAsyncTest()
         {
             var client = new BaseItemRecipeClient(new PublicHttpClientFactory());
-            var recipes = await client.GetRecipesAsync();
+            var recipes = await client.GetRecipesAsync(TestContext.CancellationTokenSource.Token);
+            var categories = recipes.Select(r => r.CraftType).Distinct();
             foreach (var recipe in recipes)
+            {
                 Assert.IsNotNull(recipe);
+                Assert.IsFalse(string.IsNullOrWhiteSpace(recipe.InfoText), $"{recipe.InfoText} is empty.");
+                TestContext.WriteLine(recipe.InfoText);
+
+                if(!recipe.AffiliationBonuses.IsEmpty)
+                {
+                    var faction = recipe.AffiliationBonuses.Keys.First();
+                    var permutations = recipe.GetAllResultsForFaction(faction).ToArray();
+                    TestContext.WriteLine($"Found {permutations.Length} permutations (with faction '{faction}').");
+                }
+
+                if (recipe.Restricted)
+                    Assert.AreNotEqual(0, recipe.AffiliationBonuses.Count);
+
+                TestContext.WriteLine(Environment.NewLine);
+            }
         }
 
         #endregion
