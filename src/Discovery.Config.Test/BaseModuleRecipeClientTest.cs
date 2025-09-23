@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Discovery.Config.Test
 {
     [TestClass]
-    public class BaseItemRecipeClientTest
+    public class BaseModuleRecipeClientTest
     {
         #region Members
 
@@ -15,7 +15,7 @@ namespace Discovery.Config.Test
 
         #region Constructors
 
-        public BaseItemRecipeClientTest()
+        public BaseModuleRecipeClientTest()
         {
 
         }
@@ -60,23 +60,14 @@ namespace Discovery.Config.Test
         [TestMethod]
         public async Task GetRecipesAsyncTest()
         {
-            var client = new BaseItemRecipeClient(new PublicHttpClientFactory());
+            var client = new BaseModuleRecipeClient(new PublicHttpClientFactory());
             var recipes = await client.GetRecipesAsync(TestContext.CancellationTokenSource.Token);
             foreach (var recipe in recipes)
             {
                 Assert.IsNotNull(recipe);
                 Assert.IsFalse(string.IsNullOrWhiteSpace(recipe.InfoText), $"{recipe.InfoText} is empty.");
-                TestContext.WriteLine($"Item: {recipe.InfoText}");
+                TestContext.WriteLine($"Module: {recipe.InfoText}");
 
-                if (!recipe.AffiliationBonuses.IsEmpty)
-                {
-                    var faction = recipe.AffiliationBonuses.Keys.First();
-                    var permutations = recipe.GetAllResultsForFaction(faction).ToArray();
-                    TestContext.WriteLine($"Found {permutations.Length} permutations (with faction '{faction}').");
-                }
-
-                if (recipe.Restricted)
-                    Assert.AreNotEqual(0, recipe.AffiliationBonuses.Count);
 
                 TestContext.WriteLine(Environment.NewLine);
             }
