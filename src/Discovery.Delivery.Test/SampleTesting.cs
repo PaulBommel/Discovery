@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
+using System.Runtime.Versioning;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -81,6 +82,7 @@ namespace Discovery.Delivery.Test
 
         [TestMethod]
         [DynamicData(nameof(Routes))]
+        [SupportedOSPlatform("windows")]
         public void DeliveryOcrSampleTesting(string imageFile, DeliveryRecord expectedRecord)
         {
             using (var bmp = new Bitmap(imageFile))

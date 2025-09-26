@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Versioning;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -19,8 +20,14 @@ namespace Discovery.Delivery.DataProviders
         public AnalyseRegion Region { get; }
         public string Charset => Charsets.Destination;
 
+        [SupportedOSPlatform("windows")]
         public string GetData(TesseractEngine engine, Bitmap source)
         {
+            if (!string.IsNullOrWhiteSpace(Region.WordsFile))
+            {
+                engine.SetVariable("user_words_suffix", Region.WordsFile);
+            }
+
             var text = ExtractYellowHighlightedText(engine, source, Region.Bounds);
 
             if (string.IsNullOrWhiteSpace(text))
@@ -31,7 +38,8 @@ namespace Discovery.Delivery.DataProviders
                 return match.Groups[3].Value.Trim();
             return text;
         }
-
+        
+        [SupportedOSPlatform("windows")]
         public static string ExtractYellowHighlightedText(TesseractEngine engine, Bitmap source, Rectangle region)
         {
             using (var cropped = source.Clone(region, source.PixelFormat))

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Versioning;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace Discovery.Delivery.DataProviders
         public AnalyseRegion Region { get; }
         public string Charset => Charsets.Credits;
 
-
+        [SupportedOSPlatform("windows")]
         public int? GetData(TesseractEngine engine, Bitmap bitmap)
         {
             using (var cropped = bitmap.Clone(Region.Bounds, bitmap.PixelFormat))

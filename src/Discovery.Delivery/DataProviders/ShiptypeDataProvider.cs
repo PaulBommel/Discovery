@@ -1,10 +1,10 @@
-﻿using System;
+﻿using FuzzySharp;
+using System;
 using System.Drawing;
 using System.IO;
+using System.Runtime.Versioning;
 using System.Text.RegularExpressions;
-
 using Tesseract;
-using FuzzySharp;
 
 namespace Discovery.Delivery.DataProviders
 {
@@ -20,21 +20,13 @@ namespace Discovery.Delivery.DataProviders
 
         public AnalyseRegion Region { get; }
         public string Charset => Charsets.Shiptype;
-
+        
+        [SupportedOSPlatform("windows")]
         public string GetData(TesseractEngine engine, Bitmap source)
         {
-            TemporaryWordsFile? wordFile = null;
-
             if (!string.IsNullOrWhiteSpace(Region.WordsFile))
             {
-                if (File.Exists(Region.WordsFile))
-                {
-                    engine.SetVariable("user_words_suffix", Region.WordsFile);
-                }
-                else
-                {
-                    wordFile = new TemporaryWordsFile(Region.Words, Region.WordsFile, engine);
-                }
+                engine.SetVariable("user_words_suffix", Region.WordsFile);
             }
 
             var text = string.Empty;
@@ -50,9 +42,6 @@ namespace Discovery.Delivery.DataProviders
                     }
                 }
             }
-
-            if (wordFile.HasValue)
-                wordFile.Value.Dispose();
 
             return GetFuzzyShipType(text);
         }

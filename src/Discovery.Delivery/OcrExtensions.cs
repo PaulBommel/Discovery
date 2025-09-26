@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
+using System.Runtime.Versioning;
 using System.Text.RegularExpressions;
 
 using Tesseract;
@@ -13,6 +14,7 @@ namespace Discovery.Delivery
     using ImageFormat = System.Drawing.Imaging.ImageFormat;
     internal static class OcrExtensions
     {
+        [SupportedOSPlatform("windows")]
         public static Pix ToPix(this Bitmap bmp)
         {
             using (var stream = new MemoryStream())
@@ -22,6 +24,7 @@ namespace Discovery.Delivery
                 return Pix.LoadFromMemory(stream.ToArray());
             }
         }
+        [SupportedOSPlatform("windows")]
         public static string ToBase64(this Bitmap bitmap)
         {
             using (MemoryStream ms = new MemoryStream())
@@ -35,6 +38,7 @@ namespace Discovery.Delivery
             }
         }
 
+        [SupportedOSPlatform("windows")]
         public static Bitmap ScaleImage(this Bitmap source, float scale)
         {
             int width = (int)(source.Width * scale);

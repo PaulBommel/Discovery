@@ -1,14 +1,14 @@
-﻿using System;
+﻿using FuzzySharp;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Runtime.Versioning;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-
 using Tesseract;
-using FuzzySharp;
-using System.Linq;
 
 namespace Discovery.Delivery.DataProviders
 {
@@ -24,21 +24,13 @@ namespace Discovery.Delivery.DataProviders
         public AnalyseRegion Region { get; }
 
         public string Charset => Charsets.Cargo;
-
+        
+        [SupportedOSPlatform("windows")]
         public IEnumerable<ItemQuantityRecord> GetData(TesseractEngine engine, Bitmap source)
         {
-            TemporaryWordsFile? wordFile = null;
-
             if (!string.IsNullOrWhiteSpace(Region.WordsFile))
             {
-                if (File.Exists(Region.WordsFile))
-                {
-                    engine.SetVariable("user_words_suffix", Region.WordsFile);
-                }
-                else
-                {
-                    wordFile = new TemporaryWordsFile(Region.Words, Region.WordsFile, engine);
-                }
+                engine.SetVariable("user_words_suffix", Region.WordsFile);
             }
             var chars = string.Concat(Region.Words.SelectMany(str => str).Distinct().ToArray());
             chars = string.Concat((chars + Charsets.Numbers).Distinct().Order().ToArray());
@@ -68,9 +60,6 @@ namespace Discovery.Delivery.DataProviders
                     }
                 }
             }
-
-            if (wordFile.HasValue)
-                wordFile.Value.Dispose();
         }
 
         private string GetFuzzyItem(string text)
