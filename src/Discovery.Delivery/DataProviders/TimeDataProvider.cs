@@ -20,7 +20,7 @@ namespace Discovery.Delivery.DataProviders
         }
 
         public AnalyseRegion Region { get; }
-        public string Charset { get; } = Charsets.Numbers + "-: ";
+        public string Charset => Charsets.Time;
 
         public DateTime? GetData(TesseractEngine engine, Bitmap bitmap)
         {

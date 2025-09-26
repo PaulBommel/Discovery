@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework Condition="'$(TargetFrameworks)'==''">net9.0</TargetFramework>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.*" />
+		<PackageReference Include="MSTest.TestAdapter" Version="3.*" />
+		<PackageReference Include="MSTest.TestFramework" Version="3.*" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Discovery.Darkstat\Discovery.Darkstat.csproj" />
+	  <ProjectReference Include="..\Discovery.Delivery\Discovery.Delivery.csproj" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <None Update="samples\sample.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="samples\screen516.BMP">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="samples\screen519.BMP">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="samples\screen522.BMP">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="tessdata\eng.traineddata">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

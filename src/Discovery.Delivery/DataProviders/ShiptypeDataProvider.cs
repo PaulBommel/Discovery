@@ -19,7 +19,7 @@ namespace Discovery.Delivery.DataProviders
         }
 
         public AnalyseRegion Region { get; }
-        public string Charset { get; } = Charsets.UpercaseLetters + Charsets.LowercaseLetters + Charsets.Numbers + "\" ";
+        public string Charset => Charsets.Shiptype;
 
         public string GetData(TesseractEngine engine, Bitmap source)
         {

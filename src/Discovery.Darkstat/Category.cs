@@ -5,6 +5,8 @@ namespace Discovery.Darkstat
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum Category
     {
+        [JsonStringEnumMemberName("armor")]
+        Armor,
         [JsonStringEnumMemberName("cloakingdevice")]
         Cloakingdevice,
         [JsonStringEnumMemberName("commodity")]

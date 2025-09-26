@@ -11,5 +11,11 @@ namespace Discovery.Delivery
         public const string UpercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         public const string LowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
         public const string Numbers = "0123456789";
+
+        public const string Cargo = UpercaseLetters + LowercaseLetters + Numbers + "() ";
+        public const string Credits = Numbers;
+        public const string Destination = UpercaseLetters + LowercaseLetters + Numbers + "-> ";
+        public const string Time = Numbers + "-: ";
+        public const string Shiptype = UpercaseLetters + LowercaseLetters + Numbers + "\" ";
     }
 }

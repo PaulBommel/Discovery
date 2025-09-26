@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 using Tesseract;
 using FuzzySharp;
+using System.Linq;
 
 namespace Discovery.Delivery.DataProviders
 {
@@ -21,6 +22,8 @@ namespace Discovery.Delivery.DataProviders
             Region = region;
         }
         public AnalyseRegion Region { get; }
+
+        public string Charset => Charsets.Cargo;
 
         public IEnumerable<ItemQuantityRecord> GetData(TesseractEngine engine, Bitmap source)
         {
@@ -37,13 +40,14 @@ namespace Discovery.Delivery.DataProviders
                     wordFile = new TemporaryWordsFile(Region.Words, Region.WordsFile, engine);
                 }
             }
+            var chars = string.Concat(Region.Words.SelectMany(str => str).Distinct().ToArray());
+            chars = string.Concat((chars + Charsets.Numbers).Distinct().Order().ToArray());
 
-            using (var cropped = source.Clone(Region.Bounds, source.PixelFormat)
-                                       .ScaleImage(1.5f))
+            using (var cropped = source.Clone(Region.Bounds, source.PixelFormat))
             {
                 using (var pix = cropped.ToPix())
                 {
-                    engine.SetVariable("tessedit_char_whitelist", Charsets.UpercaseLetters + Charsets.LowercaseLetters + Charsets.Numbers);
+                    engine.SetVariable("tessedit_char_whitelist", Charset);
                     using (var page = engine.Process(pix))
                     {
                         var text = page.GetText();

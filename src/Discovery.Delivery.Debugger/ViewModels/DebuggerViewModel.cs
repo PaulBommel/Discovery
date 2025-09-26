@@ -120,7 +120,10 @@ namespace Discovery.Delivery.Debugger.ViewModels
         {
             var commoditiesTask = _client.Value.GetCommoditiesAsync();
             commoditiesTask.Wait();
-            return [.. commoditiesTask.Result.Select(c => c.Name)];
+            return [.. commoditiesTask.Result
+                                      .Select(c => c.Name)
+                                      .Where(c => !string.IsNullOrWhiteSpace(c))
+                                      .Distinct()];
         }
 
         private string[] InitShipTypes()
