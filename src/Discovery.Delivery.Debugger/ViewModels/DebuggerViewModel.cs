@@ -87,8 +87,9 @@ namespace Discovery.Delivery.Debugger.ViewModels
             {
                 TesseractDataPath = "tessdata"
             }.WithBitmap(SelectedImage)
-            .WithCargoRegion(words: _cargoNames.Value)
-            .WithShiptypeRegion(words: _shiptypes.Value);
+            .WithCargoRegion(words: _cargoNames.Value, wordFile: "commodity_phrases")
+            .WithShiptypeRegion(words: _shiptypes.Value, wordFile: "shipInfos_phrases")
+            .WithNavigationRegion( wordFile: "location_phrases");
             var result = _engine.Analyse(parameterBuilder.Build());
             AnalyseResult = result.Record;
             SelectedImage = CloneWithRegionOverlay(SelectedImage, result.Regions);

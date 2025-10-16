@@ -39,6 +39,25 @@ namespace Discovery.Delivery.Test
                         SourceType = "Png",
                         Time = DateTime.ParseExact("2025-04-07 19:41:15", "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal)
                     }
+                }; 
+                yield return new object[]
+                {
+                    "samples/screen516.BMP", new DeliveryRecord()
+                    {
+                        Cargo =
+                        [
+                            new ItemQuantityRecord() { Amount = 10, Commodity = "Crew" },
+                            new ItemQuantityRecord() { Amount = 13, Commodity = "Criminal Cells (Rheinland)" },
+                            new ItemQuantityRecord() { Amount = 10, Commodity = "Daumann Side Arms" },
+                            new ItemQuantityRecord() { Amount = 4, Commodity = "LWB Pilot" },
+                            new ItemQuantityRecord() { Amount = 6, Commodity = "Military Salvage" },
+                        ],
+                        Credits = 2_055_719,
+                        Destination = "Mecklenburg Prison",
+                        ShipType = "Oasis",
+                        SourceType = "Bmp",
+                        Time = DateTime.ParseExact("2025-09-23 22:05:08", "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal)
+                    }
                 };
             }
         }

@@ -25,7 +25,7 @@ namespace Discovery.Delivery
         public AnalyseParameterBuilder()
         {
             WithChatRegion(new Rectangle(10, 500, 400, 350));
-            WithCargoRegion(new Rectangle(575, 300, 325, 420));
+            WithCargoRegion(new Rectangle(575, 315, 325, 405));
             WithCreditsRegion(new Rectangle(450, 250, 450, 50));
             WithShiptypeRegion(new Rectangle(1000, 325, 400, 50));
         }

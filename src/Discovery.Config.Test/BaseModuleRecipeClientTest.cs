@@ -73,6 +73,21 @@ namespace Discovery.Config.Test
             }
         }
 
+        [TestMethod]
+        public async Task EnumerateRecipesAsyncTest()
+        {
+            var client = new BaseModuleRecipeClient(new PublicHttpClientFactory());
+            await foreach (var recipe in client.EnumerateRecipesAsync(TestContext.CancellationTokenSource.Token))
+            {
+                Assert.IsNotNull(recipe);
+                Assert.IsFalse(string.IsNullOrWhiteSpace(recipe.InfoText), $"{recipe.InfoText} is empty.");
+                TestContext.WriteLine($"Module: {recipe.InfoText}");
+
+
+                TestContext.WriteLine(Environment.NewLine);
+            }
+        }
+
         #endregion
 
         #endregion

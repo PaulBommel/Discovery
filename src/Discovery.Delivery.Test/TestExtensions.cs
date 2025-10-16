@@ -13,7 +13,7 @@ namespace Discovery.Delivery.Test
     {
         public static void AreEqual(this Assert _, DeliveryRecord expected, DeliveryRecord actual)
         {
-            Assert.AreEqual(expected.Cargo.Length, actual.Cargo.Length);
+            Assert.AreEqual(expected.Cargo.Length, actual.Cargo.Length, "Amount of cargo entries");
             for(int i = 0; i < expected.Cargo.Length; ++i)
             {
                 Assert.AreEqual(expected.Cargo[i].Amount, actual.Cargo[i].Amount);

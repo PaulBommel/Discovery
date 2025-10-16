@@ -82,6 +82,30 @@ namespace Discovery.Config.Test
             }
         }
 
+        [TestMethod]
+        public async Task EnumerateRecipesAsyncTest()
+        {
+            var client = new BaseItemRecipeClient(new PublicHttpClientFactory());
+            await foreach (var recipe in client.EnumerateRecipesAsync(TestContext.CancellationTokenSource.Token))
+            {
+                Assert.IsNotNull(recipe);
+                Assert.IsFalse(string.IsNullOrWhiteSpace(recipe.InfoText), $"{recipe.InfoText} is empty.");
+                TestContext.WriteLine($"Item: {recipe.InfoText}");
+
+                if (!recipe.AffiliationBonuses.IsEmpty)
+                {
+                    var faction = recipe.AffiliationBonuses.Keys.First();
+                    var permutations = recipe.GetAllResultsForFaction(faction).ToArray();
+                    TestContext.WriteLine($"Found {permutations.Length} permutations (with faction '{faction}').");
+                }
+
+                if (recipe.Restricted)
+                    Assert.AreNotEqual(0, recipe.AffiliationBonuses.Count);
+
+                TestContext.WriteLine(Environment.NewLine);
+            }
+        }
+
         #endregion
 
         #endregion

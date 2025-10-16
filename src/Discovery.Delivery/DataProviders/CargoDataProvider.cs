@@ -44,17 +44,21 @@ namespace Discovery.Delivery.DataProviders
                     {
                         var text = page.GetText();
 
-                        var m = Regex.Match(text, @"^\s*(.*?)\s+(\d+)\s*$");
-                        if (m.Success)
+                        var matches = Regex.Matches(text, @"(?m)^\s*(.*?)\s*\r?\n\s*(\d+)\s*$");
+                        foreach(Match m in matches)
                         {
-                            string itemName = GetFuzzyItem(m.Groups[1].Value.Trim());
-                            if (TryGetAmount(m.Groups[2].Value.Trim(), out var amount))
+                            if (m.Success)
+
                             {
-                                yield return new()
+                                string itemName = GetFuzzyItem(m.Groups[1].Value.Trim());
+                                if (TryGetAmount(m.Groups[2].Value.Trim(), out var amount))
                                 {
-                                    Commodity = itemName,
-                                    Amount = amount
-                                };
+                                    yield return new()
+                                    {
+                                        Commodity = itemName,
+                                        Amount = amount
+                                    };
+                                }
                             }
                         }
                     }
