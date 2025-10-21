@@ -49,7 +49,7 @@ namespace Discovery.Config
             };
         }
 
-        public static IEnumerable<BaseItemRecipe> GetAllResultsForFaction(this BaseItemRecipe recipe, string faction)
+        public static IEnumerable<BaseItemRecipe>  GetAllResultsForFaction(this BaseItemRecipe recipe, string faction)
         {
             double bonus = recipe.AffiliationBonuses.TryGetValue(faction, out var factor) ? factor : 1.0;
             

@@ -54,14 +54,16 @@ namespace Discovery.Config
             if (string.IsNullOrWhiteSpace(value))
                 throw new ArgumentNullException(nameof(value));
             var fields = value.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-            for (int i = 0; i + 2 < fields.Length; i += 3)
+            //default commodity, default amount, specific faction, specific commodity, specific amount
+            if(fields.Length == 5)
             {
-                string commodity = fields[i];
-                if (int.TryParse(fields[i + 1], out var amount))
-                {
-                    string faction = fields[i + 2];
+                string commodity = fields[0];
+                if (int.TryParse(fields[1], out var amount))
+                    Outputs.Add(new CommodityQuantity(commodity, amount));
+                string faction = fields[2];
+                commodity = fields[3];
+                if (int.TryParse(fields[4], out amount)) 
                     Outputs.Add(new AffiliationCommodityQuantity(commodity, amount, faction));
-                }
             }
         }
 

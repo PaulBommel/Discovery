@@ -1,7 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using System;
+using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Discovery.Config.Test
@@ -85,6 +87,29 @@ namespace Discovery.Config.Test
 
 
                 TestContext.WriteLine(Environment.NewLine);
+            }
+        }
+
+        [TestMethod]
+        [DataRow("base_recipe_modules.json")]
+        public async Task TestForModuleRecipeChanges(string jsonFile)
+        {
+            var client = new BaseModuleRecipeClient(new PublicHttpClientFactory());
+            var file = new CacheFile<BaseModuleRecipe>(jsonFile);
+            if(file.Exists)
+            {
+
+                await Assert.That.AssertAsyncSequencesEqual(
+                    client.EnumerateRecipesAsync(TestContext.CancellationToken),
+                    file.ReadAsync(TestContext.CancellationToken),
+                    (assert, e, a) => assert.AreEqual(e, a), 
+                    TestContext.CancellationToken
+                );
+            }
+            else
+            {
+                await file.WriteAsync(client.EnumerateRecipesAsync(TestContext.CancellationToken), TestContext.CancellationToken);
+                Assert.Inconclusive($"{jsonFile} did not exist, the file '{Path.GetFullPath(jsonFile)}' was created.");
             }
         }
 
