@@ -9,9 +9,28 @@ namespace Discovery.Darkstat
 {
     public class DarkstatClient(IHttpClientFactory clientFactory) : IDarkstatClient
     {
+        #region Members
+
+        public const string DefaultClientName = "Darkstat";
+
+        private readonly string _clientName = DefaultClientName;
+
+        #endregion
+
+        #region Constructors
+
+        public DarkstatClient(IHttpClientFactory clientFactory, string clientName)
+            : this (clientFactory)
+        {
+            _clientName = clientName;
+        }
+        
+
+        #endregion
+
         public async Task<MarketGoodResponse[]> GetMarketGoodsPerBasesAsync(string[] baseNicknames, CancellationToken token = default)
         {
-            var client = clientFactory.CreateClient();
+            var client = clientFactory.CreateClient(_clientName);
             var response = await client.PostAsJsonAsync("/api/npc_bases/market_goods", baseNicknames, token);
             if (response.IsSuccessStatusCode)
             {
@@ -23,7 +42,7 @@ namespace Discovery.Darkstat
 
         public async Task<MarketGoodResponse[]> GetCommoditiesPerNicknameAsync(string[] commodityNicknames, CancellationToken token = default)
         {
-            var client = clientFactory.CreateClient();
+            var client = clientFactory.CreateClient(_clientName);
             var response = await client.PostAsJsonAsync("/api/commodities/market_goods", commodityNicknames, token);
             if (response.IsSuccessStatusCode)
             {
@@ -36,13 +55,13 @@ namespace Discovery.Darkstat
         [Obsolete]
         public Task<NpcBase[]> GetNpcBasesAsync(CancellationToken token = default)
         {
-            var client = clientFactory.CreateClient();
+            var client = clientFactory.CreateClient(_clientName);
             return client.GetFromJsonAsync<NpcBase[]>("/api/npc_bases", token);
         }
 
         public async Task<NpcBase[]> GetNpcBasesAsync(BaseQueryParameter parameter, CancellationToken token = default)
         {
-            var client = clientFactory.CreateClient();
+            var client = clientFactory.CreateClient(_clientName);
             var response = await client.PostAsJsonAsync("/api/npc_bases", parameter, token);
             if (response.IsSuccessStatusCode)
             {
@@ -55,13 +74,13 @@ namespace Discovery.Darkstat
         [Obsolete]
         public Task<MiningZone[]> GetMiningZonesAsync(CancellationToken token = default)
         {
-            var client = clientFactory.CreateClient();
+            var client = clientFactory.CreateClient(_clientName);
             return client.GetFromJsonAsync<MiningZone[]>("/api/mining_operations", token);
         }
 
         public async Task<MiningZone[]> GetMiningZonesAsync(BaseQueryParameter parameter, CancellationToken token = default)
         {
-            var client = clientFactory.CreateClient();
+            var client = clientFactory.CreateClient(_clientName);
             var response = await client.PostAsJsonAsync("/api/mining_operations", parameter, token);
             if (response.IsSuccessStatusCode)
             {
@@ -74,13 +93,13 @@ namespace Discovery.Darkstat
 
         public Task<PlayerBase[]> GetPlayerBasesAsync(CancellationToken token = default)
         {
-            var client = clientFactory.CreateClient();
+            var client = clientFactory.CreateClient(_clientName);
             return client.GetFromJsonAsync<PlayerBase[]>("/api/pobs", token);
         }
 
         public async Task<RouteResponse[]> GetTimingsAsync(Route[] routes, CancellationToken token = default)
         {
-            var client = clientFactory.CreateClient();
+            var client = clientFactory.CreateClient(_clientName);
             var response = await client.PostAsJsonAsync("/api/graph/paths", routes, token);
             if (response.IsSuccessStatusCode)
             {
@@ -92,13 +111,13 @@ namespace Discovery.Darkstat
 
         public Task<Commodity[]> GetCommoditiesAsync(CancellationToken token = default)
         {
-            var client = clientFactory.CreateClient();
+            var client = clientFactory.CreateClient(_clientName);
             return client.GetFromJsonAsync<Commodity[]>("/api/commodities", token);
         }
 
         public Task<ShipInfo[]> GetShipInfosAsync(CancellationToken token = default)
         {
-            var client = clientFactory.CreateClient();
+            var client = clientFactory.CreateClient(_clientName);
             return client.GetFromJsonAsync<ShipInfo[]>("/api/ships", token);
         }
     }
