@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFrameworks>net9.0-windows</TargetFrameworks>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Discovery.Config.Playerbase\Discovery.Config.Playerbase.csproj" />
+    <ProjectReference Include="..\Discovery.Config\Discovery.Config.csproj" />
+    <ProjectReference Include="..\Discovery.Darkstat\Discovery.Darkstat.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework Condition="'$(TargetFrameworks)'==''">net9.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Discovery.Config\Discovery.Config.csproj" />
+    <ProjectReference Include="..\Discovery.Darkstat\Discovery.Darkstat.csproj" />
+  </ItemGroup>
+
+</Project>
