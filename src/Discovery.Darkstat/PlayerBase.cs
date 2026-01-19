@@ -11,6 +11,7 @@ namespace Discovery.Darkstat
         [JsonPropertyName("nickname")]
         public required string Nickname { get; init; }
 
+        [JsonConverter(typeof(HtmlStringConverter))]
         [JsonPropertyName("name")]
         public required string Name { get; init; }
 

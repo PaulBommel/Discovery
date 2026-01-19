@@ -35,6 +35,8 @@ namespace Discovery.Darkstat
         Shieldgenerator,
         [JsonStringEnumMemberName("ship")]
         Ship,
+        [JsonStringEnumMemberName("power")]
+        Power,
         [JsonStringEnumMemberName("thruster")]
         Thruster,
         [JsonStringEnumMemberName("tractor")]
