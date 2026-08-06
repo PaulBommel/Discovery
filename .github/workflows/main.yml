@@ -3,7 +3,7 @@ name: Action to build and publish the project as a nuget package to github packa
 on:
   push:
     branches: [master]
-      
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest    
